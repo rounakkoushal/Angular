@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <script>
+        var a = parseInt(prompt("Enter First Number : "));
+        var b = parseInt(prompt("Enter Second Number : "));
+        var c = parseInt(prompt("Enter Third Number : "));
+
+        if (a > b && a > c) {
+            alert("Greater Number is : " + a);
+        }
+        else if (b > a && b > c) {
+            alert("Greater Number is : " + b);
+        }
+        else {
+            alert("Greater Number is : " + c);
+        }
+        var sum = 0;
+        if (a > 40) {
+            sum = sum + Number(a);
+        }
+        if (b > 40) {
+            sum = sum + Number(b);
+        }
+        if (c > 40) {
+            sum = sum + Number(c);
+        }
+        alert("Tota Sum is " + sum);
+    </script>
+</body>
+
+</html>

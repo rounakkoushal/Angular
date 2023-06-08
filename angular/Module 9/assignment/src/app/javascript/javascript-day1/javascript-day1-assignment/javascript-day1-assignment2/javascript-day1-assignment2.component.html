@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Date Validation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+<body class="p-5">
+  <div class="mb-3 ">
+    <label for="" class="form-label">Enter Date</label><br>
+    <input type="text" id="date" placeholder="MM-DD-YYYY">
+  </div>
+  <input onclick="check()" class="btn btn-primary" type="button" value="Check">
+  <p id="result"></p>
+  <script>
+    function check() {
+      let dte = document.getElementById("date").value;
+      // if(dte.length==" "){
+      //   document.getElementById("result").innerHTML = ("Should not blank!!!");
+      // }
+      let d = dte.split("-");
+      if (d.length == 3) {
+        var month = parseInt(d[0]);
+        var day = parseInt(d[1]);
+        var year = parseInt(d[2]);
+        alert("date : " + d[1] + "  month : " + d[0] + "  year: " + d[2] + "  ?");
+      }
+      else {
+        document.getElementById("result").innerHTML = ("Invalid Input");
+      }
+      let arr31 = [4, 6, 9, 11];
+      if (month < 1 || month > 12) {
+        document.getElementById("result").innerHTML = ("Invalid Date");
+      }
+      else if (day < 1 || day > 31) {
+        document.getElementById("result").innerHTML = ("Invalid Date");
+      }
+      else if (arr31.indexOf(month) != -1) {
+        if (day < 30 || day > 1) {
+          document.getElementById("result").innerHTML = ("Invalid Date of 4,6,9,11");
+        }
+        else {
+          document.getElementById("result").innerHTML = ("Valid Date");
+        }
+      }
+      else if (month == 2) {
+        if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+          if (day > 29 || day < 1) {
+            document.getElementById("result").innerHTML = ("Invalid Date");
+          }
+          else {
+            document.getElementById("result").innerHTML = ("Valid Date");
+          }
+        }
+        else {
+          document.getElementById("result").innerHTML = ("Invalid Date");
+        }
+      }
+      else {
+        document.getElementById("result").innerHTML = ("Valid Date");
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

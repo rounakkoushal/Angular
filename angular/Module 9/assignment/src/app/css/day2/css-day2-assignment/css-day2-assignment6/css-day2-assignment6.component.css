@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    text-shadow: 0px 0px 5px;
+}
+
+.head {
+    display: block;
+    width: auto;
+    background-color: wheat;
+}
+
+.left {
+    display: flex;
+    justify-content: center;
+    height: 20vh;
+}
+
+.left img {
+    border-radius: 50%;
+    border: 3px solid black;
+    box-shadow: 0px 0px 5px;
+}
+
+.right {
+    position: sticky;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.container {
+    height: auto;
+}
+
+.sidebar {
+    background-color: thistle;
+    height: auto;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidebar ul li {
+    padding: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+}
+
+.main {
+    background-color: rgb(142, 196, 240);
+    padding: 10px;
+    height: auto;
+}
+
+.data {
+    display: none;
+}
+
+.data:target {
+    display: block;
+}
+
+@media screen and (min-width:400px) {
+    .head {
+        display: flex;
+        width: auto;
+        height: 25vh;
+    }
+
+    .left {
+        /* display: flex; */
+        align-items: center;
+        width: 50%;
+    }
+
+    .left img {
+        height: 7rem;
+        border-radius: 50%;
+        border: 3px solid black;
+    }
+
+    .right {
+        width: 50%;
+
+    }
+
+    .right ul li {
+        list-style-type: none;
+    }
+
+    .right ul li h1 {
+        font-size: 40px;
+    }
+
+    .container {
+        display: flex;
+        height: auto;
+    }
+
+    .sidebar {
+        background-color: thistle;
+        height: auto;
+        width: 15vw;
+        padding: 50px;
+    }
+
+    .sidebar ul li {
+        padding: 30px;
+        list-style-type: none;
+    }
+
+    .sidebar ul li a {
+        text-decoration: none;
+    }
+
+    .main {
+        padding: 50px;
+        height: calc(100vh - 25vh);
+        width: calc(100vw - 15vw);
+    }
+}

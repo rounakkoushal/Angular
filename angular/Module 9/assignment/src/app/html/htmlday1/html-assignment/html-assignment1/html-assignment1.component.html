@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+</head>
+<body>
+    <form>
+        <table>
+            <caption>To get Employee details</caption>
+            <tr>
+                <th>Registration form</th>
+            </tr>
+         <tr>
+             <td>
+                 Employee name
+             </td>
+             <td>
+                 <input type="text" placeholder="Enter name" name="empname" minlength="4" maxlength="30" required>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                  Age
+             </td>
+             <td>
+                 <input type="number" name="age" min="18" max="60" required>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 Gender
+             </td>
+             <td>
+                 <div>
+                     <input type="radio" name="gen" value="M"
+                            checked >
+                     <label for="Male">Male</label>
+                   </div>
+               
+                   <div>
+                     <input type="radio" name="gen" value="F">
+                     <label for="Female">Female</label>
+                   </div>
+               
+                   <div>
+                     <input type="radio" name="gen" value="O">
+                     <label for="Other">Other</label>
+                   </div>                          
+             </td>
+         </tr>
+         <tr>
+             <td>
+                  Designation 
+             </td>
+             <td>
+                 <input type="text" name="designation" placeholder="Enter Designation" required>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                  Salary
+             </td>
+             <td>
+                 <input type="number" name="salary" placeholder="Enter Salary" required>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                  Location
+             </td>
+             <td>
+                 <select name="Location" id="Loc">
+                     <option value="Ahemdabad">Ahemdabad</option>
+                     <option value="Mumbai">Mumbai</option>
+                     <option value="Pune">Pune</option>
+                     <option value="Indore">Indore</option>
+                     <option value="Jaipur">Jaipur</option>
+                     <option value="Delhi">Delhi</option>
+                 </select>                
+             </td>
+         </tr>
+         <tr>
+             <td>
+                  Mail ID
+             </td>
+             <td>
+                 <input type="email" name="mail" placeholder="xyz@gmail.com" required>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 Date of Joining
+             </td>
+             <td>
+                 <input type="date" name="doj" value="2023-01-31" required>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 contact number
+             </td>
+             <td>
+                 <input type="number" name="contact" required>
+                 <small>Format :999-999-9999</small>
+             </td>
+         </tr>
+         </table>
+         <input type="button" value="Submit" >
+         </form>    
+</body>
+</html>  
+          
+    

@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EmployeeListComponent } from 'src/Components/employee/employee-list/employee-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AddNewEmployeeComponent } from 'src/Components/employee/add-new-employee/add-new-employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsComponent } from './Components/forms/forms.component';
+import { DynamicFormComponent } from './Components/forms/dynamic-form/dynamic-form.component';
+import { ReactiveFormComponent } from './Components/forms/reactive-form/reactive-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    EmployeeListComponent,
-    AddNewEmployeeComponent
+    FormsComponent,
+    DynamicFormComponent,
+    ReactiveFormComponent
   ],
   imports: [
     BrowserModule,

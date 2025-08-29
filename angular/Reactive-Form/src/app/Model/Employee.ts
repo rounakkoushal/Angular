@@ -17,3 +17,8 @@ export interface IEmployee {
     departmentName: string
   }
   
+  export interface IDesignation{
+    designationId: number,
+    departmentId: number,
+    designationName: string
+  }

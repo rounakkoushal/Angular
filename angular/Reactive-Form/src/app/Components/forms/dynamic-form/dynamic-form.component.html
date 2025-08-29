@@ -1,0 +1,167 @@
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h4 class="mb-0 text-secondary">Dynamic Form</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()" *ngIf="formFields.length > 0">
+                        <div class="row">
+                            <div [ngClass]="getColumnClass(field.type)" *ngFor="let field of formFields">
+                                <label *ngIf="field.type !== 'checkbox'"  class="form-label fw-semibold text-secondary">{{ field.label }}</label>
+                                
+                                <!-- Text / Email / Number / Password / Date -->
+                                <input
+                                    *ngIf="['text', 'email', 'number', 'password', 'date'].includes(field.type)"
+                                    [type]="field.type"
+                                    [formControlName]="field.name"
+                                    [placeholder]="field.placeholder || ''"
+                                    [min]="field.min"
+                                    [max]="field.max"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': dynamicForm.get(field.name)?.invalid && dynamicForm.get(field.name)?.touched }"
+                                />
+                                
+                                <!-- Textarea -->
+                                <textarea
+                                    *ngIf="field.type === 'textarea'"
+                                    [formControlName]="field.name"
+                                    [placeholder]="field.placeholder"
+                                    [rows]="field.rows"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': dynamicForm.get(field.name)?.invalid && dynamicForm.get(field.name)?.touched }">
+                                </textarea>
+                                
+                                <!-- Select -->
+                                <select 
+                                    *ngIf="field.type === 'select'" 
+                                    [formControlName]="field.name" 
+                                    class="form-select"
+                                    [ngClass]="{ 'is-invalid': dynamicForm.get(field.name)?.invalid && dynamicForm.get(field.name)?.touched }">
+                                    <option value="">{{ field.placeholder }}</option>
+                                    <option *ngFor="let option of field.options" [value]="option.key">
+                                        {{ option.value }}
+                                    </option>
+                                </select>
+                                
+                                <!-- Radio -->
+                                <div *ngIf="field.type === 'radio'" class="mt-2">
+                                    <div class="form-check form-check-inline" *ngFor="let option of field.options; let i = index">
+                                        <input 
+                                            class="form-check-input" 
+                                            type="radio" 
+                                            [value]="option.key" 
+                                            [formControlName]="field.name"
+                                            [id]="field.name + i"
+                                        />
+                                        <label class="form-check-label cursor-pointer" [for]="field.name + i">
+                                            {{ option.value }}
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Checkbox -->
+                                <div *ngIf="field.type === 'checkbox'" class="form-check mt-2">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="checkbox" 
+                                        [formControlName]="field.name"
+                                        [id]="field.name"
+                                    />
+                                    <label class="form-check-label cursor-pointer" [for]="field.name">
+                                        {{ field.label }}
+                                    </label>
+                                </div>
+                                
+                                <!-- File -->
+                                <input
+                                    *ngIf="field.type === 'file'"
+                                    type="file"
+                                    (change)="onFileChange($event, field.name)"
+                                    [accept]="field.accept || '*'"
+                                    class="form-control"
+                                />
+                                
+                                <!-- Range -->
+                                <div *ngIf="field.type === 'range'">
+                                    <input
+                                        type="range"
+                                        [formControlName]="field.name"
+                                        [min]="field.min"
+                                        [max]="field.max"
+                                        [step]="field.step"
+                                        class="form-range"
+                                    />
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">{{ field.min }}</small>
+                                        <span class="badge bg-primary">{{ dynamicForm.get(field.name)?.value || field.min }}</span>
+                                        <small class="text-muted">{{ field.max }}</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Validation Errors -->
+                                <div *ngIf="dynamicForm.get(field.name)?.invalid && dynamicForm.get(field.name)?.touched" class="invalid-feedback d-block">
+                                    <div *ngIf="dynamicForm.get(field.name)?.errors?.['required']">{{ field.label }} is required.</div>
+                                    <div *ngIf="dynamicForm.get(field.name)?.errors?.['email']">Please enter a valid email address.</div>
+                                    <div *ngIf="dynamicForm.get(field.name)?.errors?.['minlength']">Minimum {{ dynamicForm.get(field.name)?.errors?.['minlength'].requiredLength }} characters required.</div>
+                                    <div *ngIf="dynamicForm.get(field.name)?.errors?.['maxlength']">Maximum {{ dynamicForm.get(field.name)?.errors?.['maxlength'].requiredLength }} characters allowed.</div>
+                                    <div *ngIf="dynamicForm.get(field.name)?.errors?.['min']">Minimum value is {{ field.validators.min }}.</div>
+                                    <div *ngIf="dynamicForm.get(field.name)?.errors?.['max']">Maximum value is {{ field.validators.max }}.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn px-4" style="background-color: #28a745; border-color: #28a745; color: white;" [disabled]="dynamicForm.invalid">
+                                Submit Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Submitted Data Table -->
+            <div class="card shadow-sm mt-4" *ngIf="submittedData.length > 0">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h5 class="mb-0 text-secondary">Submitted Data</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead style="background-color: #6c757d; color: white;">
+                                <tr>
+                                    <th class="px-3 py-3" *ngFor="let field of formFields">{{ field.label }}</th>
+                                    <th class="px-3 py-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of submittedData; let i = index" class="align-middle">
+                                    <td class="px-3 py-3" *ngFor="let field of formFields">
+                                        <span *ngIf="field.type === 'checkbox'">
+                                            <span class="badge" [style]="data[field.name] ? 'background-color: #28a745; color: white;' : 'background-color: #dc3545; color: white;'">
+                                                {{ data[field.name] ? 'Yes' : 'No' }}
+                                            </span>
+                                        </span>
+                                        <span *ngIf="field.type === 'file'">
+                                            {{ data[field.name]?.name || 'No file' }}
+                                        </span>
+                                        <span *ngIf="!['checkbox', 'file'].includes(field.type)">
+                                            {{ data[field.name] || '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-3 py-3 text-center">
+                                        <button class="btn btn-sm me-2" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" 
+                                            (click)="editRecord(i)">Edit</button>
+                                        <button class="btn btn-sm" style="background-color: #dc3545; border-color: #dc3545; color: white;" 
+                                            (click)="deleteRecord(i)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

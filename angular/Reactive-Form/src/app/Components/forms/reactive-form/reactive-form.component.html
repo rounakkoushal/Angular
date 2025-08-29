@@ -1,0 +1,128 @@
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h4 class="mb-0 text-secondary">Reactive Form with FormArray</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form [formGroup]="EmpDetails" (ngSubmit)="onSubmit()">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-secondary">Name</label>
+                                <input type="text" class="form-control" formControlName="name" placeholder="Enter name"
+                                    [ngClass]="{ 'is-invalid': EmpDetails.get('name')?.invalid && EmpDetails.get('name')?.touched }">
+                                <div *ngIf="EmpDetails.get('name')?.invalid && EmpDetails.get('name')?.touched" class="invalid-feedback">
+                                    Name is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-secondary">Email</label>
+                                <input type="email" class="form-control" formControlName="EmailID" placeholder="Enter email"
+                                    [ngClass]="{ 'is-invalid': EmpDetails.get('EmailID')?.invalid && EmpDetails.get('EmailID')?.touched }">
+                                <div *ngIf="EmpDetails.get('EmailID')?.invalid && EmpDetails.get('EmailID')?.touched" class="invalid-feedback">
+                                    <div *ngIf="EmpDetails.get('EmailID')?.errors?.['required']">Email is required.</div>
+                                    <div *ngIf="EmpDetails.get('EmailID')?.errors?.['email']">Enter valid email.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-secondary">Gender</label>
+                                <div class="mt-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="Male" formControlName="Gender" id="male">
+                                        <label class="form-check-label cursor-pointer" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" value="Female" formControlName="Gender" id="female">
+                                        <label class="form-check-label cursor-pointer" for="female">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold text-secondary">Date of Birth</label>
+                                <input type="date" class="form-control" formControlName="DateofBirth"
+                                    [ngClass]="{ 'is-invalid': EmpDetails.get('DateofBirth')?.invalid && EmpDetails.get('DateofBirth')?.touched }">
+                                <div *ngIf="EmpDetails.get('DateofBirth')?.invalid && EmpDetails.get('DateofBirth')?.touched" class="invalid-feedback">
+                                    Date of birth is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary">Skills</label>
+                            <div formArrayName="skill">
+                                <div *ngFor="let skillControl of skillArray.controls; let i = index" class="d-flex mb-2">
+                                    <input type="text" class="form-control me-2" [formControlName]="i" placeholder="Enter skill"
+                                        [ngClass]="{ 'is-invalid': skillControl.invalid && skillControl.touched }">
+                                    <button type="button" class="btn btn-outline-success btn-sm me-2" (click)="addSkill()"
+                                        [disabled]="!skillControl.valid || !skillControl.value?.trim()">+</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeSkill(i)" 
+                                        [disabled]="skillArray.length === 1">-</button>
+                                </div>
+                                <div *ngFor="let skillControl of skillArray.controls; let i = index">
+                                    <div *ngIf="skillControl.invalid && skillControl.touched" class="text-danger small">
+                                        Skill {{i + 1}} is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn px-4" style="background-color: #28a745; border-color: #28a745; color: white;" 
+                                [disabled]="EmpDetails.invalid">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="card shadow-sm mt-4" *ngIf="submittedData.length > 0">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h5 class="mb-0 text-secondary">Submitted Data</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead style="background-color: #6c757d; color: white;">
+                                <tr>
+                                    <th class="px-3 py-3">Name</th>
+                                    <th class="px-3 py-3">Email</th>
+                                    <th class="px-3 py-3">Gender</th>
+                                    <th class="px-3 py-3">Date of Birth</th>
+                                    <th class="px-3 py-3">Skills</th>
+                                    <th class="px-3 py-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of submittedData; let i = index" class="align-middle">
+                                    <td class="px-3 py-3">{{ data.name }}</td>
+                                    <td class="px-3 py-3">{{ data.EmailID }}</td>
+                                    <td class="px-3 py-3">
+                                        <span class="badge" [style]="data.Gender === 'Male' ? 'background-color: #007bff; color: white;' : 'background-color: #ffc107; color: black;'">
+                                            {{ data.Gender }}
+                                        </span>
+                                    </td>
+                                    <td class="px-3 py-3">{{ data.DateofBirth | date: 'mediumDate' }}</td>
+                                    <td class="px-3 py-3">
+                                        <span class="badge bg-info me-1" *ngFor="let skill of data.skill">{{ skill }}</span>
+                                    </td>
+                                    <td class="px-3 py-3 text-center">
+                                        <button class="btn btn-sm me-2" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" 
+                                            (click)="editRecord(i)">Edit</button>
+                                        <button class="btn btn-sm" style="background-color: #dc3545; border-color: #dc3545; color: white;" 
+                                            (click)="deleteRecord(i)">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

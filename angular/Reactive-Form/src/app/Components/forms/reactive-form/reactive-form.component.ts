@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AddReactiveFromDetail, RemoveReactiveFromDetail } from 'src/app/Store/Action';
+import { AppState } from 'src/app/Store/State';
+import { selectAllReactiveFormData } from 'src/app/Store/Selector';
 
 @Component({
   selector: 'app-reactive-form',
@@ -9,9 +14,13 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 export class ReactiveFormComponent implements OnInit {
 
   EmpDetails!: FormGroup;
-  submittedData: any[] = [];
+  submittedData$: Observable<any[]>;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) {
+    this.submittedData$ = this.store.select(selectAllReactiveFormData);
+    console.log(this.submittedData$);
+    
+  }
 
   ngOnInit(): void {
     this.EmpDetails = new FormGroup({
@@ -44,10 +53,10 @@ export class ReactiveFormComponent implements OnInit {
 
   onSubmit() {
     if (this.EmpDetails.valid) {
-      this.submittedData.push({ ...this.EmpDetails.value });
+      this.store.dispatch(AddReactiveFromDetail({ StoreReactiveFormDetail: this.EmpDetails.value }));
       this.EmpDetails.reset();
       this.EmpDetails.patchValue({ Gender: 'Male' });
-      
+
       // Reset skills array to have one empty control
       while (this.skillArray.length > 1) {
         this.skillArray.removeAt(1);
@@ -70,22 +79,20 @@ export class ReactiveFormComponent implements OnInit {
   }
 
   deleteRecord(index: number) {
-    this.submittedData.splice(index, 1);
+    this.store.dispatch(RemoveReactiveFromDetail({ Index: index }));
   }
 
-  editRecord(index: number) {
-    const record = this.submittedData[index];
-    
+  editRecord(index: number, record: any) {
     // Clear existing skills array
     while (this.skillArray.length > 0) {
       this.skillArray.removeAt(0);
     }
-    
+
     // Add skills from record
     record.skill.forEach((skill: string) => {
       this.skillArray.push(new FormControl(skill, [Validators.required]));
     });
-    
+
     // Patch other form values
     this.EmpDetails.patchValue({
       name: record.name,
@@ -93,8 +100,8 @@ export class ReactiveFormComponent implements OnInit {
       Gender: record.Gender,
       DateofBirth: record.DateofBirth
     });
-    
-    // Remove record from submitted data
-    this.submittedData.splice(index, 1);
+
+    // Remove record from store
+    this.store.dispatch(RemoveReactiveFromDetail({ Index: index }));
   }
 }

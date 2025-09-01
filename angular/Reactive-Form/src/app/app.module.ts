@@ -4,23 +4,24 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsComponent } from './Components/forms/forms.component';
-import { DynamicFormComponent } from './Components/forms/dynamic-form/dynamic-form.component';
-import { ReactiveFormComponent } from './Components/forms/reactive-form/reactive-form.component';
+import { StoreModule } from '@ngrx/store';
+import { reactiveFromDataReducer } from './Store/Reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    FormsComponent,
-    DynamicFormComponent,
-    ReactiveFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(
+      { reactiveFormData: reactiveFromDataReducer }),
+    StoreDevtoolsModule.instrument({ name: "Advance" }),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -30,7 +30,7 @@ export class DepartmentListComponent implements OnInit {
   }
 
   editDepartment(department: IDepartment) {
-    this.router.navigate(['/home/department/departmentForm', department.departmentId]);
+    this.router.navigate(['/department/departmentForm', department.departmentId]);
   }
 
   deleteDepartment(departmentId: number) {

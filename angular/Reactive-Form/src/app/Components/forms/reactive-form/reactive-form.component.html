@@ -81,7 +81,7 @@
             </div>
 
             <!-- Data Table -->
-            <div class="card shadow-sm mt-4" *ngIf="submittedData.length > 0">
+            <div class="card shadow-sm mt-4" *ngIf="(submittedData$ | async)?.length > 0">
                 <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
                     <h5 class="mb-0 text-secondary">Submitted Data</h5>
                 </div>
@@ -99,7 +99,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of submittedData; let i = index" class="align-middle">
+                                <tr *ngFor="let data of (submittedData$ | async); let i = index" class="align-middle">
                                     <td class="px-3 py-3">{{ data.name }}</td>
                                     <td class="px-3 py-3">{{ data.EmailID }}</td>
                                     <td class="px-3 py-3">
@@ -113,7 +113,7 @@
                                     </td>
                                     <td class="px-3 py-3 text-center">
                                         <button class="btn btn-sm me-2" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" 
-                                            (click)="editRecord(i)">Edit</button>
+                                            (click)="editRecord(i, data)">Edit</button>
                                         <button class="btn btn-sm" style="background-color: #dc3545; border-color: #dc3545; color: white;" 
                                             (click)="deleteRecord(i)">Delete</button>
                                     </td>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IEmployee } from 'src/app/Model/Employee';
 import { EmployeeService } from 'src/app/Service/employee.service';
 
@@ -10,18 +10,30 @@ import { EmployeeService } from 'src/app/Service/employee.service';
 })
 export class EmployeeListComponent implements OnInit {
   employees: IEmployee[] = [];
+  selectedEmployeeId: number | null = null;
 
-  constructor(private employeeService: EmployeeService, private router: Router) {
+  constructor(private employeeService: EmployeeService,
+    private router: Router,
+    private route: ActivatedRoute) {
     employeeService.getEmployee().subscribe((data: IEmployee[]) => {
       this.employees = data;
     });
   }
 
   ngOnInit(): void {
-
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.selectedEmployeeId = +params['id'];
+      }
+    });
   }
+
+  isSelected(employee: IEmployee): boolean {
+    return employee.employeeId === this.selectedEmployeeId;
+  }
+  
   editEmployee(employee: IEmployee) {
-    this.router.navigate(['/home/employee/employeeForm', employee.employeeId]);
+    this.router.navigate(['/employee/employeeForm', employee.employeeId]);
   }
 
   deleteEmployee(employeeId: number) {

@@ -14,7 +14,10 @@ export class DynamicFormComponent implements OnInit {
   formFields: FormField[] = [];
   submittedData: any[] = [];
 
-  constructor(private formBuilder: FormBuilder, private dynamicFormFieldService: DynamicFormFieldService) { }
+  constructor(private formBuilder: FormBuilder, private dynamicFormFieldService: DynamicFormFieldService) { 
+    console.log("form loaded");
+    
+  }
 
   ngOnInit(): void {
     this.dynamicFormFieldService.getFormFields().subscribe({

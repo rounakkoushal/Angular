@@ -86,7 +86,7 @@ export class DepartmentFormComponent implements OnInit {
         this.departmentService.updateDepartment(formData).subscribe({
           next: (data) => {
             console.log('Department updated successfully:', data);
-            this.router.navigate(['/home/department/departmentList']);
+            this.router.navigate(['/department/departmentList']);
           },
           error: (error) => {
             console.error('Error updating department:', error);
@@ -96,7 +96,7 @@ export class DepartmentFormComponent implements OnInit {
         this.departmentService.createDepartment(formData).subscribe({
           next: (data) => {
             console.log('Department created successfully:', data);
-            this.router.navigate(['/home/department/departmentList']);
+            this.router.navigate(['/department/departmentList']);
           },
           error: (error) => {
             console.error('Error creating department:', error);

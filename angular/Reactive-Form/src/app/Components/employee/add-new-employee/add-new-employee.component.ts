@@ -47,6 +47,10 @@ export class AddNewEmployeeComponent implements OnInit {
       salary: new FormControl(null, [Validators.required, Validators.min(1)])
     });
 
+    // this.employeeId = +this.route.snapshot.paramMap.get('id');
+    // this.isEditMode = true;
+    // this.loadEmployeeData();
+
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.isEditMode = true;
@@ -55,6 +59,10 @@ export class AddNewEmployeeComponent implements OnInit {
       }
     });
   }
+
+  // ngOnDestroy() {
+  //   alert("Component Destroyed")
+  // }
 
   loadEmployeeData() {
     if (this.employeeId) {
@@ -120,7 +128,7 @@ export class AddNewEmployeeComponent implements OnInit {
         this.employeeService.updateEmployee(formData).subscribe({
           next: (data) => {
             console.log('Employee updated successfully:', data);
-            this.router.navigate(['/home/employee/employeeList']);
+            this.router.navigate(['/employee/employeeList']);
           },
           error: (error) => {
             console.error('Error updating employee:', error);
@@ -130,7 +138,7 @@ export class AddNewEmployeeComponent implements OnInit {
         this.employeeService.postEmployee(formData).subscribe({
           next: (data) => {
             console.log('Employee created successfully:', data);
-            this.router.navigate(['/home/employee/employeeList']);
+            this.router.navigate(['/employee/employeeList']);
           },
           error: (error) => {
             console.error('Error creating employee:', error);
@@ -146,6 +154,16 @@ export class AddNewEmployeeComponent implements OnInit {
     Object.keys(this.employeeForm.controls).forEach(key => {
       this.employeeForm.get(key)?.markAsTouched();
     });
+  }
+  
+  onPrevious() {
+    this.employeeId--
+    this.router.navigate(['/employee/employeeForm', this.employeeId])
+  }
+
+  onNext() {    
+    this.employeeId++
+    this.router.navigate(['/employee/employeeForm', this.employeeId])
   }
 
   get fullName() {

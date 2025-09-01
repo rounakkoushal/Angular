@@ -10,30 +10,34 @@
                         <div class="row mb-3" *ngFor="let field of formFields">
                             <div class="col-12">
                                 <label class="form-label fw-semibold text-secondary">{{field.label}}</label>
-                                <input 
-                                    [type]="field.type" 
-                                    class="form-control" 
-                                    [formControlName]="field.name"
+                                <input [type]="field.type" class="form-control" [formControlName]="field.name"
                                     [placeholder]="field.placeholder || ''"
                                     [ngClass]="{ 'is-invalid': getFieldControl(field.name)?.invalid && getFieldControl(field.name)?.touched }">
-                                
-                                <div *ngIf="getFieldControl(field.name)?.invalid && getFieldControl(field.name)?.touched" class="invalid-feedback">
-                                    <div *ngIf="getFieldControl(field.name)?.errors?.['required']">{{field.label}} is required.</div>
-                                    <div *ngIf="getFieldControl(field.name)?.errors?.['minlength']">{{field.label}} must be at least 3 characters long.</div>
+
+                                <div *ngIf="getFieldControl(field.name)?.invalid && getFieldControl(field.name)?.touched"
+                                    class="invalid-feedback">
+                                    <div *ngIf="getFieldControl(field.name)?.errors?.['required']">{{field.label}} is
+                                        required.</div>
+                                    <div *ngIf="getFieldControl(field.name)?.errors?.['minlength']">{{field.label}} must
+                                        be at least 3 characters long.</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-center gap-3">
-                            <button type="button" class="btn btn-outline-secondary px-4" [routerLink]="['/home/department/departmentList']">
+                            <button type="button" class="btn btn-outline-secondary px-4"
+                                [routerLink]="['/department/departmentList']">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn px-4" style="background-color: #28a745; border-color: #28a745; color: white;" [disabled]="departmentForm.invalid">
+                            <button type="submit" class="btn px-4"
+                                style="background-color: #28a745; border-color: #28a745; color: white;"
+                                [disabled]="departmentForm.invalid">
                                 {{isEditMode ? 'Update Department' : 'Create Department'}}
                             </button>
                         </div>
 
-                        <div *ngIf="formValid && departmentForm.invalid" class="alert mt-3" style="background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;">
+                        <div *ngIf="formValid && departmentForm.invalid" class="alert mt-3"
+                            style="background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;">
                             Please fill all required fields correctly.
                         </div>
                     </form>

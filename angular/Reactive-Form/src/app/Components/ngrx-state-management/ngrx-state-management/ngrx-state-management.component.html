@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar bg-light vh-100 py-4">
+            <h5 class="text-secondary mb-4 px-3">NgRx State Management</h5>
+            <nav class="nav flex-column">
+                <a class="nav-link text-secondary px-4 py-2 rounded mx-2 mb-1" [routerLink]="['actions']" routerLinkActive="active">
+                    Actions
+                </a>
+                <a class="nav-link text-secondary px-4 py-2 rounded mx-2 mb-1" [routerLink]="['reducers']" routerLinkActive="active">
+                    Reducers
+                </a>
+                <a class="nav-link text-secondary px-4 py-2 rounded mx-2 mb-1" [routerLink]="['selectors']" routerLinkActive="active">
+                    Selectors
+                </a>
+                <a class="nav-link text-secondary px-4 py-2 rounded mx-2 mb-1" [routerLink]="['effects']" routerLinkActive="active">
+                    Effects
+                </a>
+                <a class="nav-link text-secondary px-4 py-2 rounded mx-2 mb-1" [routerLink]="['store']" routerLinkActive="active">
+                    Store
+                </a>
+                <a class="nav-link text-secondary px-4 py-2 rounded mx-2 mb-1" [routerLink]="['ngrx-devtools']" routerLinkActive="active">
+                    NgRx DevTools
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 p-4">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

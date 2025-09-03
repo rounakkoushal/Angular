@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom">
   <div class="container-fluid">
     <a class="navbar-brand">Advance</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -11,18 +11,27 @@
           <a class="nav-link" [routerLink]="['/employee/employeeList']" routerLinkActive="active">Employee</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/department/departmentList']"
-            routerLinkActive="active">Departments</a>
+          <a class="nav-link" [routerLink]="['/department/departmentList']" routerLinkActive="active">Departments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/rxjs-library/higher-order-observables']" routerLinkActive="active">RxJS
+            Library</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/ngrx-state-management/actions']" routerLinkActive="active">NgRx State</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Forms
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['/forms/dynamicForm']" routerLinkActive="active">Dynamic
-                Form</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/forms/reactiveForm']" routerLinkActive="active">Reactive
-                Form</a></li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/forms/dynamicForm']" routerLinkActive="active">Dynamic Form</a>
+            </li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/forms/reactiveForm']" routerLinkActive="active">Reactive
+                Form</a>
+            </li>
           </ul>
         </li>
       </ul>

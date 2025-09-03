@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                    <h3 class="mb-0 text-secondary">NgRx Actions</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-info" role="alert">
+                        <h5 class="alert-heading">Definition</h5>
+                        <p class="mb-2">Actions are one of the main building blocks in NgRx. Actions express unique
+                            events that happen throughout your application.</p>
+                        <p class="mb-2">Actions are objects that have a type property and optionally a payload. They
+                            describe what happened but don't specify how the application state changes.</p>
+                        <p class="mb-0">Actions are dispatched from components and effects to trigger state changes in
+                            reducers.</p>
+                    </div>
+
+                    <!-- Demo Section -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Interactive Demo</h4>
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-light border-bottom">
+                                    <h6 class="mb-0 text-secondary">Dispatch Actions</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-sm btn-success me-2 mb-2" (click)="addItem()">Add Item</button>
+                                            <button class="btn btn-sm btn-secondary mb-2" (click)="clearItems()">Clear All</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="bg-light p-3 rounded">
+                                                <small class="text-muted fw-semibold">Store Items:</small>
+                                                <div class="table-responsive mt-2" *ngIf="(items$ | async)?.length > 0">
+                                                    <table class="table table-sm table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Name</th>
+                                                                <th>Timestamp</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of (items$ | async)">
+                                                                <td>{{ item.id }}</td>
+                                                                <td>{{ item.name }}</td>
+                                                                <td>{{ item.timestamp }}</td>
+                                                                <td>
+                                                                    <button class="btn btn-sm btn-danger" (click)="removeItem(item.id)">Remove</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div *ngIf="(items$ | async)?.length === 0" class="text-muted small mt-2">
+                                                    No items in store
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Examples -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Code Examples</h4>
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-light border-bottom">
+                                    <h6 class="mb-0 text-secondary">Action Implementations</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-success">Action Definition</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// actions.ts
+import {{ '{' }} createAction, props } from '@ngrx/store';
+
+export const addItem = createAction(
+  '[Item] Add Item',
+  props&lt;{{ '{' }} item: string }&gt;()
+);
+
+export const removeItem = createAction(
+  '[Item] Remove Item',
+  props&lt;{{ '{' }} index: number }&gt;()
+);
+
+export const clearItems = createAction(
+  '[Item] Clear All Items'
+);</code></pre>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-info">Dispatching Actions</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// component.ts
+import {{ '{' }} Store } from '@ngrx/store';
+import * as ItemActions from './actions';
+
+constructor(private store: Store) {{ '{' }}}
+
+addNewItem() {{ '{' }}
+  this.store.dispatch(
+    ItemActions.addItem({{ '{' }} 
+      item: 'New Item' 
+    }})
+  );
+}
+
+removeItemAt(index: number) {{ '{' }}
+  this.store.dispatch(
+    ItemActions.removeItem({{ '{' }} index }})
+  );
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

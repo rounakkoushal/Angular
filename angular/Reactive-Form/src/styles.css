@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global utility classes */
+.card-header-custom {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.btn-success-custom {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.btn-danger-custom {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-info-custom {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  color: white;
+}
+
+.btn-secondary-custom {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+
+.bg-light-custom {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* Badge colors */
+.badge-success-custom {
+  background-color: #28a745;
+  color: white;
+}
+
+.badge-info-custom {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.badge-warning-custom {
+  background-color: #ffc107;
+  color: black;
+}
+
+.badge-secondary-custom {
+  background-color: #6c757d;
+  color: white;
+}

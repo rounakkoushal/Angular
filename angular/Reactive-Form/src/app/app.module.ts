@@ -5,21 +5,23 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { reactiveFromDataReducer } from './Store/Reducer';
+import { reactiveFromDataReducer, itemReducer } from './Store/Reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents,
+    routingComponents
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot(
-      { reactiveFormData: reactiveFromDataReducer }),
+    StoreModule.forRoot({
+      reactiveFormData: reactiveFromDataReducer,
+      ngrxDemo: itemReducer
+    }),
     StoreDevtoolsModule.instrument({ name: "Advance" }),
 
   ],

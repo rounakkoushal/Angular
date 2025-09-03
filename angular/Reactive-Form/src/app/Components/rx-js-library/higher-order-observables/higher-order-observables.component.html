@@ -1,0 +1,217 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h3 class="mb-0 text-secondary">Higher-order Observables</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-info" role="alert">
+                        <h5 class="alert-heading">Definition</h5>
+                        <p class="mb-2">Higher order observables is a observable that emits other observables.</p>
+                        <p class="mb-2">High-order mapping operators transform higher-order Observables. They map each value from an outer Observable to a new inner Observable and automatically subscribe to, and unsubscribe from that inner Observable.</p>
+                        <p class="mb-0">RxJS provides several higher-order mapping operators. You can recognize a higher-order mapping operator by its name, which ends in map, such as mergeMap, switchMap, concatMap, exhaustMap etc.</p>
+                    </div>
+
+                    <!-- Concept Overview -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Common Use Cases</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>HTTP requests triggered by user input</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Nested API calls with dependencies</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Dynamic data streams</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Real-time search functionality</li>
+                                        <li class="mb-0"><i class="fas fa-check text-success me-2"></i>File upload with progress tracking</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Flattening Operators</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <span class="badge" style="background-color: #28a745; color: white;">mergeMap</span>
+                                            <small class="text-muted ms-2">Merge all inner observables concurrently</small>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <span class="badge" style="background-color: #17a2b8; color: white;">switchMap</span>
+                                            <small class="text-muted ms-2">Switch to latest inner observable</small>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <span class="badge" style="background-color: #ffc107; color: black;">concatMap</span>
+                                            <small class="text-muted ms-2">Concatenate inner observables sequentially</small>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="badge" style="background-color: #6c757d; color: white;">exhaustMap</span>
+                                            <small class="text-muted ms-2">Ignore new while current is active</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Examples -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Interactive Examples</h4>
+                        </div>
+
+                        <!-- MergeMap Example -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">MergeMap Demo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="small text-muted mb-2">Processes all inner observables concurrently</p>
+                                    <button class="btn btn-sm mb-3" style="background-color: #28a745; border-color: #28a745; color: white;" (click)="triggerMergeMap()">Start MergeMap Demo</button>
+                                    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px;">
+                                        <small class="text-muted fw-semibold">Live Results:</small>
+                                        <div *ngFor="let result of mergeMapResults" class="mt-1">
+                                            <span class="badge bg-success">{{ result }}</span>
+                                        </div>
+                                        <div *ngIf="mergeMapResults.length === 0" class="text-muted small mt-2">
+                                            Click the button to see mergeMap in action
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SwitchMap Example -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">SwitchMap Demo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="small text-muted mb-2">Cancels previous and switches to latest inner observable</p>
+                                    <button class="btn btn-sm mb-3" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" (click)="triggerSwitchMap()">Start SwitchMap Demo</button>
+                                    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px;">
+                                        <small class="text-muted fw-semibold">Live Results:</small>
+                                        <div *ngFor="let result of switchMapResults" class="mt-1">
+                                            <span class="badge bg-info">{{ result }}</span>
+                                        </div>
+                                        <div *ngIf="switchMapResults.length === 0" class="text-muted small mt-2">
+                                            Click the button to see switchMap in action
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Examples -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Code Examples</h4>
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">Implementation Examples</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-success">MergeMap Example</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Concurrent processing
+const clicks$ = fromEvent(button, 'click');
+clicks$.pipe(
+  mergeMap(() => 
+    interval(1000).pipe(take(3))
+  )
+).subscribe(console.log);</code></pre>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-info">SwitchMap Example</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Cancel previous, use latest
+searchInput$.pipe(
+  switchMap(query => 
+    this.http.get(`/search?q=${{ '{' }}query}`)
+  )
+).subscribe(results => 
+  console.log(results)
+);</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="text-warning">ConcatMap Example</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Sequential processing
+requests$.pipe(
+  concatMap(request => 
+    this.http.post('/api', request)
+  )
+).subscribe(response => 
+  console.log(response)
+);</code></pre>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6 class="text-secondary">ExhaustMap Example</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Ignore while busy
+loginClicks$.pipe(
+  exhaustMap(() => 
+    this.auth.login(credentials)
+  )
+).subscribe(result => 
+  console.log(result)
+);</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Key Takeaways -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Key Takeaways</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">mergeMap</div>
+                                                <p class="small mt-2 mb-0">Use when order doesn't matter and you want concurrent execution</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #17a2b8; color: white; font-size: 1rem; padding: 10px;">switchMap</div>
+                                                <p class="small mt-2 mb-0">Use for search, autocomplete, or when only latest result matters</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #ffc107; color: black; font-size: 1rem; padding: 10px;">concatMap</div>
+                                                <p class="small mt-2 mb-0">Use when order matters and you need sequential execution</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #6c757d; color: white; font-size: 1rem; padding: 10px;">exhaustMap</div>
+                                                <p class="small mt-2 mb-0">Use to prevent duplicate operations like login attempts</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

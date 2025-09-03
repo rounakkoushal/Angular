@@ -1,0 +1,149 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h3 class="mb-0 text-secondary">NgRx Selectors</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-info" role="alert">
+                        <h5 class="alert-heading">Definition</h5>
+                        <p class="mb-2">Selectors are pure functions used for obtaining slices of store state. They provide a way to query your store for data.</p>
+                        <p class="mb-2">Selectors are composable, reusable, and memoized for performance. They help keep components decoupled from the store structure.</p>
+                        <p class="mb-0">Use selectors to compute derived data, allowing Redux to store the minimal possible state.</p>
+                    </div>
+
+                    <!-- Demo Section -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Live Selector Demo</h4>
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">Selector Results</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card border-success">
+                                                <div class="card-body text-center">
+                                                    <h5 class="text-success">{{ itemsCount$ | async }}</h5>
+                                                    <small class="text-muted">Total Items</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card border-info">
+                                                <div class="card-body text-center">
+                                                    <h6 class="text-info">{{ (latestItem$ | async)?.name || 'None' }}</h6>
+                                                    <small class="text-muted">Latest Item</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card border-warning">
+                                                <div class="card-body text-center">
+                                                    <h6 class="text-warning">{{ (isLoading$ | async) ? 'Yes' : 'No' }}</h6>
+                                                    <small class="text-muted">Loading</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Examples -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Code Examples</h4>
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">Selector Implementations</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-success">Basic Selectors</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Feature selector
+export const selectItemState = 
+  createFeatureSelector&lt;ItemState&gt;('items');
+
+// Basic selector
+export const selectAllItems = createSelector(
+  selectItemState,
+  (state: ItemState) => state.items
+);
+
+// Computed selector
+export const selectItemsCount = createSelector(
+  selectAllItems,
+  (items) => items.length
+);</code></pre>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-info">Advanced Selectors</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Parameterized selector
+export const selectItemById = (id: number) => 
+  createSelector(
+    selectAllItems,
+    (items) => items.find(item => item.id === id)
+  );
+
+// Composed selector
+export const selectLatestItem = createSelector(
+  selectAllItems,
+  (items) => items.length > 0 
+    ? items[items.length - 1] 
+    : null
+);</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Benefits -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Benefits</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">Memoized</div>
+                                                <p class="small mt-2 mb-0">Results are cached for performance optimization</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #17a2b8; color: white; font-size: 1rem; padding: 10px;">Composable</div>
+                                                <p class="small mt-2 mb-0">Can be combined to create complex derived data</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #ffc107; color: black; font-size: 1rem; padding: 10px;">Reusable</div>
+                                                <p class="small mt-2 mb-0">Share selectors across multiple components</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #6c757d; color: white; font-size: 1rem; padding: 10px;">Decoupled</div>
+                                                <p class="small mt-2 mb-0">Components don't need to know store structure</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

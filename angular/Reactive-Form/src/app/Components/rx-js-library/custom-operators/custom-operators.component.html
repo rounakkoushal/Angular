@@ -1,0 +1,249 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h3 class="mb-0 text-secondary">Custom Operators</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-info" role="alert">
+                        <h5 class="alert-heading">Definition</h5>
+                        <p class="mb-2">Custom operators in RxJS allow you to create reusable, composable functions that can be used in the pipe method of observables.</p>
+                        <p class="mb-2">They are functions that return a function which takes an Observable as input and returns an Observable as output. This pattern allows for powerful composition and reusability.</p>
+                        <p class="mb-0">Custom operators can encapsulate complex logic, combine multiple operators, or create domain-specific transformations that can be shared across your application.</p>
+                    </div>
+
+                    <!-- Concept Overview -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Why Create Custom Operators?</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Reusability across components</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Encapsulate complex logic</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Domain-specific transformations</li>
+                                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cleaner, more readable code</li>
+                                        <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Easier testing and maintenance</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Types of Custom Operators</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <span class="badge" style="background-color: #28a745; color: white;">Pipeable</span>
+                                            <small class="text-muted ms-2">Functions that return operators</small>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <span class="badge" style="background-color: #17a2b8; color: white;">Creation</span>
+                                            <small class="text-muted ms-2">Functions that create observables</small>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <span class="badge" style="background-color: #ffc107; color: black;">Combination</span>
+                                            <small class="text-muted ms-2">Combine existing operators</small>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="badge" style="background-color: #6c757d; color: white;">Utility</span>
+                                            <small class="text-muted ms-2">Helper functions for common tasks</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Examples -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Interactive Examples</h4>
+                        </div>
+                        
+                        <!-- Debug Operator Example -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">Debug Operator Demo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="small text-muted mb-2">Custom operator that logs values with timestamps</p>
+                                    <button class="btn btn-sm mb-3" style="background-color: #28a745; border-color: #28a745; color: white;" (click)="triggerDebugOperator()">Test Debug Operator</button>
+                                    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px;">
+                                        <small class="text-muted fw-semibold">Debug Output:</small>
+                                        <div *ngFor="let log of debugLogs" class="mt-1">
+                                            <span class="badge bg-success small">{{ log }}</span>
+                                        </div>
+                                        <div *ngIf="debugLogs.length === 0" class="text-muted small mt-2">
+                                            Click to see debug operator in action
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Retry With Delay Example -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">Retry With Delay Demo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="small text-muted mb-2">Custom operator that retries failed operations with delay</p>
+                                    <button class="btn btn-sm mb-3" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" (click)="triggerRetryOperator()">Test Retry Operator</button>
+                                    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px;">
+                                        <small class="text-muted fw-semibold">Retry Attempts:</small>
+                                        <div *ngFor="let attempt of retryAttempts" class="mt-1">
+                                            <span class="badge" [ngClass]="attempt.includes('Success') ? 'bg-success' : 'bg-warning'">{{ attempt }}</span>
+                                        </div>
+                                        <div *ngIf="retryAttempts.length === 0" class="text-muted small mt-2">
+                                            Click to see retry operator in action
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Examples -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Code Examples</h4>
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">Custom Operator Implementations</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-success">Debug Operator</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Custom debug operator
+export function debug(tag: string) {{ '{' }}
+  return (source: Observable&lt;any&gt;) => {{ '{' }}
+    return source.pipe(
+      tap(value => {{ '{' }}
+        console.log(`[${{ '{' }}tag}] ${{ '{' }}new Date().toISOString()}:`, value);
+      })
+    );
+  };
+}
+
+// Usage
+source$.pipe(
+  debug('API Response'),
+  map(data => data.results)
+).subscribe();</code></pre>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-info">Retry With Delay</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Custom retry operator
+export function retryWithDelay(
+  retries: number, 
+  delay: number
+) {{ '{' }}
+  return (source: Observable&lt;any&gt;) => {{ '{' }}
+    return source.pipe(
+      retryWhen(errors => 
+        errors.pipe(
+          scan((acc, error) => {{ '{' }}
+            if (acc >= retries) throw error;
+            return acc + 1;
+          }, 0),
+          delay(delay)
+        )
+      )
+    );
+  };
+}</code></pre>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6 class="text-warning">Filter Truthy</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Filter out falsy values
+export function filterTruthy&lt;T&gt;() {{ '{' }}
+  return (source: Observable&lt;T&gt;) => {{ '{' }}
+    return source.pipe(
+      filter(value => !!value)
+    );
+  };
+}
+
+// Usage
+source$.pipe(
+  filterTruthy(),
+  map(value => value.toUpperCase())
+).subscribe();</code></pre>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6 class="text-secondary">Loading State</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// Loading state operator
+export function withLoadingState() {{ '{' }}
+  return (source: Observable&lt;any&gt;) => {{ '{' }}
+    return merge(
+      of({{ '{' }} loading: true }),
+      source.pipe(
+        map(data => ({{ '{' }} data, loading: false })),
+        catchError(error => 
+          of({{ '{' }} error, loading: false })
+        )
+      )
+    );
+  };
+}</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Key Takeaways -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Best Practices</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">Reusable</div>
+                                                <p class="small mt-2 mb-0">Create operators that can be used across multiple components</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #17a2b8; color: white; font-size: 1rem; padding: 10px;">Pure</div>
+                                                <p class="small mt-2 mb-0">Avoid side effects and maintain functional programming principles</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #ffc107; color: black; font-size: 1rem; padding: 10px;">Testable</div>
+                                                <p class="small mt-2 mb-0">Design operators that are easy to unit test in isolation</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #6c757d; color: white; font-size: 1rem; padding: 10px;">Composable</div>
+                                                <p class="small mt-2 mb-0">Build operators that work well with other RxJS operators</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

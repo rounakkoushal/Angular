@@ -18,6 +18,12 @@ const routes: Routes = [
           { path: 'dynamicForm', component: DynamicFormComponent },
           { path: 'reactiveForm', component: ReactiveFormComponent }
         ]
+      },
+      {
+        path: 'rxjs-library', loadChildren: () => import('./Components/rx-js-library/rx-js-library.module').then(m => m.RxJsLibraryModule)
+      },
+      {
+        path: 'ngrx-state-management', loadChildren: () => import('./Components/ngrx-state-management/ngrx-state-management.module').then(m => m.NgrxStateManagementModule)
       }
     ]
   },

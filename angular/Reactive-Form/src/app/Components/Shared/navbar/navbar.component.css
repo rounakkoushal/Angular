@@ -1,0 +1,30 @@
+/* Enhanced navbar styling */
+.navbar-custom {
+  background-color: rgba(248, 249, 250, 0.95) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  z-index: 1030;
+  transition: all 0.3s ease;
+}
+
+.navbar-custom .navbar-brand {
+  font-weight: 600;
+  color: #495057 !important;
+}
+
+.navbar-custom .nav-link {
+  color: #6c757d !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-custom .nav-link:hover {
+  color: #007bff !important;
+}
+
+.navbar-custom .nav-link.active {
+  color: #007bff !important;
+  font-weight: 600;
+}

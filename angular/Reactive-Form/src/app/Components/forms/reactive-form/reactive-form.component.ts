@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AddReactiveFromDetail, RemoveReactiveFromDetail } from 'src/app/Store/Action';
 import { AppState } from 'src/app/Store/State';
-import { selectAllReactiveFormData } from 'src/app/Store/Selector';
+import { selectAllFormData } from 'src/app/Store/Selector';
 
 @Component({
   selector: 'app-reactive-form',
@@ -17,7 +17,7 @@ export class ReactiveFormComponent implements OnInit {
   submittedData$: Observable<any[]>;
 
   constructor(private store: Store<AppState>) {
-    this.submittedData$ = this.store.select(selectAllReactiveFormData);
+    this.submittedData$ = this.store.select(selectAllFormData);
     console.log(this.submittedData$);
     
   }

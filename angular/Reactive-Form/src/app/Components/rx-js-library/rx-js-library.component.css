@@ -1,0 +1,16 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.nav-link:hover {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+}
+
+.nav-link.active {
+  background-color: #007bff !important;
+  color: white !important;
+}

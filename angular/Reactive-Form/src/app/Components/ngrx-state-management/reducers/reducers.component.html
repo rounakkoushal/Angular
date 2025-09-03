@@ -1,0 +1,103 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                    <h3 class="mb-0 text-secondary">NgRx Reducers</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-info" role="alert">
+                        <h5 class="alert-heading">Definition</h5>
+                        <p class="mb-2">Reducers are pure functions that take the current state and an action as arguments, and return a new state.</p>
+                        <p class="mb-2">They specify how the application's state changes in response to actions sent to the store. Reducers must be pure functions with no side effects.</p>
+                        <p class="mb-0">Each reducer is responsible for managing its own part of the global state tree.</p>
+                    </div>
+
+                    <!-- Code Examples -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="text-secondary mb-3">Code Examples</h4>
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h6 class="mb-0 text-secondary">Reducer Implementation</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-success">State Interface</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>// State interface
+export interface ItemState {{ '{' }}
+  items: Item[];
+  loading: boolean;
+  error: string | null;
+}
+
+export const initialState: ItemState = {{ '{' }}
+  items: [],
+  loading: false,
+  error: null
+};</code></pre>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <h6 class="text-info">Reducer Function</h6>
+                                            <pre class="bg-dark text-light p-3 rounded small"><code>export const itemReducer = createReducer(
+  initialState,
+  on(addItem, (state, {{ '{' }} item }) => ({{ '{' }}
+    ...state,
+    items: [...state.items, item]
+  })),
+  on(removeItem, (state, {{ '{' }} id }) => ({{ '{' }}
+    ...state,
+    items: state.items.filter(item => item.id !== id)
+  }))
+);</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Principles -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                                    <h5 class="mb-0 text-secondary">Key Principles</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">Pure</div>
+                                                <p class="small mt-2 mb-0">No side effects, same input always produces same output</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #17a2b8; color: white; font-size: 1rem; padding: 10px;">Immutable</div>
+                                                <p class="small mt-2 mb-0">Never mutate state directly, always return new state object</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #ffc107; color: black; font-size: 1rem; padding: 10px;">Predictable</div>
+                                                <p class="small mt-2 mb-0">State changes are predictable and traceable</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 text-center mb-3">
+                                            <div class="p-3">
+                                                <div class="badge" style="background-color: #6c757d; color: white; font-size: 1rem; padding: 10px;">Testable</div>
+                                                <p class="small mt-2 mb-0">Easy to unit test due to pure function nature</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

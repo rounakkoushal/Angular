@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, of, throwError, interval, Subject } from 'rxjs';
-import { tap, retryWhen, scan, delay, take, takeUntil, catchError } from 'rxjs/operators';
+import { Observable, interval, Subject } from 'rxjs';
+import { tap, retryWhen, scan, delay, take, takeUntil } from 'rxjs/operators';
+import { MCQQuestion, QuizService } from 'src/app/Services/quiz.service';
 
 @Component({
   selector: 'app-custom-operators',
@@ -13,9 +14,19 @@ export class CustomOperatorsComponent implements OnInit, OnDestroy {
   retryAttempts: string[] = [];
   private destroy$ = new Subject<void>();
 
-  constructor() { }
+  // Quiz properties
+  mcqQuestions: MCQQuestion[] = [];
+  interviewQuestions: any[] = [];
+  userAnswers: number[] = [];
+  quizSubmitted = false;
+  quizScore = 0;
+  quizLoading = false;
+
+  constructor(private quizService: QuizService) { }
 
   ngOnInit(): void {
+    this.loadQuizQuestions();
+    this.loadInterviewQuestions();
   }
 
   ngOnDestroy(): void {
@@ -106,5 +117,52 @@ export class CustomOperatorsComponent implements OnInit, OnDestroy {
         this.retryAttempts.push(`Final error: ${error.message}`);
       }
     });
+  }
+
+  selectAnswer(questionIndex: number, answerIndex: number): void {
+    this.userAnswers[questionIndex] = answerIndex;
+  }
+
+  submitQuiz(): void {
+    this.quizScore = 0;
+    for (let i = 0; i < this.mcqQuestions.length; i++) {
+      if (this.userAnswers[i] === this.mcqQuestions[i].correct) {
+        this.quizScore++;
+      }
+    }
+    this.quizSubmitted = true;
+  }
+
+  resetQuiz(): void {
+    this.userAnswers = [];
+    this.quizSubmitted = false;
+    this.quizScore = 0;
+  }
+
+  getPercentage(): number {
+    return Math.round((this.quizScore / this.mcqQuestions.length) * 100);
+  }
+
+  loadQuizQuestions(): void {
+    this.quizLoading = true;
+    this.quizService.generateMCQQuestions('custom-operators')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(questions => {
+        this.mcqQuestions = questions;
+        this.quizLoading = false;
+      });
+  }
+
+  generateNewQuiz(): void {
+    this.resetQuiz();
+    this.loadQuizQuestions();
+  }
+
+  loadInterviewQuestions(): void {
+    this.quizService.getInterviewQuestions('custom-operators')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(questions => {
+        this.interviewQuestions = questions;
+      });
   }
 }

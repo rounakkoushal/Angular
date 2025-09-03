@@ -7,6 +7,7 @@ import { SelectorsComponent } from './selectors/selectors.component';
 import { EffectsComponent } from './effects/effects.component';
 import { StoreComponent } from './store/store.component';
 import { NgrxDevtoolsComponent } from './ngrx-devtools/ngrx-devtools.component';
+import { NgrxAssessmentComponent } from './ngrx-assessment/ngrx-assessment.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
       { path: 'selectors', component: SelectorsComponent },
       { path: 'effects', component: EffectsComponent },
       { path: 'store', component: StoreComponent },
-      { path: 'ngrx-devtools', component: NgrxDevtoolsComponent }
+      { path: 'ngrx-devtools', component: NgrxDevtoolsComponent },
+      { path: 'assessment', component: NgrxAssessmentComponent }
     ]
   }
 ];

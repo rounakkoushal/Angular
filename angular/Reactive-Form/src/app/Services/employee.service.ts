@@ -25,8 +25,6 @@ export class EmployeeService {
   }
 
   postEmployee(employee: IEmployee): Observable<any> {
-    console.log(employee);
-
     return this.http.post(this.siteUrl + 'CreateEmployee', employee)
   }
 
@@ -35,9 +33,7 @@ export class EmployeeService {
   }
 
   updateEmployee(employee: IEmployee): Observable<any> {
-    console.log(employee);
-
-    return this.http.put(this.siteUrl + 'UpdateEmployee', employee) 
+    return this.http.put(this.siteUrl + 'UpdateEmployee', employee)
   }
 
   getEmployeeById(id: number): Observable<IEmployee> {

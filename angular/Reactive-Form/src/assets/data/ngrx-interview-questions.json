@@ -1,0 +1,102 @@
+{
+  "actions": [
+    {
+      "question": "Explain the role of Actions in NgRx and how they differ from traditional event handling.",
+      "answer": "Actions in NgRx are plain objects that describe events that have occurred in the application. Unlike traditional event handling, actions are dispatched to a centralized store and processed by reducers. They provide a clear audit trail of what happened in the application and enable features like time-travel debugging.",
+      "example": "// Action definition\nexport const loadUsers = createAction('[User List] Load Users');\nexport const loadUsersSuccess = createAction(\n  '[User API] Load Users Success',\n  props<{ users: User[] }>()\n);\n\n// Dispatching\nthis.store.dispatch(loadUsers());"
+    },
+    {
+      "question": "What are the best practices for naming NgRx actions?",
+      "answer": "Action names should follow the pattern '[Source] Event' where Source indicates where the action originated (component, service, etc.) and Event describes what happened. Use present tense for events and be descriptive. Group related actions with consistent naming.",
+      "example": "// Good examples\n'[Login Page] Login'\n'[Auth API] Login Success'\n'[Auth API] Login Failure'\n'[User List] Load Users'\n'[User Form] Update User'"
+    },
+    {
+      "question": "How do you handle action payloads and what are the typing considerations?",
+      "answer": "Use the props function to define strongly-typed payloads. This ensures type safety throughout the application and provides better IDE support. Always define interfaces for complex payloads.",
+      "example": "interface User {\n  id: string;\n  name: string;\n  email: string;\n}\n\nexport const updateUser = createAction(\n  '[User Form] Update User',\n  props<{ user: User }>()\n);"
+    }
+  ],
+  "reducers": [
+    {
+      "question": "Explain the principles that NgRx reducers must follow and why they're important.",
+      "answer": "Reducers must be pure functions with no side effects, always return the same output for the same input, never mutate state directly, and have no dependencies on external state. These principles ensure predictability, testability, and enable features like time-travel debugging.",
+      "example": "// Good reducer\nconst userReducer = createReducer(\n  initialState,\n  on(loadUsersSuccess, (state, { users }) => ({\n    ...state,\n    users,\n    loading: false\n  }))\n);\n\n// Bad - mutates state\non(addUser, (state, { user }) => {\n  state.users.push(user); // DON'T DO THIS\n  return state;\n})"
+    },
+    {
+      "question": "How do you handle complex state updates in reducers while maintaining immutability?",
+      "answer": "Use spread operators, Object.assign, or libraries like Immer for complex nested updates. Always create new objects/arrays rather than modifying existing ones. Consider normalizing state structure to simplify updates.",
+      "example": "// Complex nested update\non(updateUserProfile, (state, { userId, profile }) => ({\n  ...state,\n  users: {\n    ...state.users,\n    [userId]: {\n      ...state.users[userId],\n      profile: {\n        ...state.users[userId].profile,\n        ...profile\n      }\n    }\n  }\n}))"
+    },
+    {
+      "question": "What is the difference between createReducer and traditional switch-case reducers?",
+      "answer": "createReducer provides better type safety, more concise syntax, and better IDE support. It uses the 'on' function to handle actions instead of switch cases, making it easier to read and maintain. It also provides better integration with NgRx tooling.",
+      "example": "// Modern createReducer\nconst reducer = createReducer(\n  initialState,\n  on(increment, state => ({ ...state, count: state.count + 1 })),\n  on(decrement, state => ({ ...state, count: state.count - 1 }))\n);\n\n// Traditional switch case\nfunction reducer(state = initialState, action) {\n  switch (action.type) {\n    case 'increment':\n      return { ...state, count: state.count + 1 };\n    default:\n      return state;\n  }\n}"
+    }
+  ],
+  "selectors": [
+    {
+      "question": "Explain the benefits of using selectors in NgRx and how memoization works.",
+      "answer": "Selectors provide memoization, composability, and testability. Memoization means selectors cache their results and only recalculate when input state changes, improving performance. They also decouple components from state structure and enable reusable state queries.",
+      "example": "// Memoized selectors\nexport const selectUsers = createSelector(\n  selectUserState,\n  state => state.users\n);\n\nexport const selectActiveUsers = createSelector(\n  selectUsers,\n  users => users.filter(user => user.active)\n);"
+    },
+    {
+      "question": "How do you create parameterized selectors and when would you use them?",
+      "answer": "Parameterized selectors accept arguments to customize their behavior. They're useful for selecting specific items by ID, filtering by criteria, or creating dynamic queries. However, they break memoization, so use them carefully.",
+      "example": "// Parameterized selector\nexport const selectUserById = (id: string) => createSelector(\n  selectUsers,\n  users => users.find(user => user.id === id)\n);\n\n// Usage in component\nuser$ = this.store.select(selectUserById('123'));"
+    },
+    {
+      "question": "What are the performance implications of selectors and how do you optimize them?",
+      "answer": "Selectors are memoized by default, but parameterized selectors and complex computations can impact performance. Optimize by keeping selectors simple, avoiding parameterized selectors when possible, and using createSelector for composition rather than complex logic in components."
+    }
+  ],
+  "effects": [
+    {
+      "question": "Explain the purpose of NgRx Effects and how they fit into the NgRx data flow.",
+      "answer": "Effects handle side effects like HTTP requests, logging, and navigation. They listen for actions, perform asynchronous operations, and dispatch new actions based on results. This keeps components and reducers pure while handling complex async operations in a centralized, testable way.",
+      "example": "loadUsers$ = createEffect(() =>\n  this.actions$.pipe(\n    ofType(loadUsers),\n    switchMap(() =>\n      this.userService.getUsers().pipe(\n        map(users => loadUsersSuccess({ users })),\n        catchError(error => of(loadUsersFailure({ error })))\n      )\n    )\n  )\n);"
+    },
+    {
+      "question": "How do you handle error scenarios in NgRx Effects?",
+      "answer": "Always use catchError within the inner observable to prevent the effect stream from terminating. Return appropriate failure actions and consider retry strategies for transient errors. Never let errors bubble up to the outer effect stream.",
+      "example": "loadData$ = createEffect(() =>\n  this.actions$.pipe(\n    ofType(loadData),\n    switchMap(() =>\n      this.api.getData().pipe(\n        map(data => loadDataSuccess({ data })),\n        catchError(error => {\n          console.error('Load failed:', error);\n          return of(loadDataFailure({ error: error.message }));\n        })\n      )\n    )\n  )\n);"
+    },
+    {
+      "question": "When would you use dispatch: false in an effect and what are the alternatives?",
+      "answer": "Use dispatch: false for effects that perform side effects without dispatching actions, like logging, navigation, or showing notifications. Alternatives include dispatching actions that reducers ignore or using services directly in components for simple cases.",
+      "example": "// Non-dispatching effect\nlogActions$ = createEffect(() =>\n  this.actions$.pipe(\n    tap(action => console.log('Action dispatched:', action))\n  ),\n  { dispatch: false }\n);\n\n// Navigation effect\nnavigateToUser$ = createEffect(() =>\n  this.actions$.pipe(\n    ofType(navigateToUser),\n    tap(({ userId }) => this.router.navigate(['/users', userId]))\n  ),\n  { dispatch: false }\n);"
+    }
+  ],
+  "store": [
+    {
+      "question": "Explain the architecture and benefits of using NgRx Store in Angular applications.",
+      "answer": "NgRx Store implements the Redux pattern, providing a single source of truth for application state. Benefits include predictable state management, time-travel debugging, better testing, and improved performance through OnPush change detection. It's especially valuable for complex applications with shared state.",
+      "example": "// Store configuration\n@NgModule({\n  imports: [\n    StoreModule.forRoot({\n      users: userReducer,\n      products: productReducer\n    })\n  ]\n})\nexport class AppModule {}"
+    },
+    {
+      "question": "How do you structure state in NgRx and what are the normalization benefits?",
+      "answer": "Structure state as normalized, flat objects similar to database tables. Use entities with IDs as keys for efficient lookups and updates. This reduces duplication, simplifies updates, and improves performance for large datasets.",
+      "example": "// Normalized state structure\ninterface UserState {\n  entities: { [id: string]: User };\n  ids: string[];\n  selectedId: string | null;\n  loading: boolean;\n}\n\n// Using @ngrx/entity\nconst adapter = createEntityAdapter<User>();\nconst initialState = adapter.getInitialState({\n  selectedId: null,\n  loading: false\n});"
+    },
+    {
+      "question": "What is the difference between forRoot() and forFeature() in NgRx Store configuration?",
+      "answer": "forRoot() configures the root store with global reducers and should only be called once in AppModule. forFeature() registers feature-specific reducers and can be called multiple times in feature modules, enabling lazy loading and modular state management.",
+      "example": "// Root module\nStoreModule.forRoot({ app: appReducer })\n\n// Feature module\nStoreModule.forFeature('users', userReducer)\nStoreModule.forFeature('products', productReducer)"
+    }
+  ],
+  "devtools": [
+    {
+      "question": "Explain the capabilities of NgRx DevTools and how they aid in development.",
+      "answer": "NgRx DevTools provide time-travel debugging, action replay, state inspection, and performance monitoring. They allow developers to see all dispatched actions, inspect state at any point in time, and replay actions to reproduce bugs. This makes debugging complex state changes much easier.",
+      "example": "// DevTools configuration\nStoreDevtoolsModule.instrument({\n  maxAge: 25, // Retains last 25 states\n  logOnly: environment.production, // Restrict extension to log-only mode\n  autoPause: true, // Pauses recording actions when extension window is not open\n});"
+    },
+    {
+      "question": "How do you configure NgRx DevTools for different environments?",
+      "answer": "Configure DevTools differently for development and production. In development, enable full features. In production, either disable completely or use log-only mode for security. Use environment variables to control configuration.",
+      "example": "StoreDevtoolsModule.instrument({\n  maxAge: 25,\n  logOnly: environment.production,\n  autoPause: true,\n  trace: !environment.production,\n  traceLimit: 75\n});"
+    },
+    {
+      "question": "What security considerations should you keep in mind when using NgRx DevTools?",
+      "answer": "DevTools can expose sensitive application state and user data. Always disable or use log-only mode in production. Be careful about what data you store in the state, especially sensitive information like passwords or tokens. Consider sanitizing state for DevTools in development."
+    }
+  ]
+}

@@ -1,58 +1,152 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Soft Button Theme */
+.btn {
+  border-radius: 12px;
+  padding: 5px 20px;
+  font-weight: 500;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+  color: white;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #4e9a2a 0%, #96d4b8 100%);
+  color: white;
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+}
+
+.btn-info:hover {
+  background: linear-gradient(135deg, #5faef7 0%, #0770c4 100%);
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  color: white;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #fcbf49 0%, #d63031 100%);
+  color: white;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #fc6c9b 0%, #d63384 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #b2bec3 0%, #636e72 100%);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #a0acb2 0%, #2d3436 100%);
+  color: white;
+}
+
+.btn-outline-primary {
+  border: 1px solid #667eea;
+  color: #667eea;
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.btn-outline-success {
+  border: 2px solid #56ab2f;
+  color: #56ab2f;
+  background: transparent;
+}
+
+.btn-outline-success:hover {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.btn-outline-info {
+  border: 2px solid #74b9ff;
+  color: #74b9ff;
+  background: transparent;
+}
+
+.btn-outline-info:hover {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+  border-color: transparent;
+}
+
 /* Global utility classes */
 .card-header-custom {
   background-color: #f8f9fa;
   border-bottom: 1px solid #e9ecef;
 }
 
-.btn-success-custom {
-  background-color: #28a745;
-  border-color: #28a745;
-  color: white;
-}
-
-.btn-danger-custom {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  color: white;
-}
-
-.btn-info-custom {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
-  color: white;
-}
-
-.btn-secondary-custom {
-  background-color: #6c757d;
-  border-color: #6c757d;
-  color: white;
-}
-
 .bg-light-custom {
   background-color: #f8f9fa;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Badge colors */
-.badge-success-custom {
-  background-color: #28a745;
+.badge {
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 500;
+}
+
+.badge-success {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
   color: white;
 }
 
-.badge-info-custom {
-  background-color: #17a2b8;
+.badge-info {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
   color: white;
 }
 
-.badge-warning-custom {
-  background-color: #ffc107;
-  color: black;
+.badge-warning {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  color: white;
 }
 
-.badge-secondary-custom {
-  background-color: #6c757d;
+.badge-secondary {
+  background: linear-gradient(135deg, #b2bec3 0%, #636e72 100%);
   color: white;
 }

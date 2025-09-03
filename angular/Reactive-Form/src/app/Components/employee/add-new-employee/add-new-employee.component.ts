@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IDepartment, IDesignation } from 'src/app/Model/Employee';
-import { EmployeeService } from 'src/app/Service/employee.service';
+import { EmployeeService } from 'src/app/Services/employee.service';
 
 @Component({
   selector: 'app-add-new-employee',

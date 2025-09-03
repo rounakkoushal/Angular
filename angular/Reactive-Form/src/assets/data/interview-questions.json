@@ -1,0 +1,159 @@
+{
+  "higher-order-observables": [
+    {
+      "question": "Explain the difference between mergeMap, switchMap, concatMap, and exhaustMap.",
+      "answer": "mergeMap processes all inner observables concurrently. switchMap cancels previous inner observables and switches to the latest. concatMap processes inner observables sequentially in order. exhaustMap ignores new values while current inner observable is active.",
+      "example": "// mergeMap - concurrent\nsource$.pipe(mergeMap(val => http.get(url)))\n\n// switchMap - cancel previous\nsearch$.pipe(switchMap(term => http.get(searchUrl)))\n\n// concatMap - sequential\nqueue$.pipe(concatMap(item => processItem(item)))\n\n// exhaustMap - ignore while busy\nlogin$.pipe(exhaustMap(() => authService.login()))"
+    },
+    {
+      "question": "When would you choose switchMap over mergeMap?",
+      "answer": "Use switchMap when you only care about the latest result and want to cancel previous operations, such as search autocomplete, navigation, or any scenario where newer requests make older ones irrelevant.",
+      "example": "// Search autocomplete\nsearchInput$.pipe(\n  debounceTime(300),\n  switchMap(term => searchService.search(term))\n).subscribe(results => displayResults(results));"
+    },
+    {
+      "question": "How do you handle errors in higher-order observables?",
+      "answer": "Handle errors at both the outer and inner observable levels. Use catchError on inner observables to prevent the outer stream from terminating, and consider using retry operators for transient failures.",
+      "example": "source$.pipe(\n  mergeMap(val => \n    http.get(url).pipe(\n      catchError(err => of(defaultValue))\n    )\n  ),\n  catchError(err => of([]))\n)"
+    },
+    {
+      "question": "What are the performance implications of different flattening operators?",
+      "answer": "mergeMap can create many concurrent subscriptions leading to memory issues. switchMap is memory efficient as it cancels previous subscriptions. concatMap can cause backpressure if inner observables are slow. exhaustMap is most memory efficient for preventing duplicate operations."
+    },
+    {
+      "question": "How would you implement a retry mechanism with higher-order observables?",
+      "answer": "Use retryWhen with switchMap or mergeMap to implement custom retry logic with delays, exponential backoff, or conditional retries based on error types.",
+      "example": "source$.pipe(\n  retryWhen(errors =>\n    errors.pipe(\n      switchMap((error, index) =>\n        index < 3 ? timer(1000 * Math.pow(2, index)) : throwError(error)\n      )\n    )\n  )\n)"
+    }
+  ],
+  "custom-operators": [
+    {
+      "question": "How do you create a reusable custom operator in RxJS?",
+      "answer": "Create a function that returns another function which takes an Observable as input and returns an Observable as output. This follows the operator pattern used by built-in RxJS operators.",
+      "example": "export function debug<T>(tag: string) {\n  return (source: Observable<T>) => {\n    return source.pipe(\n      tap(value => console.log(`[${tag}]:`, value))\n    );\n  };\n}"
+    },
+    {
+      "question": "What are the benefits of creating custom operators?",
+      "answer": "Custom operators promote code reusability, encapsulate complex logic, improve readability, make testing easier, and allow for domain-specific transformations that can be shared across the application."
+    },
+    {
+      "question": "How do you test custom operators?",
+      "answer": "Test custom operators by creating test observables, applying the operator, and asserting the expected output. Use marble testing for complex scenarios with timing.",
+      "example": "it('should filter truthy values', () => {\n  const source$ = of(1, 0, 'hello', null, true);\n  const result$ = source$.pipe(filterTruthy());\n  \n  result$.subscribe(values => {\n    expect(values).toEqual([1, 'hello', true]);\n  });\n});"
+    },
+    {
+      "question": "What is the difference between pipeable and creation operators?",
+      "answer": "Pipeable operators transform existing observables and are used with the pipe() method. Creation operators create new observables from scratch. Custom operators are typically pipeable operators."
+    },
+    {
+      "question": "How do you handle parameters in custom operators?",
+      "answer": "Use a higher-order function pattern where the outer function accepts parameters and returns the actual operator function.",
+      "example": "export function retryWithDelay(retries: number, delayMs: number) {\n  return <T>(source: Observable<T>) => {\n    return source.pipe(\n      retryWhen(errors => \n        errors.pipe(\n          delay(delayMs),\n          take(retries)\n        )\n      )\n    );\n  };\n}"
+    }
+  ],
+  "error-handling": [
+    {
+      "question": "What are the different strategies for error handling in RxJS?",
+      "answer": "Main strategies include: catchError for graceful recovery, retry for automatic retries, retryWhen for custom retry logic, throwError for re-throwing errors, and finalize for cleanup operations regardless of success or failure.",
+      "example": "source$.pipe(\n  retry(3),\n  catchError(error => {\n    console.error('Operation failed:', error);\n    return of(fallbackValue);\n  }),\n  finalize(() => console.log('Cleanup'))\n)"
+    },
+    {
+      "question": "How do you implement exponential backoff retry strategy?",
+      "answer": "Use retryWhen with increasing delays between retry attempts, typically doubling the delay each time until a maximum is reached.",
+      "example": "source$.pipe(\n  retryWhen(errors =>\n    errors.pipe(\n      scan((retryCount, error) => {\n        if (retryCount >= 3) throw error;\n        return retryCount + 1;\n      }, 0),\n      delayWhen(retryCount => timer(Math.pow(2, retryCount) * 1000))\n    )\n  )\n)"
+    },
+    {
+      "question": "What is the difference between local and global error handling?",
+      "answer": "Local error handling occurs within specific observable streams using operators like catchError. Global error handling catches unhandled errors at the application level, typically using Angular's ErrorHandler or RxJS's global error handler."
+    },
+    {
+      "question": "How do you prevent error propagation in nested observables?",
+      "answer": "Use catchError within inner observables to handle errors locally and prevent them from terminating the outer observable stream.",
+      "example": "source$.pipe(\n  mergeMap(value =>\n    innerObservable$.pipe(\n      catchError(error => {\n        console.error('Inner error:', error);\n        return of(defaultValue);\n      })\n    )\n  )\n)"
+    },
+    {
+      "question": "When should you use throwError vs catchError?",
+      "answer": "Use catchError to handle and recover from errors by providing fallback values or alternative streams. Use throwError to create error observables for testing or to re-throw errors after logging or processing them."
+    }
+  ],
+  "hot-cold-observables": [
+    {
+      "question": "Explain the fundamental difference between Hot and Cold Observables.",
+      "answer": "<strong>Cold Observables:</strong> Unicast, lazy execution, each subscriber gets independent execution. Data producer is created inside the Observable.<br><br><strong>Hot Observables:</strong> Multicast, eager execution, all subscribers share the same execution. Data producer exists outside the Observable.",
+      "example": "// Cold Observable\nconst cold$ = new Observable(subscriber => {\n  const data = Math.random(); // New value for each subscriber\n  subscriber.next(data);\n});\n\n// Hot Observable\nconst subject = new Subject();\nconst hot$ = subject.asObservable();\nsubject.next(Math.random()); // Same value for all subscribers"
+    },
+    {
+      "question": "How do you convert a Cold Observable to Hot?",
+      "answer": "Use operators like <code>share()</code>, <code>shareReplay()</code>, <code>publish()</code> + <code>connect()</code>, or <code>multicast()</code> with a Subject. These operators enable multicasting so multiple subscribers share the same execution.",
+      "example": "// Using share()\nconst hot$ = cold$.pipe(share());\n\n// Using publish() + connect()\nconst published$ = cold$.pipe(publish());\npublished$.connect();\n\n// Using shareReplay()\nconst replayed$ = cold$.pipe(shareReplay(1));"
+    },
+    {
+      "question": "What are the practical implications of Hot vs Cold Observables?",
+      "answer": "<strong>Cold:</strong> Each HTTP request creates a new call, timers restart for each subscriber, good for independent operations.<br><br><strong>Hot:</strong> Shared resources like WebSocket connections, DOM events, prevents duplicate API calls, but late subscribers miss previous emissions."
+    },
+    {
+      "question": "When would you choose Hot Observables over Cold?",
+      "answer": "Choose Hot when you want to share expensive operations (HTTP calls, WebSocket connections), prevent duplicate work, or when dealing with live data streams like user events, real-time updates, or when multiple components need the same data.",
+      "example": "// Shared HTTP call\nconst sharedData$ = this.http.get('/api/data').pipe(\n  shareReplay(1)\n);\n\n// Multiple components can subscribe without duplicate calls\ncomponent1.subscribe(sharedData$);\ncomponent2.subscribe(sharedData$);"
+    },
+    {
+      "question": "How do Subjects relate to Hot and Cold Observables?",
+      "answer": "All Subject types (Subject, BehaviorSubject, ReplaySubject, AsyncSubject) are Hot Observables by nature. They multicast to multiple subscribers and maintain their own state independent of subscriptions.",
+      "example": "// BehaviorSubject - Hot with initial value\nconst behavior$ = new BehaviorSubject('initial');\n\n// ReplaySubject - Hot with replay capability\nconst replay$ = new ReplaySubject(3);\n\n// Both share emissions among all subscribers"
+    },
+    {
+      "question": "What is the difference between share() and shareReplay()?",
+      "answer": "<code>share()</code> creates a Hot Observable but new subscribers only get future emissions. <code>shareReplay(n)</code> also replays the last 'n' emissions to new subscribers, making it useful for caching scenarios.",
+      "example": "// share() - only future values\nconst shared$ = source$.pipe(share());\n\n// shareReplay() - replays last 2 values\nconst replayed$ = source$.pipe(shareReplay(2));\n\n// Late subscribers to replayed$ get last 2 values immediately"
+    },
+    {
+      "question": "How do you handle memory leaks with Hot Observables?",
+      "answer": "Hot Observables can cause memory leaks if not properly managed. Always unsubscribe, use takeUntil pattern, or use async pipe in templates. Be careful with shareReplay() as it keeps references to emitted values.",
+      "example": "// Safe pattern with takeUntil\nprivate destroy$ = new Subject<void>();\n\nhot$.pipe(\n  takeUntil(this.destroy$)\n).subscribe();\n\nngOnDestroy() {\n  this.destroy$.next();\n  this.destroy$.complete();\n}"
+    },
+    {
+      "question": "What happens when you subscribe to a Cold Observable multiple times?",
+      "answer": "Each subscription creates a new independent execution of the Observable. This means separate HTTP requests, separate timer instances, and potentially different emitted values for each subscriber.",
+      "example": "const cold$ = this.http.get('/api/data');\n\n// Creates 2 separate HTTP requests\ncold$.subscribe(data1 => console.log('Sub 1:', data1));\ncold$.subscribe(data2 => console.log('Sub 2:', data2));"
+    }
+  ],
+  "schedulers": [
+    {
+      "question": "What are RxJS Schedulers and why are they important?",
+      "answer": "<strong>Schedulers</strong> control when and how observables emit values and when subscriptions are executed. They provide control over the execution context, timing, and concurrency of observable operations. This is crucial for performance optimization, testing, and managing different execution environments.",
+      "example": "// Without scheduler - default behavior\nof(1, 2, 3).subscribe(console.log);\n\n// With asyncScheduler - asynchronous execution\nof(1, 2, 3).pipe(\n  observeOn(asyncScheduler)\n).subscribe(console.log);"
+    },
+    {
+      "question": "Explain the difference between subscribeOn and observeOn.",
+      "answer": "<code>subscribeOn</code> controls the scheduler used when the Observable is subscribed to (affects the entire chain). <code>observeOn</code> controls the scheduler used for emitting values from that point forward in the chain.",
+      "example": "source$.pipe(\n  subscribeOn(asyncScheduler), // Subscription happens async\n  map(x => x * 2),\n  observeOn(queueScheduler),   // Emissions from here are sync\n  filter(x => x > 5)\n).subscribe(console.log);"
+    },
+    {
+      "question": "When would you use each type of scheduler?",
+      "answer": "<strong>asyncScheduler:</strong> For delays and asynchronous operations<br><strong>queueScheduler:</strong> For synchronous, immediate execution<br><strong>asapScheduler:</strong> For microtask execution (high priority)<br><strong>animationFrameScheduler:</strong> For smooth browser animations<br><strong>TestScheduler:</strong> For testing with virtual time"
+    },
+    {
+      "question": "How do you use schedulers for performance optimization?",
+      "answer": "Use appropriate schedulers to control when expensive operations run. <code>asyncScheduler</code> can prevent blocking the main thread, <code>animationFrameScheduler</code> ensures smooth animations, and <code>queueScheduler</code> can batch synchronous operations.",
+      "example": "// Expensive computation on async scheduler\nfrom(largeArray).pipe(\n  observeOn(asyncScheduler),\n  map(expensiveOperation),\n  observeOn(animationFrameScheduler) // Smooth UI updates\n).subscribe(updateUI);"
+    },
+    {
+      "question": "How do you test observables with schedulers?",
+      "answer": "Use <code>TestScheduler</code> to control virtual time and test timing-dependent operations. It allows you to advance time manually and test complex async scenarios synchronously.",
+      "example": "const testScheduler = new TestScheduler((actual, expected) => {\n  expect(actual).toEqual(expected);\n});\n\ntestScheduler.run(({ cold, expectObservable }) => {\n  const source$ = cold('a-b-c|');\n  const expected = 'a-b-c|';\n  expectObservable(source$).toBe(expected);\n});"
+    },
+    {
+      "question": "What are the performance implications of different schedulers?",
+      "answer": "<strong>queueScheduler:</strong> Fastest but can block the main thread<br><strong>asyncScheduler:</strong> Non-blocking but has setTimeout overhead<br><strong>asapScheduler:</strong> Fast microtask execution<br><strong>animationFrameScheduler:</strong> Synced with browser repaint, good for animations but limited to ~60fps"
+    },
+    {
+      "question": "How do schedulers work with operators like delay and debounceTime?",
+      "answer": "Many RxJS operators accept an optional scheduler parameter to control their timing behavior. This allows you to customize when delays occur and how timing-based operations execute.",
+      "example": "// Custom scheduler for delay\nsource$.pipe(\n  delay(1000, asyncScheduler),\n  debounceTime(300, asapScheduler)\n).subscribe(console.log);\n\n// Testing with TestScheduler\nsource$.pipe(\n  delay(1000, testScheduler)\n) // Controllable in tests"
+    },
+    {
+      "question": "What happens if you don't specify a scheduler?",
+      "answer": "RxJS uses sensible defaults based on the operator and context. Most operators use synchronous execution by default, while time-based operators like <code>delay</code>, <code>timer</code>, and <code>interval</code> use <code>asyncScheduler</code> by default.",
+      "example": "// Default behaviors\nof(1, 2, 3) // queueScheduler (sync)\ntimer(1000)  // asyncScheduler\ninterval(100) // asyncScheduler\nanimationFrames() // animationFrameScheduler"
+    }
+  ]
+}

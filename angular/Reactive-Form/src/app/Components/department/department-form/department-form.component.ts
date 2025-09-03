@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DepartmentService } from 'src/app/Service/department.service';
+import { DepartmentService } from 'src/app/Services/department.service';
 
 interface FormField {
   name: string;

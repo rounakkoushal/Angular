@@ -1,0 +1,282 @@
+{
+  "higher-order-observables": [
+    {
+      "question": "What is the primary characteristic of a higher-order observable?",
+      "options": ["It emits primitive values", "It emits other observables", "It has higher priority", "It runs on main thread"],
+      "correct": 1,
+      "explanation": "Higher-order observables emit other observables as their values, creating nested observable streams."
+    },
+    {
+      "question": "Which operator cancels previous inner observables when a new one arrives?",
+      "options": ["mergeMap", "switchMap", "concatMap", "exhaustMap"],
+      "correct": 1,
+      "explanation": "switchMap cancels the previous inner observable subscription when a new value arrives."
+    },
+    {
+      "question": "What does concatMap guarantee that mergeMap doesn't?",
+      "options": ["Better performance", "Order preservation", "Error handling", "Memory efficiency"],
+      "correct": 1,
+      "explanation": "concatMap maintains the order of emissions by processing inner observables sequentially."
+    },
+    {
+      "question": "When is exhaustMap most useful?",
+      "options": ["Search functionality", "Data transformation", "Preventing duplicate operations", "Error recovery"],
+      "correct": 2,
+      "explanation": "exhaustMap ignores new emissions while current inner observable is active, preventing duplicates."
+    },
+    {
+      "question": "What happens with mergeMap when multiple inner observables emit simultaneously?",
+      "options": ["Only first emission is kept", "Emissions are queued", "All emissions are merged", "Last emission overwrites others"],
+      "correct": 2,
+      "explanation": "mergeMap allows all inner observables to emit concurrently and merges all their emissions."
+    },
+    {
+      "question": "Which scenario is ideal for switchMap?",
+      "options": ["File upload queue", "Real-time search", "Sequential API calls", "Login attempts"],
+      "correct": 1,
+      "explanation": "switchMap is perfect for search as it cancels outdated requests when new search terms arrive."
+    },
+    {
+      "question": "What is the main memory concern with mergeMap?",
+      "options": ["CPU usage", "Multiple active subscriptions", "Slow emissions", "Error propagation"],
+      "correct": 1,
+      "explanation": "mergeMap can create many concurrent subscriptions, potentially leading to memory leaks."
+    },
+    {
+      "question": "How does exhaustMap handle rapid successive emissions?",
+      "options": ["Processes all", "Cancels previous", "Ignores new ones", "Queues them"],
+      "correct": 2,
+      "explanation": "exhaustMap ignores new emissions while the current inner observable is still active."
+    },
+    {
+      "question": "What's the relationship between flatMap and mergeMap?",
+      "options": ["flatMap is deprecated", "They are identical", "flatMap is faster", "mergeMap handles errors better"],
+      "correct": 1,
+      "explanation": "flatMap and mergeMap are aliases - they perform exactly the same operation."
+    },
+    {
+      "question": "Which operator should you use for a button that triggers HTTP requests?",
+      "options": ["mergeMap", "switchMap", "concatMap", "exhaustMap"],
+      "correct": 3,
+      "explanation": "exhaustMap prevents multiple simultaneous requests from rapid button clicks."
+    },
+    {
+      "question": "What does the 'flattening' process do in RxJS?",
+      "options": ["Reduces array dimensions", "Converts higher-order observables to regular observables", "Improves performance", "Handles errors"],
+      "correct": 1,
+      "explanation": "Flattening converts nested observable structures into a single observable stream."
+    },
+    {
+      "question": "In which order does concatMap process inner observables?",
+      "options": ["Random order", "Parallel processing", "Sequential order", "Priority based"],
+      "correct": 2,
+      "explanation": "concatMap processes inner observables one at a time in the order they were created."
+    },
+    {
+      "question": "What is the key difference between mergeMap and switchMap in terms of subscription management?",
+      "options": ["No difference", "mergeMap keeps all subscriptions active", "switchMap keeps all subscriptions active", "Both cancel previous subscriptions"],
+      "correct": 1,
+      "explanation": "mergeMap maintains all inner subscriptions while switchMap cancels previous ones."
+    },
+    {
+      "question": "Which operator would you choose for implementing autocomplete functionality?",
+      "options": ["mergeMap", "switchMap", "concatMap", "exhaustMap"],
+      "correct": 1,
+      "explanation": "switchMap is ideal for autocomplete as it cancels previous search requests when new input arrives."
+    },
+    {
+      "question": "What happens if an inner observable in concatMap never completes?",
+      "options": ["Next observables are processed anyway", "The entire stream blocks", "An error is thrown", "It switches to mergeMap behavior"],
+      "correct": 1,
+      "explanation": "concatMap waits for each inner observable to complete before processing the next one."
+    }
+  ],
+  "custom-operators": [
+    {
+      "question": "What is the signature of a custom pipeable operator?",
+      "options": ["() => Observable", "(source: Observable) => Observable", "Observable => void", "() => void"],
+      "correct": 1,
+      "explanation": "Custom pipeable operators are functions that take a source Observable and return a new Observable."
+    },
+    {
+      "question": "Which RxJS function is used to create custom operators?",
+      "options": ["createOperator", "pipe", "operator", "No specific function needed"],
+      "correct": 3,
+      "explanation": "Custom operators are just functions that return other functions - no special RxJS function is required."
+    },
+    {
+      "question": "What should a custom operator return?",
+      "options": ["A value", "A function", "An Observable", "A Promise"],
+      "correct": 1,
+      "explanation": "Custom operators return a function that takes an Observable and returns an Observable."
+    },
+    {
+      "question": "How do you make a custom operator reusable?",
+      "options": ["Export it as a function", "Use global variables", "Inline the logic", "Use classes"],
+      "correct": 0,
+      "explanation": "Export custom operators as functions to make them reusable across components."
+    },
+    {
+      "question": "What is the best practice for naming custom operators?",
+      "options": ["Use camelCase", "Use PascalCase", "Use snake_case", "Use kebab-case"],
+      "correct": 0,
+      "explanation": "Custom operators should follow camelCase naming convention like built-in RxJS operators."
+    }
+  ],
+  "error-handling": [
+    {
+      "question": "What does catchError operator return when an error occurs?",
+      "options": ["void", "Error object", "Observable", "Promise"],
+      "correct": 2,
+      "explanation": "catchError must return an Observable to continue the stream or handle the error gracefully."
+    },
+    {
+      "question": "Which operator automatically retries failed operations?",
+      "options": ["catchError", "retry", "throwError", "finalize"],
+      "correct": 1,
+      "explanation": "The retry operator automatically resubscribes to the source Observable when an error occurs."
+    },
+    {
+      "question": "What happens if you don't handle errors in an Observable stream?",
+      "options": ["Stream continues", "Stream terminates", "Error is ignored", "Stream restarts"],
+      "correct": 1,
+      "explanation": "Unhandled errors cause the Observable stream to terminate and stop emitting values."
+    },
+    {
+      "question": "Which operator allows custom retry logic with delays?",
+      "options": ["retry", "retryWhen", "catchError", "delay"],
+      "correct": 1,
+      "explanation": "retryWhen allows you to implement custom retry logic with delays and conditions."
+    },
+    {
+      "question": "What is the difference between catchError and retry?",
+      "options": ["No difference", "catchError handles errors, retry repeats operations", "retry handles errors, catchError repeats", "Both do the same thing"],
+      "correct": 1,
+      "explanation": "catchError handles and recovers from errors, while retry automatically repeats failed operations."
+    }
+  ],
+  "hot-cold-observables": [
+    {
+      "question": "What is the main characteristic of a Cold Observable?",
+      "options": ["Multicast", "Unicast", "Always hot", "Never completes"],
+      "correct": 1,
+      "explanation": "Cold Observables are unicast - each subscriber gets its own independent execution."
+    },
+    {
+      "question": "When does a Cold Observable start emitting values?",
+      "options": ["Immediately when created", "When subscribed to", "After 1 second", "When connect() is called"],
+      "correct": 1,
+      "explanation": "Cold Observables are lazy and only start executing when someone subscribes to them."
+    },
+    {
+      "question": "Which of these is an example of a Hot Observable?",
+      "options": ["HTTP request", "timer()", "DOM events", "of(1,2,3)"],
+      "correct": 2,
+      "explanation": "DOM events are Hot Observables as they emit regardless of subscribers and share the same event source."
+    },
+    {
+      "question": "What operator can convert a Cold Observable to Hot?",
+      "options": ["map", "share", "filter", "take"],
+      "correct": 1,
+      "explanation": "The share() operator converts Cold Observables to Hot by multicasting to multiple subscribers."
+    },
+    {
+      "question": "In a Hot Observable, what happens to late subscribers?",
+      "options": ["They get all previous values", "They only get future values", "They get an error", "Observable restarts"],
+      "correct": 1,
+      "explanation": "Late subscribers to Hot Observables only receive values emitted after their subscription."
+    },
+    {
+      "question": "Which method is used with publish() to start a Hot Observable?",
+      "options": ["start()", "begin()", "connect()", "activate()"],
+      "correct": 2,
+      "explanation": "The connect() method is used to start the execution of a published Observable."
+    },
+    {
+      "question": "What happens when multiple subscribers subscribe to the same Cold Observable?",
+      "options": ["They share the same execution", "Each gets independent execution", "Only first subscriber works", "An error occurs"],
+      "correct": 1,
+      "explanation": "Each subscriber to a Cold Observable gets its own independent execution of the Observable."
+    },
+    {
+      "question": "Which RxJS Subject type is naturally Hot?",
+      "options": ["AsyncSubject", "BehaviorSubject", "ReplaySubject", "All Subjects"],
+      "correct": 3,
+      "explanation": "All Subject types (Subject, BehaviorSubject, ReplaySubject, AsyncSubject) are Hot Observables."
+    },
+    {
+      "question": "What is the main advantage of Hot Observables?",
+      "options": ["Better performance", "Shared execution among subscribers", "Easier to debug", "Less memory usage"],
+      "correct": 1,
+      "explanation": "Hot Observables allow multiple subscribers to share the same execution, avoiding duplicate work."
+    },
+    {
+      "question": "Which operator creates a Hot Observable that replays the last N values to new subscribers?",
+      "options": ["share", "shareReplay", "publish", "multicast"],
+      "correct": 1,
+      "explanation": "shareReplay() creates a Hot Observable that replays the specified number of last values to new subscribers."
+    }
+  ],
+  "schedulers": [
+    {
+      "question": "What is the primary purpose of RxJS Schedulers?",
+      "options": ["Error handling", "Control execution timing", "Data transformation", "Memory management"],
+      "correct": 1,
+      "explanation": "Schedulers control when and how observables emit values and when subscriptions are executed."
+    },
+    {
+      "question": "Which scheduler executes tasks asynchronously using setTimeout?",
+      "options": ["queueScheduler", "asyncScheduler", "asapScheduler", "animationFrameScheduler"],
+      "correct": 1,
+      "explanation": "asyncScheduler uses setTimeout for asynchronous execution with optional delays."
+    },
+    {
+      "question": "What type of execution does queueScheduler provide?",
+      "options": ["Asynchronous", "Synchronous", "Parallel", "Delayed"],
+      "correct": 1,
+      "explanation": "queueScheduler executes tasks synchronously in queue order without delays."
+    },
+    {
+      "question": "Which scheduler is best for smooth browser animations?",
+      "options": ["asyncScheduler", "queueScheduler", "animationFrameScheduler", "asapScheduler"],
+      "correct": 2,
+      "explanation": "animationFrameScheduler syncs with the browser's repaint cycle for smooth animations."
+    },
+    {
+      "question": "What does asapScheduler use for execution?",
+      "options": ["setTimeout", "setInterval", "Promise.resolve()", "requestAnimationFrame"],
+      "correct": 2,
+      "explanation": "asapScheduler uses Promise.resolve() to execute tasks in the microtask queue."
+    },
+    {
+      "question": "Which operator is used to change the scheduler of an Observable?",
+      "options": ["subscribeOn", "observeOn", "Both A and B", "scheduleOn"],
+      "correct": 2,
+      "explanation": "Both subscribeOn and observeOn can be used to control scheduling, but for different purposes."
+    },
+    {
+      "question": "When would you use queueScheduler over asyncScheduler?",
+      "options": ["For animations", "For synchronous execution", "For delays", "For HTTP requests"],
+      "correct": 1,
+      "explanation": "Use queueScheduler when you need synchronous execution without delays."
+    },
+    {
+      "question": "What is the main difference between subscribeOn and observeOn?",
+      "options": ["No difference", "subscribeOn affects subscription, observeOn affects emissions", "observeOn is deprecated", "subscribeOn is faster"],
+      "correct": 1,
+      "explanation": "subscribeOn controls when subscription occurs, observeOn controls when emissions are delivered."
+    },
+    {
+      "question": "Which scheduler would you use for testing with virtual time?",
+      "options": ["asyncScheduler", "TestScheduler", "queueScheduler", "asapScheduler"],
+      "correct": 1,
+      "explanation": "TestScheduler is specifically designed for testing with virtual time control."
+    },
+    {
+      "question": "What happens if you don't specify a scheduler?",
+      "options": ["Error occurs", "Uses default scheduler", "No execution", "Uses asyncScheduler"],
+      "correct": 1,
+      "explanation": "RxJS uses appropriate default schedulers based on the operator and context."
+    }
+  ]
+}

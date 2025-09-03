@@ -1,0 +1,194 @@
+{
+  "actions": [
+    {
+      "question": "What is the primary purpose of NgRx Actions?",
+      "options": ["To store state", "To describe events that happened", "To update components", "To handle HTTP requests"],
+      "correct": 1,
+      "explanation": "Actions describe unique events that happen in your application but don't specify how the state changes."
+    },
+    {
+      "question": "Which function is used to create NgRx actions?",
+      "options": ["createAction", "makeAction", "newAction", "defineAction"],
+      "correct": 0,
+      "explanation": "createAction is the NgRx function used to create action creators."
+    },
+    {
+      "question": "What should an action type string include?",
+      "options": ["Only the action name", "Source and event description", "Component name only", "Random string"],
+      "correct": 1,
+      "explanation": "Action types should include the source (where it came from) and the event description in the format '[Source] Event'."
+    },
+    {
+      "question": "How do you add payload to an NgRx action?",
+      "options": ["Using data property", "Using props function", "Using payload property", "Using params function"],
+      "correct": 1,
+      "explanation": "The props function is used to define the payload structure for NgRx actions."
+    },
+    {
+      "question": "What happens when you dispatch an action?",
+      "options": ["State changes immediately", "Action goes to all reducers", "Component updates", "HTTP request is made"],
+      "correct": 1,
+      "explanation": "When dispatched, actions are sent to all reducers in the store to determine if state should change."
+    }
+  ],
+  "reducers": [
+    {
+      "question": "What is the main responsibility of NgRx reducers?",
+      "options": ["Handle HTTP requests", "Manage component state", "Specify how state changes", "Dispatch actions"],
+      "correct": 2,
+      "explanation": "Reducers specify how the application state changes in response to actions."
+    },
+    {
+      "question": "What type of functions are NgRx reducers?",
+      "options": ["Async functions", "Pure functions", "Callback functions", "Generator functions"],
+      "correct": 1,
+      "explanation": "Reducers must be pure functions with no side effects."
+    },
+    {
+      "question": "Which function is used to create NgRx reducers?",
+      "options": ["createReducer", "makeReducer", "newReducer", "defineReducer"],
+      "correct": 0,
+      "explanation": "createReducer is the NgRx function used to create reducer functions."
+    },
+    {
+      "question": "What should you never do in a reducer?",
+      "options": ["Return new state", "Use switch statements", "Mutate existing state", "Handle multiple actions"],
+      "correct": 2,
+      "explanation": "Reducers should never mutate the existing state; they should always return a new state object."
+    },
+    {
+      "question": "How do you handle multiple actions in a reducer?",
+      "options": ["Multiple on() calls", "Switch statement", "If-else chains", "Action arrays"],
+      "correct": 0,
+      "explanation": "Use multiple on() calls in createReducer to handle different actions."
+    }
+  ],
+  "selectors": [
+    {
+      "question": "What is the main purpose of NgRx selectors?",
+      "options": ["Dispatch actions", "Query store state", "Update components", "Handle side effects"],
+      "correct": 1,
+      "explanation": "Selectors are used to query and derive data from the store state."
+    },
+    {
+      "question": "What performance benefit do selectors provide?",
+      "options": ["Faster HTTP requests", "Memoization", "Smaller bundle size", "Better animations"],
+      "correct": 1,
+      "explanation": "Selectors are memoized, meaning they cache results and only recalculate when input state changes."
+    },
+    {
+      "question": "Which function creates a feature selector?",
+      "options": ["createSelector", "createFeatureSelector", "selectFeature", "featureSelector"],
+      "correct": 1,
+      "explanation": "createFeatureSelector is used to select a feature slice of state."
+    },
+    {
+      "question": "How do you compose selectors?",
+      "options": ["Using pipe operator", "Using createSelector with other selectors", "Using combineSelectors", "Using mergeSelectors"],
+      "correct": 1,
+      "explanation": "Use createSelector and pass other selectors as input to compose complex selectors."
+    },
+    {
+      "question": "When do selectors recalculate their values?",
+      "options": ["On every component render", "When any state changes", "When input selectors change", "Every second"],
+      "correct": 2,
+      "explanation": "Selectors only recalculate when their input selectors return different values."
+    }
+  ],
+  "effects": [
+    {
+      "question": "What is the primary purpose of NgRx Effects?",
+      "options": ["Store state", "Handle side effects", "Update UI", "Validate forms"],
+      "correct": 1,
+      "explanation": "Effects handle side effects like HTTP requests, logging, and other asynchronous operations."
+    },
+    {
+      "question": "Which decorator is used to create an effect?",
+      "options": ["@Injectable", "@Effect", "@createEffect", "@SideEffect"],
+      "correct": 2,
+      "explanation": "@createEffect() decorator is used to create effects in modern NgRx."
+    },
+    {
+      "question": "What do effects typically return?",
+      "options": ["Promises", "Observables of actions", "State objects", "Components"],
+      "correct": 1,
+      "explanation": "Effects return observables that emit actions to be dispatched to the store."
+    },
+    {
+      "question": "How do you prevent an effect from dispatching actions?",
+      "options": ["Return empty observable", "Use dispatch: false", "Use @Injectable", "Return void"],
+      "correct": 1,
+      "explanation": "Set dispatch: false in the createEffect options to prevent action dispatching."
+    },
+    {
+      "question": "Which service is commonly injected into effects?",
+      "options": ["Router", "Actions", "HttpClient", "All of the above"],
+      "correct": 3,
+      "explanation": "Effects commonly inject Actions service, HttpClient for API calls, and Router for navigation."
+    }
+  ],
+  "store": [
+    {
+      "question": "What is the NgRx Store?",
+      "options": ["A component", "A service", "A centralized state container", "A routing module"],
+      "correct": 2,
+      "explanation": "The NgRx Store is a centralized state management container for Angular applications."
+    },
+    {
+      "question": "How do you dispatch actions to the store?",
+      "options": ["store.send()", "store.dispatch()", "store.emit()", "store.trigger()"],
+      "correct": 1,
+      "explanation": "Use store.dispatch() method to send actions to the store."
+    },
+    {
+      "question": "How do you select data from the store?",
+      "options": ["store.get()", "store.select()", "store.query()", "store.find()"],
+      "correct": 1,
+      "explanation": "Use store.select() method with selectors to get data from the store."
+    },
+    {
+      "question": "What does StoreModule.forRoot() do?",
+      "options": ["Creates components", "Configures the root store", "Sets up routing", "Handles HTTP"],
+      "correct": 1,
+      "explanation": "StoreModule.forRoot() configures the root store with initial reducers and state."
+    },
+    {
+      "question": "What is the benefit of using NgRx Store?",
+      "options": ["Faster rendering", "Predictable state management", "Smaller bundle size", "Better SEO"],
+      "correct": 1,
+      "explanation": "NgRx Store provides predictable state management with a single source of truth."
+    }
+  ],
+  "devtools": [
+    {
+      "question": "What is NgRx DevTools used for?",
+      "options": ["Code generation", "State debugging", "Performance optimization", "Unit testing"],
+      "correct": 1,
+      "explanation": "NgRx DevTools is used for debugging and inspecting state changes in development."
+    },
+    {
+      "question": "Which browser extension works with NgRx DevTools?",
+      "options": ["Angular DevTools", "Redux DevTools", "Vue DevTools", "React DevTools"],
+      "correct": 1,
+      "explanation": "NgRx DevTools integrates with the Redux DevTools browser extension."
+    },
+    {
+      "question": "What can you do with NgRx DevTools?",
+      "options": ["Time travel debugging", "Action replay", "State inspection", "All of the above"],
+      "correct": 3,
+      "explanation": "NgRx DevTools supports time travel debugging, action replay, and state inspection."
+    },
+    {
+      "question": "How do you enable NgRx DevTools?",
+      "options": ["Import StoreDevtoolsModule", "Install browser extension only", "Add to package.json", "Configure webpack"],
+      "correct": 0,
+      "explanation": "Import and configure StoreDevtoolsModule in your app module to enable DevTools."
+    },
+    {
+      "question": "Should NgRx DevTools be enabled in production?",
+      "options": ["Yes, always", "No, development only", "Only for admin users", "Only on weekends"],
+      "correct": 1,
+      "explanation": "NgRx DevTools should typically only be enabled in development for security and performance reasons."
+    }
+  ]
+}

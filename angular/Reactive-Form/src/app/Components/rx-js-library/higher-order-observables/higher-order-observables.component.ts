@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, of, Subject } from 'rxjs';
 import { mergeMap, switchMap, take, takeUntil } from 'rxjs/operators';
+import { MCQQuestion, QuizService } from 'src/app/Services/quiz.service';
 
 @Component({
   selector: 'app-higher-order-observables',
@@ -13,9 +14,21 @@ export class HigherOrderObservablesComponent implements OnInit, OnDestroy {
   switchMapResults: string[] = [];
   private destroy$ = new Subject<void>();
 
-  constructor() { }
+  // Quiz properties
+  mcqQuestions: MCQQuestion[] = [];
+  quizLoading = false;
+
+  interviewQuestions: any[] = [];
+
+  userAnswers: number[] = [];
+  quizSubmitted = false;
+  quizScore = 0;
+
+  constructor(private quizService: QuizService) { }
 
   ngOnInit(): void {
+    this.loadQuizQuestions();
+    this.loadInterviewQuestions();
   }
 
   ngOnDestroy(): void {
@@ -70,5 +83,54 @@ export class HigherOrderObservablesComponent implements OnInit, OnDestroy {
     ).subscribe(result => {
       this.switchMapResults.push(result);
     });
+  }
+
+  selectAnswer(questionIndex: number, answerIndex: number): void {
+    this.userAnswers[questionIndex] = answerIndex;
+  }
+
+  submitQuiz(): void {
+    this.quizScore = 0;
+    for (let i = 0; i < this.mcqQuestions.length; i++) {
+      if (this.userAnswers[i] === this.mcqQuestions[i].correct) {
+        this.quizScore++;
+      }
+    }
+    this.quizSubmitted = true;
+  }
+
+  resetQuiz(): void {
+    this.userAnswers = [];
+    this.quizSubmitted = false;
+    this.quizScore = 0;
+  }
+
+  getPercentage(): number {
+    return Math.round((this.quizScore / this.mcqQuestions.length) * 100);
+  }
+
+  loadQuizQuestions(): void {
+    this.quizLoading = true;
+    this.quizService.generateMCQQuestions('higher-order-observables')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(questions => {
+        console.log(questions);
+        
+        this.mcqQuestions = questions;
+        this.quizLoading = false;
+      });
+  }
+
+  generateNewQuiz(): void {
+    this.resetQuiz();
+    this.loadQuizQuestions();
+  }
+
+  loadInterviewQuestions(): void {
+    this.quizService.getInterviewQuestions('higher-order-observables')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(questions => {
+        this.interviewQuestions = questions;
+      });
   }
 }

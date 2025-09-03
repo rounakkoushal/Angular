@@ -1,1 +1,299 @@
-<p>hot-cold-observables works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+          <h3 class="mb-0 text-secondary">Hot vs Cold Observables</h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading">Definition</h5>
+            <p class="mb-2">Hot and Cold Observables represent different execution models in RxJS.</p>
+            <p class="mb-2">Cold Observables are unicast and lazy - each subscriber gets its own independent execution. Hot Observables are multicast and eager - all subscribers share the same execution.</p>
+            <p class="mb-0">Understanding this difference is crucial for managing subscriptions, preventing memory leaks, and optimizing performance in reactive applications.</p>
+          </div>
+
+          <!-- Concept Overview -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary"><i class="fas fa-snowflake text-info me-2"></i>Cold Observables</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unicast (one-to-one)</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Lazy execution</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Each subscriber gets its own execution</li>
+                    <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Data producer is created inside Observable</li>
+                  </ul>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;" class="mt-3">
+                    <strong>Examples:</strong> HTTP requests, timer(), interval(), of(), from()
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary"><i class="fas fa-fire text-danger me-2"></i>Hot Observables</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Multicast (one-to-many)</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Eager execution</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>All subscribers share the same execution</li>
+                    <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Data producer exists outside Observable</li>
+                  </ul>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;" class="mt-3">
+                    <strong>Examples:</strong> DOM events, WebSocket connections, Subject, BehaviorSubject
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Examples -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Interactive Examples</h4>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Cold Observable Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Each subscriber gets independent execution</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" (click)="demonstrateColdObservable()">Run Cold Observable</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of coldResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-info">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="coldResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see cold observable in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Hot Observable Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">All subscribers share the same execution</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #dc3545; border-color: #dc3545; color: white;" (click)="demonstrateHotObservable()">Run Hot Observable</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of hotResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-danger">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="hotResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see hot observable in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Examples -->
+          <div class="row">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Code Examples</h4>
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Implementation Examples</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-info">Cold Observable Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Each subscriber gets independent execution
+const coldObservable = new Observable(subscriber => &#123;
+  console.log('Observable execution started');
+  const data = Math.random();
+  subscriber.next(data);
+  subscriber.complete();
+&#125;);
+
+// Different values for each subscriber
+coldObservable.subscribe(console.log);</code></pre>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-danger">Hot Observable Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Shared execution using Subject
+const subject = new Subject();
+const hotObservable = subject.asObservable();
+
+// Subscribe before emitting
+hotObservable.subscribe(console.log);
+
+// Emit values - all subscribers get same values
+subject.next('Hello World');</code></pre>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class="text-success">Converting Cold to Hot</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Using share() operator
+const coldTimer = timer(0, 1000);
+const hotTimer = coldTimer.pipe(share());
+
+// Multiple subscribers share same timer
+hotTimer.subscribe(console.log);</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="text-warning">Using shareReplay()</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Replay last N values to new subscribers
+const replayed = source$.pipe(shareReplay(1));
+replayed.subscribe(console.log);
+// Late subscribers get last value immediately</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conversion Methods -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Conversion Methods Demo</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4 text-center mb-3">
+                      <div class="p-3">
+                        <button class="btn btn-sm mb-3" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="demonstrateShare()">share() Operator</button>
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 120px; overflow-y: auto;">
+                          <div *ngFor="let result of shareResults" class="mb-1">
+                            <span class="badge bg-primary">{{result}}</span>
+                          </div>
+                          <div *ngIf="shareResults.length === 0" class="text-muted small mt-2">
+                            Click to see share() in action
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 text-center mb-3">
+                      <div class="p-3">
+                        <button class="btn btn-sm mb-3" style="background-color: #28a745; border-color: #28a745; color: white;" (click)="demonstratePublish()">shareReplay() Operator</button>
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 120px; overflow-y: auto;">
+                          <div *ngFor="let result of publishResults" class="mb-1">
+                            <span class="badge bg-success">{{result}}</span>
+                          </div>
+                          <div *ngIf="publishResults.length === 0" class="text-muted small mt-2">
+                            Click to see shareReplay() in action
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 text-center mb-3">
+                      <div class="p-3">
+                        <button class="btn btn-sm mb-3" style="background-color: #ffc107; border-color: #ffc107; color: black;" (click)="demonstrateMulticast()">share() Advanced</button>
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 120px; overflow-y: auto;">
+                          <div *ngFor="let result of multicastResults" class="mb-1">
+                            <span class="badge bg-warning text-dark">{{result}}</span>
+                          </div>
+                          <div *ngIf="multicastResults.length === 0" class="text-muted small mt-2">
+                            Click to see advanced share() in action
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MCQ Quiz Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0 text-secondary">Knowledge Check - MCQ Quiz</h5>
+                  <button class="btn btn-sm btn-outline-primary" (click)="generateNewQuiz()" [disabled]="quizLoading">
+                    <span *ngIf="quizLoading" class="spinner-border spinner-border-sm me-1"></span>
+                    {{ quizLoading ? 'Loading...' : 'New Quiz' }}
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div *ngIf="quizLoading" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading questions...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Generating random quiz questions...</p>
+                  </div>
+                  <div *ngIf="!quizSubmitted && !quizLoading && mcqQuestions.length > 0">
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-4">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <div class="form-check" *ngFor="let option of question.options; let j = index">
+                        <input class="form-check-input" type="radio" [name]="'question' + i" [id]="'q' + i + 'o' + j" [value]="j" (change)="selectAnswer(i, j)">
+                        <label class="form-check-label" [for]="'q' + i + 'o' + j">{{ option }}</label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="submitQuiz()">Submit Quiz</button>
+                  </div>
+                  <div *ngIf="quizSubmitted">
+                    <div class="alert alert-info">
+                      <h6>Quiz Results: {{ quizScore }}/{{ mcqQuestions.length }} ({{ getPercentage() }}%)</h6>
+                    </div>
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-3">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <p class="mb-1"><strong>Your Answer:</strong> 
+                        <span [class]="userAnswers[i] === question.correct ? 'text-success' : 'text-danger'">
+                          {{ question.options[userAnswers[i]] || 'Not answered' }}
+                        </span>
+                      </p>
+                      <p class="mb-1"><strong>Correct Answer:</strong> <span class="text-success">{{ question.options[question.correct] }}</span></p>
+                      <p class="text-muted small">{{ question.explanation }}</p>
+                    </div>
+                    <button class="btn btn-secondary" (click)="resetQuiz()">Retake Quiz</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interview Questions Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="mb-0 text-secondary">Interview Questions & Answers</h5>
+                </div>
+                <div class="card-body">
+                  <div class="accordion" id="interviewAccordion">
+                    <div class="accordion-item" *ngFor="let qa of interviewQuestions; let i = index">
+                      <h2 class="accordion-header" [id]="'heading' + i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i">
+                          {{ qa.question }}
+                        </button>
+                      </h2>
+                      <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.data-bs-parent]="'#interviewAccordion'">
+                        <div class="accordion-body">
+                          <div [innerHTML]="qa.answer"></div>
+                          <div *ngIf="qa.example" class="mt-2">
+                            <strong>Example:</strong>
+                            <pre class="bg-light p-2 rounded mt-1"><code>{{ qa.example }}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

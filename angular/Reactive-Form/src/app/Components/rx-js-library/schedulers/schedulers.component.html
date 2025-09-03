@@ -1,1 +1,294 @@
-<p>schedulers works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+          <h3 class="mb-0 text-secondary">RxJS Schedulers</h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading">Definition</h5>
+            <p class="mb-2">Schedulers in RxJS control when and how observables emit values and when subscriptions are executed.</p>
+            <p class="mb-2">They provide a way to control the execution context and timing of observable operations, enabling you to optimize performance and manage concurrency.</p>
+            <p class="mb-0">RxJS provides several built-in schedulers for different use cases: synchronous execution, asynchronous execution, animation frames, and more.</p>
+          </div>
+
+          <!-- Concept Overview -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Built-in Schedulers</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-clock text-primary me-2"></i><strong>asyncScheduler</strong> - Asynchronous execution</li>
+                    <li class="mb-2"><i class="fas fa-bolt text-warning me-2"></i><strong>queueScheduler</strong> - Synchronous queue</li>
+                    <li class="mb-2"><i class="fas fa-play text-success me-2"></i><strong>animationFrameScheduler</strong> - Browser animation frames</li>
+                    <li class="mb-0"><i class="fas fa-stopwatch text-info me-2"></i><strong>asapScheduler</strong> - As soon as possible</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Common Use Cases</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Controlling execution timing</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Managing concurrency</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Optimizing performance</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Testing with virtual time</li>
+                    <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Animation synchronization</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Examples -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Interactive Examples</h4>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">AsyncScheduler Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Executes tasks asynchronously using setTimeout</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="demonstrateAsyncScheduler()">Run AsyncScheduler</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of asyncResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-primary">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="asyncResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see asyncScheduler in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">QueueScheduler Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Executes tasks synchronously in queue order</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #ffc107; border-color: #ffc107; color: black;" (click)="demonstrateQueueScheduler()">Run QueueScheduler</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of queueResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-warning text-dark">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="queueResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see queueScheduler in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Examples -->
+          <div class="row">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Code Examples</h4>
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Implementation Examples</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-primary">AsyncScheduler Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Using asyncScheduler
+import &#123; asyncScheduler &#125; from 'rxjs';
+import &#123; observeOn &#125; from 'rxjs/operators';
+
+of(1, 2, 3).pipe(
+  observeOn(asyncScheduler)
+).subscribe(console.log);
+
+// Schedule a task
+asyncScheduler.schedule(() => &#123;
+  console.log('Async task executed');
+&#125;, 1000);</code></pre>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-warning">QueueScheduler Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Using queueScheduler
+import &#123; queueScheduler &#125; from 'rxjs';
+
+of(1, 2, 3).pipe(
+  observeOn(queueScheduler)
+).subscribe(console.log);
+
+// Synchronous execution
+queueScheduler.schedule(() => &#123;
+  console.log('Queue task executed');
+&#125;);</code></pre>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class="text-success">AnimationFrameScheduler</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// For smooth animations
+import &#123; animationFrameScheduler &#125; from 'rxjs';
+
+interval(0, animationFrameScheduler).pipe(
+  map(i => i * 2),
+  take(60)
+).subscribe(value => &#123;
+  // Update animation
+  element.style.left = value + 'px';
+&#125;);</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="text-info">AsapScheduler Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Execute as soon as possible
+import &#123; asapScheduler &#125; from 'rxjs';
+
+of(1, 2, 3).pipe(
+  observeOn(asapScheduler)
+).subscribe(console.log);
+
+// High priority execution
+asapScheduler.schedule(() => &#123;
+  console.log('ASAP task executed');
+&#125;);</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scheduler Comparison -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Scheduler Comparison</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #007bff; color: white; font-size: 1rem; padding: 10px;">asyncScheduler</div>
+                        <p class="small mt-2 mb-0">Uses setTimeout for asynchronous execution with delays</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #ffc107; color: black; font-size: 1rem; padding: 10px;">queueScheduler</div>
+                        <p class="small mt-2 mb-0">Synchronous execution in queue order, no delays</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">animationFrame</div>
+                        <p class="small mt-2 mb-0">Syncs with browser's repaint cycle for smooth animations</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #17a2b8; color: white; font-size: 1rem; padding: 10px;">asapScheduler</div>
+                        <p class="small mt-2 mb-0">Uses Promise.resolve() for microtask execution</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MCQ Quiz Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0 text-secondary">Knowledge Check - MCQ Quiz</h5>
+                  <button class="btn btn-sm btn-outline-primary" (click)="generateNewQuiz()" [disabled]="quizLoading">
+                    <span *ngIf="quizLoading" class="spinner-border spinner-border-sm me-1"></span>
+                    {{ quizLoading ? 'Loading...' : 'New Quiz' }}
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div *ngIf="quizLoading" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading questions...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Generating random quiz questions...</p>
+                  </div>
+                  <div *ngIf="!quizSubmitted && !quizLoading && mcqQuestions.length > 0">
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-4">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <div class="form-check" *ngFor="let option of question.options; let j = index">
+                        <input class="form-check-input" type="radio" [name]="'question' + i" [id]="'q' + i + 'o' + j" [value]="j" (change)="selectAnswer(i, j)">
+                        <label class="form-check-label" [for]="'q' + i + 'o' + j">{{ option }}</label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="submitQuiz()">Submit Quiz</button>
+                  </div>
+                  <div *ngIf="quizSubmitted">
+                    <div class="alert alert-info">
+                      <h6>Quiz Results: {{ quizScore }}/{{ mcqQuestions.length }} ({{ getPercentage() }}%)</h6>
+                    </div>
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-3">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <p class="mb-1"><strong>Your Answer:</strong> 
+                        <span [class]="userAnswers[i] === question.correct ? 'text-success' : 'text-danger'">
+                          {{ question.options[userAnswers[i]] || 'Not answered' }}
+                        </span>
+                      </p>
+                      <p class="mb-1"><strong>Correct Answer:</strong> <span class="text-success">{{ question.options[question.correct] }}</span></p>
+                      <p class="text-muted small">{{ question.explanation }}</p>
+                    </div>
+                    <button class="btn btn-secondary" (click)="resetQuiz()">Retake Quiz</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interview Questions Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="mb-0 text-secondary">Interview Questions & Answers</h5>
+                </div>
+                <div class="card-body">
+                  <div class="accordion" id="interviewAccordion">
+                    <div class="accordion-item" *ngFor="let qa of interviewQuestions; let i = index">
+                      <h2 class="accordion-header" [id]="'heading' + i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i">
+                          {{ qa.question }}
+                        </button>
+                      </h2>
+                      <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.data-bs-parent]="'#interviewAccordion'">
+                        <div class="accordion-body">
+                          <div [innerHTML]="qa.answer"></div>
+                          <div *ngIf="qa.example" class="mt-2">
+                            <strong>Example:</strong>
+                            <pre class="bg-light p-2 rounded mt-1"><code>{{ qa.example }}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

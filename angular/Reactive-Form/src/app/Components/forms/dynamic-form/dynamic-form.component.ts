@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DynamicFormFieldService, FormField } from 'src/app/Service/dynamic-form-field.service';
-// import { FORM_FIELDS } from './form-fields';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DynamicFormFieldService, FormField } from 'src/app/Services/dynamic-form-field.service';
 
 @Component({
   selector: 'app-dynamic-form',

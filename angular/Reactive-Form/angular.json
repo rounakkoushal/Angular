@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/reactive-form",
+            "outputPath": "dist/Reactive-Form/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -91,6 +91,60 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/Reactive-Form/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "Reactive-Form:build:development",
+              "serverTarget": "Reactive-Form:server:development"
+            },
+            "production": {
+              "browserTarget": "Reactive-Form:build:production",
+              "serverTarget": "Reactive-Form:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "Reactive-Form:build:production",
+              "serverTarget": "Reactive-Form:server:production"
+            },
+            "development": {
+              "browserTarget": "Reactive-Form:build:development",
+              "serverTarget": "Reactive-Form:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

@@ -155,5 +155,127 @@
       "answer": "RxJS uses sensible defaults based on the operator and context. Most operators use synchronous execution by default, while time-based operators like <code>delay</code>, <code>timer</code>, and <code>interval</code> use <code>asyncScheduler</code> by default.",
       "example": "// Default behaviors\nof(1, 2, 3) // queueScheduler (sync)\ntimer(1000)  // asyncScheduler\ninterval(100) // asyncScheduler\nanimationFrames() // animationFrameScheduler"
     }
+  ],
+  "subjects-multicasting": [
+    {
+      "question": "Explain the difference between Subjects and regular Observables.",
+      "answer": "<strong>Regular Observables:</strong> Unicast, each subscriber gets independent execution, data producer inside Observable.<br><br><strong>Subjects:</strong> Multicast, all subscribers share same execution, act as both Observable and Observer, can emit values imperatively using next().",
+      "example": "// Regular Observable - unicast\nconst obs$ = new Observable(sub => sub.next(Math.random()));\n\n// Subject - multicast\nconst subject = new Subject();\nsubject.next(Math.random()); // Same value for all subscribers"
+    },
+    {
+      "question": "When would you use each type of Subject?",
+      "answer": "<strong>Subject:</strong> Event buses, notifications, simple multicasting<br><strong>BehaviorSubject:</strong> State management, current user, settings<br><strong>ReplaySubject:</strong> Caching, chat history, recent activities<br><strong>AsyncSubject:</strong> Final results, completion status, last computed value",
+      "example": "// State management with BehaviorSubject\nconst currentUser$ = new BehaviorSubject(null);\n\n// Chat history with ReplaySubject\nconst chatHistory$ = new ReplaySubject(50);\n\n// Final result with AsyncSubject\nconst computationResult$ = new AsyncSubject();"
+    },
+    {
+      "question": "How do you implement a simple event bus using Subjects?",
+      "answer": "Create a Subject instance and expose it as an Observable. Components can subscribe to receive events and emit events using the Subject's next() method.",
+      "example": "class EventBus {\n  private eventSubject = new Subject<any>();\n  \n  emit(event: any) {\n    this.eventSubject.next(event);\n  }\n  \n  on(eventType: string) {\n    return this.eventSubject.pipe(\n      filter(event => event.type === eventType)\n    );\n  }\n}"
+    },
+    {
+      "question": "What are the memory implications of different Subject types?",
+      "answer": "<strong>Subject:</strong> No memory overhead, doesn't store values<br><strong>BehaviorSubject:</strong> Stores one current value<br><strong>ReplaySubject:</strong> Can store many values, potential memory leaks if not managed<br><strong>AsyncSubject:</strong> Stores only the last value until completion",
+      "example": "// ReplaySubject with buffer limit and time window\nconst replay$ = new ReplaySubject(100, 5000); // Max 100 items, 5 sec window\n\n// Prevent memory leaks\nngOnDestroy() {\n  this.replay$.complete();\n}"
+    },
+    {
+      "question": "How do you handle errors in Subjects?",
+      "answer": "When a Subject encounters an error, it terminates and stops emitting values. All subscribers receive the error. To continue after errors, use operators like catchError or create a new Subject.",
+      "example": "const subject = new Subject();\n\n// Handle errors without terminating\nsubject.pipe(\n  catchError(error => {\n    console.error('Error:', error);\n    return EMPTY; // Continue without terminating\n  })\n).subscribe();\n\n// Or use a separate error subject\nconst errorSubject = new Subject();"
+    },
+    {
+      "question": "What is the difference between BehaviorSubject and ReplaySubject(1)?",
+      "answer": "<strong>BehaviorSubject:</strong> Requires initial value, always has current value, getValue() method available<br><strong>ReplaySubject(1):</strong> No initial value required, may not have any value initially, no getValue() method",
+      "example": "// BehaviorSubject - must have initial value\nconst behavior = new BehaviorSubject('initial');\nconsole.log(behavior.getValue()); // 'initial'\n\n// ReplaySubject - no initial value\nconst replay = new ReplaySubject(1);\n// No getValue() method available"
+    },
+    {
+      "question": "How do you implement state management with BehaviorSubject?",
+      "answer": "Use BehaviorSubject to store current state, provide methods to update state, and expose state as Observable for components to subscribe to changes.",
+      "example": "class StateService {\n  private state$ = new BehaviorSubject(initialState);\n  \n  getState() {\n    return this.state$.asObservable();\n  }\n  \n  updateState(newState: any) {\n    this.state$.next({ ...this.state$.value, ...newState });\n  }\n  \n  getCurrentState() {\n    return this.state$.value;\n  }\n}"
+    },
+    {
+      "question": "What happens when you complete a Subject?",
+      "answer": "When completed, a Subject stops emitting values and notifies all subscribers of completion. New subscriptions after completion immediately receive the complete notification. The Subject cannot emit new values after completion.",
+      "example": "const subject = new Subject();\n\nsubject.subscribe({\n  next: value => console.log(value),\n  complete: () => console.log('Completed')\n});\n\nsubject.next('Hello'); // Emitted\nsubject.complete(); // Completes\nsubject.next('World'); // Ignored - no effect"
+    }
+  ],
+  "backpressure-flow-control": [
+    {
+      "question": "What is backpressure and how do you handle it in RxJS?",
+      "answer": "<strong>Backpressure</strong> occurs when data is produced faster than it can be consumed. Handle it using flow control operators like <code>throttleTime</code>, <code>debounceTime</code>, <code>sample</code>, and <code>buffer</code> to control emission rates and prevent memory issues.",
+      "example": "// Handle fast scroll events\nfromEvent(window, 'scroll').pipe(\n  throttleTime(100), // Limit to once per 100ms\n  map(() => window.scrollY)\n).subscribe(handleScroll);"
+    },
+    {
+      "question": "When would you use throttleTime vs debounceTime?",
+      "answer": "<strong>throttleTime:</strong> Use for events that should be processed at regular intervals (scroll, resize)<br><strong>debounceTime:</strong> Use when you want to wait for a pause in activity (search input, button clicks)",
+      "example": "// Throttle - regular intervals\nscroll$.pipe(throttleTime(100))\n\n// Debounce - wait for pause\nsearchInput$.pipe(debounceTime(300))"
+    },
+    {
+      "question": "How do you implement search optimization with RxJS?",
+      "answer": "Use <code>debounceTime</code> to wait for typing pauses, <code>distinctUntilChanged</code> to avoid duplicate searches, and <code>switchMap</code> to cancel previous requests.",
+      "example": "searchInput$.pipe(\n  debounceTime(300),\n  distinctUntilChanged(),\n  switchMap(term => searchService.search(term))\n).subscribe(results => displayResults(results));"
+    },
+    {
+      "question": "What are buffer operators and when would you use them?",
+      "answer": "Buffer operators collect emissions into arrays. Use <code>bufferTime</code> for time-based batching, <code>bufferCount</code> for size-based batching, and <code>buffer</code> for custom triggers.",
+      "example": "// Batch clicks for analytics\nclicks$.pipe(\n  bufferTime(5000), // Collect for 5 seconds\n  filter(batch => batch.length > 0)\n).subscribe(batch => analytics.track(batch));"
+    },
+    {
+      "question": "How do you prevent duplicate button clicks?",
+      "answer": "Use <code>throttleTime</code> or <code>debounceTime</code> to limit click frequency, or use <code>exhaustMap</code> to ignore clicks while processing.",
+      "example": "// Prevent duplicate submissions\nsubmitButton$.pipe(\n  exhaustMap(() => submitForm()),\n  catchError(error => handleError(error))\n).subscribe(result => showSuccess(result));"
+    }
+  ],
+  "testing-marble-diagrams": [
+    {
+      "question": "How do you write marble tests in RxJS?",
+      "answer": "Use <code>TestScheduler</code> with marble syntax to create predictable, synchronous tests for asynchronous Observable behavior. Marble diagrams use characters to represent emissions over virtual time.",
+      "example": "const testScheduler = new TestScheduler((actual, expected) => {\n  expect(actual).toEqual(expected);\n});\n\ntestScheduler.run(({ cold, expectObservable }) => {\n  const source$ = cold('a-b-c|');\n  const expected = 'a-b-c|';\n  expectObservable(source$).toBe(expected);\n});"
+    },
+    {
+      "question": "Explain the marble syntax characters and their meanings.",
+      "answer": "<strong>Letters/Numbers:</strong> Emitted values<br><strong>-:</strong> Time frame (10ms)<br><strong>|:</strong> Completion<br><strong>#:</strong> Error<br><strong>^:</strong> Subscription point<br><strong>!:</strong> Unsubscription point",
+      "example": "// Marble patterns\n'a-b-c|'    // Emit a, b, c then complete\n'a---b---c' // Emit with delays\n'a-b-#'     // Emit a, b then error\n'^--!'      // Subscribe at start, unsubscribe after 3 frames"
+    },
+    {
+      "question": "How do you test operators with marble diagrams?",
+      "answer": "Create source observables with <code>cold()</code>, apply operators, and verify results with <code>expectObservable()</code>. Use marble syntax to define expected timing and values.",
+      "example": "testScheduler.run(({ cold, expectObservable }) => {\n  const source$ = cold('a-b-c|');\n  const result$ = source$.pipe(map(x => x.toUpperCase()));\n  const expected = 'A-B-C|';\n  \n  expectObservable(result$).toBe(expected);\n});"
+    },
+    {
+      "question": "How do you test error scenarios with marble testing?",
+      "answer": "Use the '#' character in marble strings to represent errors, and provide error objects in the marble values map.",
+      "example": "testScheduler.run(({ cold, expectObservable }) => {\n  const source$ = cold('a-b-#', { a: 1, b: 2 }, new Error('test'));\n  const result$ = source$.pipe(catchError(() => of('error')));\n  const expected = 'a-b-(e|)';\n  \n  expectObservable(result$).toBe(expected, { a: 1, b: 2, e: 'error' });\n});"
+    },
+    {
+      "question": "What are the advantages of marble testing?",
+      "answer": "<strong>Synchronous testing</strong> of async code, <strong>visual documentation</strong> of Observable behavior, <strong>precise timing control</strong>, and ability to test complex scenarios with multiple streams and timing dependencies."
+    }
+  ],
+  "combining-transforming-observables": [
+    {
+      "question": "Explain the difference between merge, concat, zip, and combineLatest.",
+      "answer": "<strong>merge:</strong> Concurrent emission from multiple sources<br><strong>concat:</strong> Sequential emission, one after another<br><strong>zip:</strong> Pairs values from sources in order<br><strong>combineLatest:</strong> Emits latest values from all sources when any source emits",
+      "example": "// merge - concurrent\nmerge(stream1$, stream2$)\n\n// concat - sequential\nconcat(stream1$, stream2$)\n\n// zip - pairs\nzip(stream1$, stream2$)\n\n// combineLatest - latest values\ncombineLatest([stream1$, stream2$])"
+    },
+    {
+      "question": "When would you use combineLatest vs zip?",
+      "answer": "<strong>combineLatest:</strong> When you need the current state from multiple sources (form validation, real-time dashboards)<br><strong>zip:</strong> When you need to pair corresponding values in sequence (parallel processing, coordinated operations)",
+      "example": "// Form validation with combineLatest\ncombineLatest([name$, email$, password$]).pipe(\n  map(([name, email, password]) => ({\n    valid: name && email && password,\n    values: { name, email, password }\n  }))\n);"
+    },
+    {
+      "question": "What is the difference between scan and reduce?",
+      "answer": "<strong>scan:</strong> Emits intermediate accumulated results as they're computed<br><strong>reduce:</strong> Only emits the final accumulated result when the source completes",
+      "example": "// scan - running total\nof(1, 2, 3, 4).pipe(scan((acc, val) => acc + val, 0))\n// Emits: 1, 3, 6, 10\n\n// reduce - final total\nof(1, 2, 3, 4).pipe(reduce((acc, val) => acc + val, 0))\n// Emits: 10 (only when complete)"
+    },
+    {
+      "question": "How do you handle different emission rates in combined streams?",
+      "answer": "Use appropriate combining operators based on requirements: <code>combineLatest</code> for latest values, <code>withLatestFrom</code> for triggered combinations, or <code>sample</code>/<code>audit</code> for rate limiting.",
+      "example": "// Handle fast mouse moves with slow API calls\nmouseMoves$.pipe(\n  withLatestFrom(apiData$),\n  map(([mouseEvent, data]) => processMouseWithData(mouseEvent, data))\n).subscribe();"
+    },
+    {
+      "question": "How do you implement a shopping cart total with RxJS?",
+      "answer": "Use <code>scan</code> to accumulate cart changes over time, and <code>map</code> to calculate totals. Combine with item prices using <code>combineLatest</code> for real-time updates.",
+      "example": "const cartItems$ = cartActions$.pipe(\n  scan((cart, action) => {\n    switch(action.type) {\n      case 'ADD': return [...cart, action.item];\n      case 'REMOVE': return cart.filter(item => item.id !== action.id);\n      default: return cart;\n    }\n  }, [])\n);\n\nconst total$ = combineLatest([cartItems$, prices$]).pipe(\n  map(([items, prices]) => \n    items.reduce((sum, item) => sum + prices[item.id], 0)\n  )\n);"
+    }
   ]
 }

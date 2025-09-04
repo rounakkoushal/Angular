@@ -66,7 +66,7 @@
                 <div class="card-body">
                   <p class="small text-muted mb-2">Each subscriber gets independent execution</p>
                   <button class="btn btn-sm mb-3" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" (click)="demonstrateColdObservable()">Run Cold Observable</button>
-                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
                     <small class="text-muted fw-semibold">Live Results:</small>
                     <div *ngFor="let result of coldResults" class="mt-1">
                       <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-info">{{result.message}}</span>
@@ -86,7 +86,7 @@
                 <div class="card-body">
                   <p class="small text-muted mb-2">All subscribers share the same execution</p>
                   <button class="btn btn-sm mb-3" style="background-color: #dc3545; border-color: #dc3545; color: white;" (click)="demonstrateHotObservable()">Run Hot Observable</button>
-                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
                     <small class="text-muted fw-semibold">Live Results:</small>
                     <div *ngFor="let result of hotResults" class="mt-1">
                       <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-danger">{{result.message}}</span>

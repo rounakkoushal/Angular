@@ -18,8 +18,6 @@ export class ReactiveFormComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
     this.submittedData$ = this.store.select(selectAllFormData);
-    console.log(this.submittedData$);
-    
   }
 
   ngOnInit(): void {

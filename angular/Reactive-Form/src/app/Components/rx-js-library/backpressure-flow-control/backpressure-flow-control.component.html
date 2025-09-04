@@ -1,1 +1,240 @@
-<p>backpressure-flow-control works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+          <h3 class="mb-0 text-secondary">Backpressure & Flow Control</h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading">Definition</h5>
+            <p class="mb-2">Backpressure occurs when data is produced faster than it can be consumed, leading to memory issues and performance problems.</p>
+            <p class="mb-2">Flow control operators in RxJS help manage the rate of data emission and handle scenarios where producers and consumers operate at different speeds.</p>
+            <p class="mb-0">Key operators include throttle, debounce, sample, buffer, and window for controlling data flow and preventing system overload.</p>
+          </div>
+
+          <!-- Concept Overview -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Flow Control Operators</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-clock text-primary me-2"></i><strong>throttle/throttleTime</strong> - Rate limiting</li>
+                    <li class="mb-2"><i class="fas fa-pause text-success me-2"></i><strong>debounce/debounceTime</strong> - Delay emissions</li>
+                    <li class="mb-2"><i class="fas fa-sample text-warning me-2"></i><strong>sample/sampleTime</strong> - Periodic sampling</li>
+                    <li class="mb-0"><i class="fas fa-buffer text-info me-2"></i><strong>buffer/bufferTime</strong> - Collect emissions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Common Scenarios</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Search input optimization</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Button click prevention</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Scroll event handling</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Real-time data streams</li>
+                    <li class="mb-0"><i class="fas fa-check text-success me-2"></i>API rate limiting</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Examples -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Interactive Examples</h4>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Throttle Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Limits emission rate to prevent overwhelming</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="demonstrateThrottle()">Run Throttle Demo</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of throttleResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-primary">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="throttleResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see throttle in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Debounce Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Delays emissions until silence period</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #28a745; border-color: #28a745; color: white;" (click)="demonstrateDebounce()">Run Debounce Demo</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of debounceResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-success">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="debounceResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see debounce in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Examples -->
+          <div class="row">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Code Examples</h4>
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Implementation Examples</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-primary">Throttle Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Throttle scroll events
+fromEvent(window, 'scroll').pipe(
+  throttleTime(100), // Max once per 100ms
+  map(() => window.scrollY)
+).subscribe(scrollY => &#123;
+  console.log('Scroll position:', scrollY);
+&#125;);</code></pre>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-success">Debounce Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Debounce search input
+fromEvent(searchInput, 'input').pipe(
+  debounceTime(300), // Wait 300ms after last input
+  map(event => event.target.value),
+  distinctUntilChanged()
+).subscribe(searchTerm => &#123;
+  performSearch(searchTerm);
+&#125;);</code></pre>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class="text-warning">Buffer Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Buffer clicks for batch processing
+fromEvent(button, 'click').pipe(
+  bufferTime(1000), // Collect clicks for 1 second
+  filter(clicks => clicks.length > 0)
+).subscribe(clickBatch => &#123;
+  console.log(`$&#123;clickBatch.length&#125; clicks`);
+&#125;);</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="text-info">Sample Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Sample mouse position periodically
+fromEvent(document, 'mousemove').pipe(
+  sampleTime(100), // Sample every 100ms
+  map(event => (&#123; x: event.clientX, y: event.clientY &#125;))
+).subscribe(position => &#123;
+  updateCursor(position);
+&#125;);</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MCQ Quiz Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0 text-secondary">Knowledge Check - MCQ Quiz</h5>
+                  <button class="btn btn-sm btn-outline-primary" (click)="generateNewQuiz()" [disabled]="quizLoading">
+                    <span *ngIf="quizLoading" class="spinner-border spinner-border-sm me-1"></span>
+                    {{ quizLoading ? 'Loading...' : 'New Quiz' }}
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div *ngIf="quizLoading" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading questions...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Generating random quiz questions...</p>
+                  </div>
+                  <div *ngIf="!quizSubmitted && !quizLoading && mcqQuestions.length > 0">
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-4">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <div class="form-check" *ngFor="let option of question.options; let j = index">
+                        <input class="form-check-input" type="radio" [name]="'question' + i" [id]="'q' + i + 'o' + j" [value]="j" (change)="selectAnswer(i, j)">
+                        <label class="form-check-label" [for]="'q' + i + 'o' + j">{{ option }}</label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="submitQuiz()">Submit Quiz</button>
+                  </div>
+                  <div *ngIf="quizSubmitted">
+                    <div class="alert alert-info">
+                      <h6>Quiz Results: {{ quizScore }}/{{ mcqQuestions.length }} ({{ getPercentage() }}%)</h6>
+                    </div>
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-3">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <p class="mb-1"><strong>Your Answer:</strong> 
+                        <span [class]="userAnswers[i] === question.correct ? 'text-success' : 'text-danger'">
+                          {{ question.options[userAnswers[i]] || 'Not answered' }}
+                        </span>
+                      </p>
+                      <p class="mb-1"><strong>Correct Answer:</strong> <span class="text-success">{{ question.options[question.correct] }}</span></p>
+                      <p class="text-muted small">{{ question.explanation }}</p>
+                    </div>
+                    <button class="btn btn-secondary" (click)="resetQuiz()">Retake Quiz</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interview Questions Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="mb-0 text-secondary">Interview Questions & Answers</h5>
+                </div>
+                <div class="card-body">
+                  <div class="accordion" id="interviewAccordion">
+                    <div class="accordion-item" *ngFor="let qa of interviewQuestions; let i = index">
+                      <h2 class="accordion-header" [id]="'heading' + i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i">
+                          {{ qa.question }}
+                        </button>
+                      </h2>
+                      <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.data-bs-parent]="'#interviewAccordion'">
+                        <div class="accordion-body">
+                          <div [innerHTML]="qa.answer"></div>
+                          <div *ngIf="qa.example" class="mt-2">
+                            <strong>Example:</strong>
+                            <pre class="bg-light p-2 rounded mt-1"><code>{{ qa.example }}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

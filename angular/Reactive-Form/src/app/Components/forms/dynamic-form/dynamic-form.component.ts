@@ -13,10 +13,7 @@ export class DynamicFormComponent implements OnInit {
   formFields: FormField[] = [];
   submittedData: any[] = [];
 
-  constructor(private formBuilder: FormBuilder, private dynamicFormFieldService: DynamicFormFieldService) { 
-    console.log("form loaded");
-    
-  }
+  constructor(private formBuilder: FormBuilder, private dynamicFormFieldService: DynamicFormFieldService) { }
 
   ngOnInit(): void {
     this.dynamicFormFieldService.getFormFields().subscribe({
@@ -34,7 +31,7 @@ export class DynamicFormComponent implements OnInit {
     const formGroup: any = {};
     this.formFields.forEach(field => {
       const validators = [];
-      
+
       if (field.validators.required) {
         validators.push(Validators.required);
       }
@@ -84,10 +81,10 @@ export class DynamicFormComponent implements OnInit {
 
   editRecord(index: number) {
     const record = this.submittedData[index];
-    
+
     // Patch form values
     this.dynamicForm.patchValue(record);
-    
+
     // Remove record from submitted data
     this.submittedData.splice(index, 1);
   }

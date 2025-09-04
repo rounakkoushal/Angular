@@ -1,1 +1,327 @@
-<p>subjects-multicasting works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+          <h3 class="mb-0 text-secondary">Subjects & Multicasting</h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading">Definition</h5>
+            <p class="mb-2">Subjects are special types of Observables that allow values to be multicasted to many Observers.</p>
+            <p class="mb-2">Unlike regular Observables, Subjects are both Observable and Observer - they can emit values and be subscribed to. This makes them perfect for multicasting scenarios where multiple subscribers need to receive the same values.</p>
+            <p class="mb-0">RxJS provides several Subject types: Subject, BehaviorSubject, ReplaySubject, and AsyncSubject, each with unique characteristics for different use cases.</p>
+          </div>
+
+          <!-- Concept Overview -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Subject Types</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-broadcast-tower text-primary me-2"></i><strong>Subject</strong> - Basic multicasting</li>
+                    <li class="mb-2"><i class="fas fa-memory text-success me-2"></i><strong>BehaviorSubject</strong> - Stores current value</li>
+                    <li class="mb-2"><i class="fas fa-history text-warning me-2"></i><strong>ReplaySubject</strong> - Replays N values</li>
+                    <li class="mb-0"><i class="fas fa-hourglass-end text-info me-2"></i><strong>AsyncSubject</strong> - Emits last value on complete</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Key Characteristics</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Hot Observables by nature</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Multicast to multiple subscribers</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Can emit values imperatively</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Act as both Observable and Observer</li>
+                    <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Perfect for event buses and state management</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Examples -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Interactive Examples</h4>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Subject Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Basic multicasting without initial value</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="demonstrateSubject()">Run Subject Demo</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of subjectResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-primary">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="subjectResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see Subject in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">BehaviorSubject Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Stores and emits current value to new subscribers</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #28a745; border-color: #28a745; color: white;" (click)="demonstrateBehaviorSubject()">Run BehaviorSubject</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of behaviorResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-success">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="behaviorResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see BehaviorSubject in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">ReplaySubject Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Replays last N values to new subscribers</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #ffc107; border-color: #ffc107; color: black;" (click)="demonstrateReplaySubject()">Run ReplaySubject</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of replayResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-warning text-dark">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="replayResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see ReplaySubject in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">AsyncSubject Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Emits only the last value when completed</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" (click)="demonstrateAsyncSubject()">Run AsyncSubject</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of asyncResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-info">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="asyncResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see AsyncSubject in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Examples -->
+          <div class="row">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Code Examples</h4>
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Implementation Examples</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-primary">Subject Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Basic Subject
+const subject = new Subject&lt;number&gt;();
+
+// Subscribe before emitting
+subject.subscribe(value =&gt; console.log('Sub 1:', value));
+subject.subscribe(value =&gt; console.log('Sub 2:', value));
+
+// Emit values
+subject.next(1);
+subject.next(2);
+subject.complete();</code></pre>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-success">BehaviorSubject Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// BehaviorSubject with initial value
+const behavior = new BehaviorSubject&lt;string&gt;('initial');
+
+// Late subscriber gets current value
+behavior.subscribe(console.log); // 'initial'
+
+behavior.next('updated');
+// New subscriber gets latest value
+behavior.subscribe(console.log); // 'updated'</code></pre>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class="text-warning">ReplaySubject Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// ReplaySubject with buffer size 2
+const replay = new ReplaySubject&lt;number&gt;(2);
+
+replay.next(1);
+replay.next(2);
+replay.next(3);
+
+// Late subscriber gets last 2 values
+replay.subscribe(console.log); // 2, 3</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="text-info">AsyncSubject Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// AsyncSubject emits only last value
+const async = new AsyncSubject&lt;number&gt;();
+
+async.subscribe(console.log);
+async.next(1);
+async.next(2);
+async.next(3);
+async.complete(); // Only emits 3</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Use Cases -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Common Use Cases</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #007bff; color: white; font-size: 1rem; padding: 10px;">Subject</div>
+                        <p class="small mt-2 mb-0">Event buses, notifications, simple multicasting</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">BehaviorSubject</div>
+                        <p class="small mt-2 mb-0">State management, current user, configuration settings</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #ffc107; color: black; font-size: 1rem; padding: 10px;">ReplaySubject</div>
+                        <p class="small mt-2 mb-0">Caching, chat history, recent activity logs</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #17a2b8; color: white; font-size: 1rem; padding: 10px;">AsyncSubject</div>
+                        <p class="small mt-2 mb-0">Final results, completion status, last computed value</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MCQ Quiz Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0 text-secondary">Knowledge Check - MCQ Quiz</h5>
+                  <button class="btn btn-sm btn-outline-primary" (click)="generateNewQuiz()" [disabled]="quizLoading">
+                    <span *ngIf="quizLoading" class="spinner-border spinner-border-sm me-1"></span>
+                    {{ quizLoading ? 'Loading...' : 'New Quiz' }}
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div *ngIf="quizLoading" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading questions...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Generating random quiz questions...</p>
+                  </div>
+                  <div *ngIf="!quizSubmitted && !quizLoading && mcqQuestions.length > 0">
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-4">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <div class="form-check" *ngFor="let option of question.options; let j = index">
+                        <input class="form-check-input" type="radio" [name]="'question' + i" [id]="'q' + i + 'o' + j" [value]="j" (change)="selectAnswer(i, j)">
+                        <label class="form-check-label" [for]="'q' + i + 'o' + j">{{ option }}</label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="submitQuiz()">Submit Quiz</button>
+                  </div>
+                  <div *ngIf="quizSubmitted">
+                    <div class="alert alert-info">
+                      <h6>Quiz Results: {{ quizScore }}/{{ mcqQuestions.length }} ({{ getPercentage() }}%)</h6>
+                    </div>
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-3">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <p class="mb-1"><strong>Your Answer:</strong> 
+                        <span [class]="userAnswers[i] === question.correct ? 'text-success' : 'text-danger'">
+                          {{ question.options[userAnswers[i]] || 'Not answered' }}
+                        </span>
+                      </p>
+                      <p class="mb-1"><strong>Correct Answer:</strong> <span class="text-success">{{ question.options[question.correct] }}</span></p>
+                      <p class="text-muted small">{{ question.explanation }}</p>
+                    </div>
+                    <button class="btn btn-secondary" (click)="resetQuiz()">Retake Quiz</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interview Questions Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="mb-0 text-secondary">Interview Questions & Answers</h5>
+                </div>
+                <div class="card-body">
+                  <div class="accordion" id="interviewAccordion">
+                    <div class="accordion-item" *ngFor="let qa of interviewQuestions; let i = index">
+                      <h2 class="accordion-header" [id]="'heading' + i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i">
+                          {{ qa.question }}
+                        </button>
+                      </h2>
+                      <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.data-bs-parent]="'#interviewAccordion'">
+                        <div class="accordion-body">
+                          <div [innerHTML]="qa.answer"></div>
+                          <div *ngIf="qa.example" class="mt-2">
+                            <strong>Example:</strong>
+                            <pre class="bg-light p-2 rounded mt-1"><code>{{ qa.example }}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -61,7 +61,7 @@
                 <div class="card-body">
                   <p class="small text-muted mb-2">Executes tasks asynchronously using setTimeout</p>
                   <button class="btn btn-sm mb-3" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="demonstrateAsyncScheduler()">Run AsyncScheduler</button>
-                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
                     <small class="text-muted fw-semibold">Live Results:</small>
                     <div *ngFor="let result of asyncResults" class="mt-1">
                       <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-primary">{{result.message}}</span>
@@ -81,7 +81,7 @@
                 <div class="card-body">
                   <p class="small text-muted mb-2">Executes tasks synchronously in queue order</p>
                   <button class="btn btn-sm mb-3" style="background-color: #ffc107; border-color: #ffc107; color: black;" (click)="demonstrateQueueScheduler()">Run QueueScheduler</button>
-                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 150px; overflow-y: auto;">
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
                     <small class="text-muted fw-semibold">Live Results:</small>
                     <div *ngFor="let result of queueResults" class="mt-1">
                       <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-warning text-dark">{{result.message}}</span>

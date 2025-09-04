@@ -114,8 +114,6 @@ export class HigherOrderObservablesComponent implements OnInit, OnDestroy {
     this.quizService.generateMCQQuestions('higher-order-observables')
       .pipe(takeUntil(this.destroy$))
       .subscribe(questions => {
-        console.log(questions);
-        
         this.mcqQuestions = questions;
         this.quizLoading = false;
       });

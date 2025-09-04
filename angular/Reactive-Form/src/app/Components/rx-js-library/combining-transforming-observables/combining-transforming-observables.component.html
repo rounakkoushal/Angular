@@ -1,1 +1,275 @@
-<p>combining-transforming-observables works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+          <h3 class="mb-0 text-secondary">Combining & Transforming Observables</h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading">Definition</h5>
+            <p class="mb-2">RxJS provides powerful operators to combine multiple Observables and transform their emissions in various ways.</p>
+            <p class="mb-2">Combining operators like merge, concat, zip, and combineLatest allow you to work with multiple data streams simultaneously.</p>
+            <p class="mb-0">Transformation operators like map, scan, reduce, and groupBy help reshape and process Observable emissions to meet your application needs.</p>
+          </div>
+
+          <!-- Concept Overview -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Combining Operators</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-code-branch text-primary me-2"></i><strong>merge</strong> - Concurrent combination</li>
+                    <li class="mb-2"><i class="fas fa-link text-success me-2"></i><strong>concat</strong> - Sequential combination</li>
+                    <li class="mb-2"><i class="fas fa-compress text-warning me-2"></i><strong>zip</strong> - Pair-wise combination</li>
+                    <li class="mb-0"><i class="fas fa-layer-group text-info me-2"></i><strong>combineLatest</strong> - Latest values combination</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Transformation Operators</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-exchange-alt text-primary me-2"></i><strong>map</strong> - Transform values</li>
+                    <li class="mb-2"><i class="fas fa-calculator text-success me-2"></i><strong>scan</strong> - Accumulate over time</li>
+                    <li class="mb-2"><i class="fas fa-compress-arrows-alt text-warning me-2"></i><strong>reduce</strong> - Single accumulated result</li>
+                    <li class="mb-0"><i class="fas fa-object-group text-info me-2"></i><strong>groupBy</strong> - Group by key</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Examples -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Interactive Examples</h4>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Merge Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Combines multiple streams concurrently</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="demonstrateMerge()">Run Merge Demo</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of mergeResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-primary">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="mergeResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see merge in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">CombineLatest Demo</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Combines latest values from multiple streams</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #28a745; border-color: #28a745; color: white;" (click)="demonstrateCombineLatest()">Run CombineLatest</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Live Results:</small>
+                    <div *ngFor="let result of combineResults" class="mt-1">
+                      <small class="text-muted">{{result.timestamp}}</small> - <span class="badge bg-success">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="combineResults.length === 0" class="text-muted small mt-2">
+                      Click the button to see combineLatest in action
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Examples -->
+          <div class="row">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Code Examples</h4>
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Implementation Examples</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-primary">Merge Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Merge multiple streams
+const stream1$ = interval(1000).pipe(map(i => `A$&#123;i&#125;`));
+const stream2$ = interval(1500).pipe(map(i => `B$&#123;i&#125;`));
+
+merge(stream1$, stream2$).subscribe(console.log);
+// Output: A0, B0, A1, A2, B1, A3...</code></pre>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-success">CombineLatest Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Combine latest values
+const name$ = of('John', 'Jane');
+const age$ = of(25, 30);
+
+combineLatest([name$, age$]).subscribe(([name, age]) => &#123;
+  console.log(`$&#123;name&#125; is $&#123;age&#125; years old`);
+&#125;);</code></pre>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class="text-warning">Zip Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Zip streams together
+const numbers$ = of(1, 2, 3);
+const letters$ = of('a', 'b', 'c');
+
+zip(numbers$, letters$).subscribe(([num, letter]) => &#123;
+  console.log(`$&#123;num&#125;$&#123;letter&#125;`);
+&#125;);
+// Output: 1a, 2b, 3c</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="text-info">Scan Example</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>// Accumulate values over time
+of(1, 2, 3, 4, 5).pipe(
+  scan((acc, curr) => acc + curr, 0)
+).subscribe(console.log);
+// Output: 1, 3, 6, 10, 15</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Operator Comparison -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Operator Comparison</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #007bff; color: white; font-size: 1rem; padding: 10px;">merge</div>
+                        <p class="small mt-2 mb-0">Concurrent emission from multiple sources</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">concat</div>
+                        <p class="small mt-2 mb-0">Sequential emission, one after another</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #ffc107; color: black; font-size: 1rem; padding: 10px;">zip</div>
+                        <p class="small mt-2 mb-0">Pair values from sources in order</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #17a2b8; color: white; font-size: 1rem; padding: 10px;">combineLatest</div>
+                        <p class="small mt-2 mb-0">Latest value from each source</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MCQ Quiz Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0 text-secondary">Knowledge Check - MCQ Quiz</h5>
+                  <button class="btn btn-sm btn-outline-primary" (click)="generateNewQuiz()" [disabled]="quizLoading">
+                    <span *ngIf="quizLoading" class="spinner-border spinner-border-sm me-1"></span>
+                    {{ quizLoading ? 'Loading...' : 'New Quiz' }}
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div *ngIf="quizLoading" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading questions...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Generating random quiz questions...</p>
+                  </div>
+                  <div *ngIf="!quizSubmitted && !quizLoading && mcqQuestions.length > 0">
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-4">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <div class="form-check" *ngFor="let option of question.options; let j = index">
+                        <input class="form-check-input" type="radio" [name]="'question' + i" [id]="'q' + i + 'o' + j" [value]="j" (change)="selectAnswer(i, j)">
+                        <label class="form-check-label" [for]="'q' + i + 'o' + j">{{ option }}</label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="submitQuiz()">Submit Quiz</button>
+                  </div>
+                  <div *ngIf="quizSubmitted">
+                    <div class="alert alert-info">
+                      <h6>Quiz Results: {{ quizScore }}/{{ mcqQuestions.length }} ({{ getPercentage() }}%)</h6>
+                    </div>
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-3">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <p class="mb-1"><strong>Your Answer:</strong> 
+                        <span [class]="userAnswers[i] === question.correct ? 'text-success' : 'text-danger'">
+                          {{ question.options[userAnswers[i]] || 'Not answered' }}
+                        </span>
+                      </p>
+                      <p class="mb-1"><strong>Correct Answer:</strong> <span class="text-success">{{ question.options[question.correct] }}</span></p>
+                      <p class="text-muted small">{{ question.explanation }}</p>
+                    </div>
+                    <button class="btn btn-secondary" (click)="resetQuiz()">Retake Quiz</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interview Questions Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="mb-0 text-secondary">Interview Questions & Answers</h5>
+                </div>
+                <div class="card-body">
+                  <div class="accordion" id="interviewAccordion">
+                    <div class="accordion-item" *ngFor="let qa of interviewQuestions; let i = index">
+                      <h2 class="accordion-header" [id]="'heading' + i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i">
+                          {{ qa.question }}
+                        </button>
+                      </h2>
+                      <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.data-bs-parent]="'#interviewAccordion'">
+                        <div class="accordion-body">
+                          <div [innerHTML]="qa.answer"></div>
+                          <div *ngIf="qa.example" class="mt-2">
+                            <strong>Example:</strong>
+                            <pre class="bg-light p-2 rounded mt-1"><code>{{ qa.example }}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

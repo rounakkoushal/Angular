@@ -1,1 +1,276 @@
-<p>testing-marble-diagrams works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+          <h3 class="mb-0 text-secondary">Testing & Marble Diagrams</h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading">Definition</h5>
+            <p class="mb-2">Marble diagrams are visual representations of Observable streams over time, showing when values are emitted, errors occur, or streams complete.</p>
+            <p class="mb-2">RxJS TestScheduler enables marble testing, allowing you to test complex asynchronous Observable behavior synchronously with virtual time control.</p>
+            <p class="mb-0">Marble syntax uses characters to represent emissions: letters/numbers for values, | for completion, # for errors, and - for time frames.</p>
+          </div>
+
+          <!-- Concept Overview -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Marble Syntax</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-circle text-primary me-2"></i><strong>a, b, c</strong> - Emitted values</li>
+                    <li class="mb-2"><i class="fas fa-minus text-success me-2"></i><strong>-</strong> - Time frame (10ms)</li>
+                    <li class="mb-2"><i class="fas fa-stop text-warning me-2"></i><strong>|</strong> - Completion</li>
+                    <li class="mb-2"><i class="fas fa-times text-danger me-2"></i><strong>#</strong> - Error</li>
+                    <li class="mb-0"><i class="fas fa-clock text-info me-2"></i><strong>^</strong> - Subscription point</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Testing Benefits</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Synchronous async testing</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Virtual time control</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Precise timing verification</li>
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Complex scenario testing</li>
+                    <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Visual test documentation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Examples -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Interactive Examples</h4>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Basic Marble Test</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Simple marble diagram testing</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="demonstrateBasicMarble()">Run Basic Test</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Test Results:</small>
+                    <div *ngFor="let result of basicMarbleResults" class="mt-1">
+                      <span class="badge" [class]="result.success ? 'bg-success' : 'bg-danger'">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="basicMarbleResults.length === 0" class="text-muted small mt-2">
+                      Click the button to run marble tests
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Operator Testing</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small text-muted mb-2">Testing RxJS operators with marbles</p>
+                  <button class="btn btn-sm mb-3" style="background-color: #28a745; border-color: #28a745; color: white;" (click)="demonstrateOperatorTesting()">Test Operators</button>
+                  <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; min-height: 100px; overflow-y: auto;">
+                    <small class="text-muted fw-semibold">Test Results:</small>
+                    <div *ngFor="let result of operatorTestResults" class="mt-1">
+                      <span class="badge" [class]="result.success ? 'bg-success' : 'bg-danger'">{{result.message}}</span>
+                    </div>
+                    <div *ngIf="operatorTestResults.length === 0" class="text-muted small mt-2">
+                      Click the button to test operators
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Examples -->
+          <div class="row">
+            <div class="col-12">
+              <h4 class="text-secondary mb-3">Code Examples</h4>
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h6 class="mb-0 text-secondary">Testing Examples</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-primary">Basic Marble Test</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>testScheduler.run((&#123; cold, expectObservable &#125;) => &#123;
+  const source$ = cold('a-b-c|');
+  const expected = 'a-b-c|';
+  
+  expectObservable(source$).toBe(expected);
+&#125;);</code></pre>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <h6 class="text-success">Operator Testing</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>testScheduler.run((&#123; cold, expectObservable &#125;) => &#123;
+  const source$ = cold('a-b-c|');
+  const result$ = source$.pipe(map(x => x.toUpperCase()));
+  const expected = 'A-B-C|';
+  
+  expectObservable(result$).toBe(expected);
+&#125;);</code></pre>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h6 class="text-warning">Error Testing</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>testScheduler.run((&#123; cold, expectObservable &#125;) => &#123;
+  const source$ = cold('a-b-#');
+  const expected = 'a-b-#';
+  
+  expectObservable(source$).toBe(expected);
+&#125;);</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                      <h6 class="text-info">Subscription Testing</h6>
+                      <pre class="bg-dark text-light p-3 rounded small"><code>testScheduler.run((&#123; cold, expectSubscriptions &#125;) => &#123;
+  const source$ = cold('a-b-c|');
+  const subs = '^----!';
+  
+  expectSubscriptions(source$.subscriptions).toBe(subs);
+&#125;);</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marble Diagram Examples -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+                  <h5 class="mb-0 text-secondary">Common Marble Patterns</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #007bff; color: white; font-size: 1rem; padding: 10px;">a-b-c|</div>
+                        <p class="small mt-2 mb-0">Simple emission sequence with completion</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px;">a---b---c</div>
+                        <p class="small mt-2 mb-0">Delayed emissions with gaps</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #dc3545; color: white; font-size: 1rem; padding: 10px;">a-b-#</div>
+                        <p class="small mt-2 mb-0">Emission sequence ending with error</p>
+                      </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                      <div class="p-3">
+                        <div class="badge" style="background-color: #6c757d; color: white; font-size: 1rem; padding: 10px;">^--!</div>
+                        <p class="small mt-2 mb-0">Subscription and unsubscription timing</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MCQ Quiz Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0 text-secondary">Knowledge Check - MCQ Quiz</h5>
+                  <button class="btn btn-sm btn-outline-primary" (click)="generateNewQuiz()" [disabled]="quizLoading">
+                    <span *ngIf="quizLoading" class="spinner-border spinner-border-sm me-1"></span>
+                    &#123;&#123; quizLoading ? 'Loading...' : 'New Quiz' &#125;&#125;
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div *ngIf="quizLoading" class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading questions...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Generating random quiz questions...</p>
+                  </div>
+                  <div *ngIf="!quizSubmitted && !quizLoading && mcqQuestions.length > 0">
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-4">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <div class="form-check" *ngFor="let option of question.options; let j = index">
+                        <input class="form-check-input" type="radio" [name]="'question' + i" [id]="'q' + i + 'o' + j" [value]="j" (change)="selectAnswer(i, j)">
+                        <label class="form-check-label" [for]="'q' + i + 'o' + j">{{ option }}</label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="submitQuiz()">Submit Quiz</button>
+                  </div>
+                  <div *ngIf="quizSubmitted">
+                    <div class="alert alert-info">
+                      <h6>Quiz Results: {{ quizScore }}/{{ mcqQuestions.length }} ({{ getPercentage() }}%)</h6>
+                    </div>
+                    <div *ngFor="let question of mcqQuestions; let i = index" class="mb-3">
+                      <h6 class="text-primary">{{ i + 1 }}. {{ question.question }}</h6>
+                      <p class="mb-1"><strong>Your Answer:</strong> 
+                        <span [class]="userAnswers[i] === question.correct ? 'text-success' : 'text-danger'">
+                          {{ question.options[userAnswers[i]] || 'Not answered' }}
+                        </span>
+                      </p>
+                      <p class="mb-1"><strong>Correct Answer:</strong> <span class="text-success">{{ question.options[question.correct] }}</span></p>
+                      <p class="text-muted small">{{ question.explanation }}</p>
+                    </div>
+                    <button class="btn btn-secondary" (click)="resetQuiz()">Retake Quiz</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interview Questions Section -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                  <h5 class="mb-0 text-secondary">Interview Questions & Answers</h5>
+                </div>
+                <div class="card-body">
+                  <div class="accordion" id="interviewAccordion">
+                    <div class="accordion-item" *ngFor="let qa of interviewQuestions; let i = index">
+                      <h2 class="accordion-header" [id]="'heading' + i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i">
+                          {{ qa.question }}
+                        </button>
+                      </h2>
+                      <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.data-bs-parent]="'#interviewAccordion'">
+                        <div class="accordion-body">
+                          <div [innerHTML]="qa.answer"></div>
+                          <div *ngIf="qa.example" class="mt-2">
+                            <strong>Example:</strong>
+                            <pre class="bg-light p-2 rounded mt-1"><code>{{ qa.example }}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

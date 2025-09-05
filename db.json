@@ -1,169 +1,81 @@
- {
-    "higher-order-observables": [
-      {
-        "question": "What is the primary characteristic of a higher-order observable?",
-        "options": [
-          "It emits primitive values",
-          "It emits other observables",
-          "It has higher priority",
-          "It runs on main thread"
-        ],
-        "correct": 1,
-        "explanation": "Higher-order observables emit other observables as their values, creating nested observable streams."
-      },
-      {
-        "question": "Which operator cancels previous inner observables when a new one arrives?",
-        "options": [
-          "mergeMap",
-          "switchMap",
-          "concatMap",
-          "exhaustMap"
-        ],
-        "correct": 1,
-        "explanation": "switchMap cancels the previous inner observable subscription when a new value arrives."
-      },
-      {
-        "question": "What does concatMap guarantee that mergeMap doesn't?",
-        "options": [
-          "Better performance",
-          "Order preservation",
-          "Error handling",
-          "Memory efficiency"
-        ],
-        "correct": 1,
-        "explanation": "concatMap maintains the order of emissions by processing inner observables sequentially."
-      },
-      {
-        "question": "When is exhaustMap most useful?",
-        "options": [
-          "Search functionality",
-          "Data transformation",
-          "Preventing duplicate operations",
-          "Error recovery"
-        ],
-        "correct": 2,
-        "explanation": "exhaustMap ignores new emissions while current inner observable is active, preventing duplicates."
-      },
-      {
-        "question": "What happens with mergeMap when multiple inner observables emit simultaneously?",
-        "options": [
-          "Only first emission is kept",
-          "Emissions are queued",
-          "All emissions are merged",
-          "Last emission overwrites others"
-        ],
-        "correct": 2,
-        "explanation": "mergeMap allows all inner observables to emit concurrently and merges all their emissions."
-      },
-      {
-        "question": "Which scenario is ideal for switchMap?",
-        "options": [
-          "File upload queue",
-          "Real-time search",
-          "Sequential API calls",
-          "Login attempts"
-        ],
-        "correct": 1,
-        "explanation": "switchMap is perfect for search as it cancels outdated requests when new search terms arrive."
-      },
-      {
-        "question": "What is the main memory concern with mergeMap?",
-        "options": [
-          "CPU usage",
-          "Multiple active subscriptions",
-          "Slow emissions",
-          "Error propagation"
-        ],
-        "correct": 1,
-        "explanation": "mergeMap can create many concurrent subscriptions, potentially leading to memory leaks."
-      },
-      {
-        "question": "How does exhaustMap handle rapid successive emissions?",
-        "options": [
-          "Processes all",
-          "Cancels previous",
-          "Ignores new ones",
-          "Queues them"
-        ],
-        "correct": 2,
-        "explanation": "exhaustMap ignores new emissions while the current inner observable is still active."
-      },
-      {
-        "question": "What's the relationship between flatMap and mergeMap?",
-        "options": [
-          "flatMap is deprecated",
-          "They are identical",
-          "flatMap is faster",
-          "mergeMap handles errors better"
-        ],
-        "correct": 1,
-        "explanation": "flatMap and mergeMap are aliases - they perform exactly the same operation."
-      },
-      {
-        "question": "Which operator should you use for a button that triggers HTTP requests?",
-        "options": [
-          "mergeMap",
-          "switchMap",
-          "concatMap",
-          "exhaustMap"
-        ],
-        "correct": 3,
-        "explanation": "exhaustMap prevents multiple simultaneous requests from rapid button clicks."
-      },
-      {
-        "question": "What does the 'flattening' process do in RxJS?",
-        "options": [
-          "Reduces array dimensions",
-          "Converts higher-order observables to regular observables",
-          "Improves performance",
-          "Handles errors"
-        ],
-        "correct": 1,
-        "explanation": "Flattening converts nested observable structures into a single observable stream."
-      },
-      {
-        "question": "In which order does concatMap process inner observables?",
-        "options": [
-          "Random order",
-          "Parallel processing",
-          "Sequential order",
-          "Priority based"
-        ],
-        "correct": 2,
-        "explanation": "concatMap processes inner observables one at a time in the order they were created."
-      },
-      {
-        "question": "What is the key difference between mergeMap and switchMap in terms of subscription management?",
-        "options": [
-          "No difference",
-          "mergeMap keeps all subscriptions active",
-          "switchMap keeps all subscriptions active",
-          "Both cancel previous subscriptions"
-        ],
-        "correct": 1,
-        "explanation": "mergeMap maintains all inner subscriptions while switchMap cancels previous ones."
-      },
-      {
-        "question": "Which operator would you choose for implementing autocomplete functionality?",
-        "options": [
-          "mergeMap",
-          "switchMap",
-          "concatMap",
-          "exhaustMap"
-        ],
-        "correct": 1,
-        "explanation": "switchMap is ideal for autocomplete as it cancels previous search requests when new input arrives."
-      },
-      {
-        "question": "What happens if an inner observable in concatMap never completes?",
-        "options": [
-          "Next observables are processed anyway",
-          "The entire stream blocks",
-          "An error is thrown",
-          "It switches to mergeMap behavior"
-        ],
-        "correct": 1,
-        "explanation": "concatMap waits for each inner observable to complete before processing the next one."
-      }
-    ]
-  }
+{
+  "higher-order-observables": [
+    {
+      "question": "What is the primary characteristic of a higher-order observable?",
+      "options": [
+        "It emits primitive values",
+        "It emits other observables",
+        "It has higher priority",
+        "It runs on main thread"
+      ],
+      "correct": 1,
+      "explanation": "Higher-order observables emit other observables as their values, creating nested observable streams."
+    },
+    {
+      "question": "Which operator cancels previous inner observables when a new one arrives?",
+      "options": [
+        "mergeMap",
+        "switchMap",
+        "concatMap",
+        "exhaustMap"
+      ],
+      "correct": 1,
+      "explanation": "switchMap cancels the previous inner observable subscription when a new value arrives."
+    },
+    {
+      "question": "What does concatMap guarantee that mergeMap doesn't?",
+      "options": [
+        "Better performance",
+        "Order preservation",
+        "Error handling",
+        "Memory efficiency"
+      ],
+      "correct": 1,
+      "explanation": "concatMap maintains the order of emissions by processing inner observables sequentially."
+    },
+    {
+      "question": "When is exhaustMap most useful?",
+      "options": [
+        "Search functionality",
+        "Data transformation",
+        "Preventing duplicate operations",
+        "Error recovery"
+      ],
+      "correct": 2,
+      "explanation": "exhaustMap ignores new emissions while current inner observable is active, preventing duplicates."
+    },
+    {
+      "question": "What happens with mergeMap when multiple inner observables emit simultaneously?",
+      "options": [
+        "Only first emission is kept",
+        "Emissions are queued",
+        "All emissions are merged",
+        "Last emission overwrites others"
+      ],
+      "correct": 2,
+      "explanation": "mergeMap allows all inner observables to emit concurrently and merges all their emissions."
+    },
+    {
+      "question": "Which scenario is ideal for switchMap?",
+      "options": [
+        "File upload queue",
+        "Real-time search",
+        "Sequential API calls",
+        "Login attempts"
+      ],
+      "correct": 1,
+      "explanation": "switchMap is perfect for search as it cancels outdated requests when new search terms arrive."
+    },
+    {
+      "question": "What is the main memory concern with mergeMap?",
+      "options": [
+        "CPU usage",
+        "Multiple active subscriptions",
+        "Slow emissions",
+        "Error propagation"
+      ],
+      "correct": 1,
+      "explanation": "mergeMap can create many concurrent subscriptions, potentially leading to memory leaks."
+    }
+  ]
+}

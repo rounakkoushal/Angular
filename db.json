@@ -41,54 +41,6 @@
       "options": ["CPU usage", "Multiple active subscriptions", "Slow emissions", "Error propagation"],
       "correct": 1,
       "explanation": "mergeMap can create many concurrent subscriptions, potentially leading to memory leaks."
-    },
-    {
-      "question": "How does exhaustMap handle rapid successive emissions?",
-      "options": ["Processes all", "Cancels previous", "Ignores new ones", "Queues them"],
-      "correct": 2,
-      "explanation": "exhaustMap ignores new emissions while the current inner observable is still active."
-    },
-    {
-      "question": "What's the relationship between flatMap and mergeMap?",
-      "options": ["flatMap is deprecated", "They are identical", "flatMap is faster", "mergeMap handles errors better"],
-      "correct": 1,
-      "explanation": "flatMap and mergeMap are aliases - they perform exactly the same operation."
-    },
-    {
-      "question": "Which operator should you use for a button that triggers HTTP requests?",
-      "options": ["mergeMap", "switchMap", "concatMap", "exhaustMap"],
-      "correct": 3,
-      "explanation": "exhaustMap prevents multiple simultaneous requests from rapid button clicks."
-    },
-    {
-      "question": "What does the 'flattening' process do in RxJS?",
-      "options": ["Reduces array dimensions", "Converts higher-order observables to regular observables", "Improves performance", "Handles errors"],
-      "correct": 1,
-      "explanation": "Flattening converts nested observable structures into a single observable stream."
-    },
-    {
-      "question": "In which order does concatMap process inner observables?",
-      "options": ["Random order", "Parallel processing", "Sequential order", "Priority based"],
-      "correct": 2,
-      "explanation": "concatMap processes inner observables one at a time in the order they were created."
-    },
-    {
-      "question": "What is the key difference between mergeMap and switchMap in terms of subscription management?",
-      "options": ["No difference", "mergeMap keeps all subscriptions active", "switchMap keeps all subscriptions active", "Both cancel previous subscriptions"],
-      "correct": 1,
-      "explanation": "mergeMap maintains all inner subscriptions while switchMap cancels previous ones."
-    },
-    {
-      "question": "Which operator would you choose for implementing autocomplete functionality?",
-      "options": ["mergeMap", "switchMap", "concatMap", "exhaustMap"],
-      "correct": 1,
-      "explanation": "switchMap is ideal for autocomplete as it cancels previous search requests when new input arrives."
-    },
-    {
-      "question": "What happens if an inner observable in concatMap never completes?",
-      "options": ["Next observables are processed anyway", "The entire stream blocks", "An error is thrown", "It switches to mergeMap behavior"],
-      "correct": 1,
-      "explanation": "concatMap waits for each inner observable to complete before processing the next one."
     }
   ],
   "custom-operators": [
@@ -265,18 +217,6 @@
       "options": ["No difference", "subscribeOn affects subscription, observeOn affects emissions", "observeOn is deprecated", "subscribeOn is faster"],
       "correct": 1,
       "explanation": "subscribeOn controls when subscription occurs, observeOn controls when emissions are delivered."
-    },
-    {
-      "question": "Which scheduler would you use for testing with virtual time?",
-      "options": ["asyncScheduler", "TestScheduler", "queueScheduler", "asapScheduler"],
-      "correct": 1,
-      "explanation": "TestScheduler is specifically designed for testing with virtual time control."
-    },
-    {
-      "question": "What happens if you don't specify a scheduler?",
-      "options": ["Error occurs", "Uses default scheduler", "No execution", "Uses asyncScheduler"],
-      "correct": 1,
-      "explanation": "RxJS uses appropriate default schedulers based on the operator and context."
     }
   ],
   "subjects-multicasting": [
@@ -315,30 +255,6 @@
       "options": ["Better performance", "Multiple subscribers share the same execution", "Easier error handling", "Automatic completion"],
       "correct": 1,
       "explanation": "Subjects enable multiple subscribers to share the same execution, avoiding duplicate work."
-    },
-    {
-      "question": "Which Subject type is best for representing current application state?",
-      "options": ["Subject", "BehaviorSubject", "ReplaySubject", "AsyncSubject"],
-      "correct": 1,
-      "explanation": "BehaviorSubject is ideal for state management as it always has a current value."
-    },
-    {
-      "question": "What happens if you call next() on a completed Subject?",
-      "options": ["Value is emitted normally", "Nothing happens", "An error is thrown", "Subject restarts"],
-      "correct": 1,
-      "explanation": "Once a Subject is completed, calling next() has no effect - the value is ignored."
-    },
-    {
-      "question": "Which Subject type would you use for implementing a chat history feature?",
-      "options": ["Subject", "BehaviorSubject", "ReplaySubject", "AsyncSubject"],
-      "correct": 2,
-      "explanation": "ReplaySubject can store and replay multiple previous messages to new subscribers."
-    },
-    {
-      "question": "Are Subjects Hot or Cold Observables?",
-      "options": ["Cold", "Hot", "Both", "Neither"],
-      "correct": 1,
-      "explanation": "All Subject types are Hot Observables - they multicast to multiple subscribers."
     }
   ],
   "backpressure-flow-control": [
@@ -403,38 +319,6 @@
       "options": ["Error", "Completion", "Time frame", "Subscription"],
       "correct": 2,
       "explanation": "The '-' character represents a time frame (typically 10ms) in marble diagram syntax."
-    }
-  ],
-  "combining-transforming-observables": [
-    {
-      "question": "What does the merge operator do?",
-      "options": ["Combines streams sequentially", "Combines streams concurrently", "Pairs values together", "Takes latest values"],
-      "correct": 1,
-      "explanation": "The merge operator combines multiple Observable streams concurrently, emitting values as they arrive."
-    },
-    {
-      "question": "How does zip differ from combineLatest?",
-      "options": ["No difference", "zip pairs values in order, combineLatest uses latest values", "zip is faster", "combineLatest is deprecated"],
-      "correct": 1,
-      "explanation": "zip pairs values from sources in order, while combineLatest emits whenever any source emits using the latest values."
-    },
-    {
-      "question": "What does the scan operator do?",
-      "options": ["Filters values", "Accumulates values over time", "Transforms values", "Delays emissions"],
-      "correct": 1,
-      "explanation": "The scan operator accumulates values over time, emitting each intermediate result."
-    },
-    {
-      "question": "When does combineLatest start emitting?",
-      "options": ["Immediately", "After first source emits", "After all sources have emitted at least once", "After completion"],
-      "correct": 2,
-      "explanation": "combineLatest waits until all source Observables have emitted at least one value before starting to emit."
-    },
-    {
-      "question": "What is the difference between scan and reduce?",
-      "options": ["No difference", "scan emits intermediate results, reduce emits only final result", "reduce is faster", "scan handles errors better"],
-      "correct": 1,
-      "explanation": "scan emits each intermediate accumulated result, while reduce only emits the final accumulated result."
     }
   ]
 }

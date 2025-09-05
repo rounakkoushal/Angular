@@ -26,13 +26,20 @@ export class QuizService {
     );
   }
 
+  // generateMCQQuestions(topic: string): Observable<MCQQuestion[]> {
+  //   const apiUrl = `https://my-json-server.typicode.com/rounakkoushal/Angular/${topic}`;  
+  //   return this.http.get<MCQQuestion[]>(apiUrl).pipe(
+  //     map(questions => {
+  //       return this.shuffleArray(questions).slice(0, 10);
+  //     })
+  //   );
+  // }  
+
   getInterviewQuestions(topic: string): Observable<any[]> {
     return this.http.get<{[key: string]: any[]}>('/assets/data/interview-questions.json').pipe(
       map(data => data[topic] || [])
     );
   }
-
-
 
   private shuffleArray<T>(array: T[]): T[] {
     const shuffled = [...array];

@@ -6,11 +6,20 @@ import { PageNotFoundComponent } from './Components/Shared/page-not-found/page-n
 import { FormsComponent } from './Components/forms/forms.component';
 import { DynamicFormComponent } from './Components/forms/dynamic-form/dynamic-form.component';
 import { ReactiveFormComponent } from './Components/forms/reactive-form/reactive-form.component';
+import { LoginComponent } from './Components/auth/login/login.component';
+import { RegisterComponent } from './Components/auth/register/register.component';
+import { UserDashboardComponent } from './Components/dashboard/user-dashboard/user-dashboard.component';
+import { AdminDashboardComponent } from './Components/dashboard/admin-dashboard/admin-dashboard.component';
+import { AuthGuard, AdminGuard } from './Guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/employee/employeeList' },
+  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   {
-    path: '', component: HomeComponent, children: [
+    path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'employee', loadChildren: () => import('./Components/employee/employee.module').then(m => m.EmployeeModule) },
       { path: 'department', loadChildren: () => import('./Components/department/department.module').then(m => m.DepartmentModule) },
       {
@@ -43,4 +52,8 @@ export const routingComponents = [
   DynamicFormComponent,
   ReactiveFormComponent,
   NavbarComponent,
-  PageNotFoundComponent]
+  PageNotFoundComponent,
+  LoginComponent,
+  RegisterComponent,
+  UserDashboardComponent,
+  AdminDashboardComponent]

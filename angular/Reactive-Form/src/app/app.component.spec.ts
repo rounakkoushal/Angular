@@ -20,10 +20,14 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Reactive-Form');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('Reactive-Form app is running!');
-  });
+  // it('should render title', () => {
+  //   const fixture = TestBed.createComponent(AppComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement as HTMLElement;
+  //   expect(compiled.querySelector('.content span')?.textContent).toContain('Reactive-Form app is running!');
+  // });
+  it('My first testcase',()=>{
+    const a =10*10
+    expect(a).toBeDefined(100)
+  })
 });

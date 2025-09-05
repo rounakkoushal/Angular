@@ -1,0 +1,159 @@
+<app-navbar></app-navbar>
+<div class="container-fluid" style="margin-top: 80px;">
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-4">
+        <h2 class="text-secondary">Admin Dashboard</h2>
+      </div>
+
+      <!-- Admin Overview -->
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #007bff; color: white;">
+            <div class="card-body text-center">
+              <h5>Total Users</h5>
+              <h2>{{ allUsers.length }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #28a745; color: white;">
+            <div class="card-body text-center">
+              <h5>Active Learners</h5>
+              <h2>{{ getActiveLearners() }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #17a2b8; color: white;">
+            <div class="card-body text-center">
+              <h5>Avg Completion</h5>
+              <h2>{{ getAverageCompletion() }}%</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #ffc107; color: white;">
+            <div class="card-body text-center">
+              <h5>Top Performers</h5>
+              <h2>{{ getTopPerformers() }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Controls -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+              <h5 class="mb-0 text-secondary">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+              <div class="d-grid gap-2">
+                <a routerLink="/rxjs-library" class="btn" style="background-color: #007bff; border-color: #007bff; color: white;">Manage RxJS Content</a>
+                <a routerLink="/ngrx-state-management" class="btn" style="background-color: #28a745; border-color: #28a745; color: white;">Manage NgRx Content</a>
+                <button class="btn" style="background-color: #17a2b8; border-color: #17a2b8; color: white;" (click)="exportUserData()">Export User Data</button>
+                <button class="btn" style="background-color: #ffc107; border-color: #ffc107; color: white;" (click)="resetAllProgress()">Reset All Progress</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+              <h5 class="mb-0 text-secondary">System Statistics</h5>
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-6 mb-3">
+                  <h6 class="text-muted">Total Quizzes Taken</h6>
+                  <h4 style="color: #007bff;">{{ getTotalQuizzes() }}</h4>
+                </div>
+                <div class="col-6 mb-3">
+                  <h6 class="text-muted">Average Score</h6>
+                  <h4 style="color: #28a745;">{{ getSystemAverageScore() }}%</h4>
+                </div>
+                <div class="col-6">
+                  <h6 class="text-muted">Topics Available</h6>
+                  <h4 style="color: #17a2b8;">12</h4>
+                </div>
+                <div class="col-6">
+                  <h6 class="text-muted">Completion Rate</h6>
+                  <h4 style="color: #ffc107;">{{ getCompletionRate() }}%</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Progress Table -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+              <h5 class="mb-0 text-secondary">User Progress Overview</h5>
+              <div class="input-group" style="width: 300px;">
+                <input type="text" class="form-control" placeholder="Search users..." [(ngModel)]="searchTerm">
+                <button class="btn btn-outline-secondary" type="button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div *ngIf="getFilteredUsers().length === 0" class="text-center text-muted py-4">
+                No users found.
+              </div>
+              <div class="table-responsive" *ngIf="getFilteredUsers().length > 0">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>User</th>
+                      <th>Email</th>
+                      <th>Topics Completed</th>
+                      <th>Total Score</th>
+                      <th>Average Score</th>
+                      <th>Progress</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of getFilteredUsers()">
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>
+                        <span class="badge" style="background-color: #007bff; color: white;">{{ user.progress.completedTopics.length }}/12</span>
+                      </td>
+                      <td>{{ user.progress.totalScore }}</td>
+                      <td>
+                        <span class="badge" [style.background-color]="getScoreBadgeColor(getUserAverageScore(user))" style="color: white;">
+                          {{ getUserAverageScore(user) }}%
+                        </span>
+                      </td>
+                      <td>
+                        <div class="progress" style="height: 20px;">
+                          <div class="progress-bar" [style.width.%]="getUserProgressPercentage(user)">
+                            {{ getUserProgressPercentage(user) }}%
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button class="btn btn-sm me-1" style="background-color: #007bff; border-color: #007bff; color: white;" (click)="viewUserDetails(user)">
+                          View
+                        </button>
+                        <button class="btn btn-sm" style="background-color: #dc3545; border-color: #dc3545; color: white;" (click)="resetUserProgress(user)">
+                          Reset
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

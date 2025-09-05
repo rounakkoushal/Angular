@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+<div class="container-fluid" style="margin-top: 80px;">
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-4">
+        <h2 class="text-secondary">Learning Dashboard</h2>
+      </div>
+
+      <!-- Progress Overview -->
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #007bff; color: white;">
+            <div class="card-body text-center">
+              <h5>Topics Completed</h5>
+              <h2>{{ currentUser?.progress.completedTopics.length || 0 }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #28a745; color: white;">
+            <div class="card-body text-center">
+              <h5>Total Score</h5>
+              <h2>{{ currentUser?.progress.totalScore || 0 }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #17a2b8; color: white;">
+            <div class="card-body text-center">
+              <h5>Average Score</h5>
+              <h2>{{ getAverageScore() }}%</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card shadow-sm" style="background-color: #ffc107; color: white;">
+            <div class="card-body text-center">
+              <h5>Progress</h5>
+              <h2>{{ getProgressPercentage() }}%</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning Modules -->
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+              <h5 class="mb-0 text-secondary">RxJS Library</h5>
+            </div>
+            <div class="card-body">
+              <p class="text-muted">Learn reactive programming with RxJS operators and concepts</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge" style="background-color: #007bff; color: white;">{{ getRxJSProgress() }} topics completed</span>
+                <a routerLink="/rxjs-library" class="btn btn-sm" style="background-color: #007bff; border-color: #007bff; color: white;">Continue Learning</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+              <h5 class="mb-0 text-secondary">NgRx State Management</h5>
+            </div>
+            <div class="card-body">
+              <p class="text-muted">Master state management with NgRx patterns and best practices</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge" style="background-color: #28a745; color: white;">{{ getNgRxProgress() }} topics completed</span>
+                <a routerLink="/ngrx-state-management" class="btn btn-sm" style="background-color: #28a745; border-color: #28a745; color: white;">Continue Learning</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Quiz Scores -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #e9ecef;">
+              <h5 class="mb-0 text-secondary">Recent Quiz Scores</h5>
+            </div>
+            <div class="card-body">
+              <div *ngIf="getQuizScores().length === 0" class="text-center text-muted py-4">
+                No quiz scores yet. Start learning to see your progress!
+              </div>
+              <div class="table-responsive" *ngIf="getQuizScores().length > 0">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Topic</th>
+                      <th>Score</th>
+                      <th>Performance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let score of getQuizScores()">
+                      <td>{{ score.topic }}</td>
+                      <td>{{ score.score }}/10</td>
+                      <td>
+                        <span class="badge" [style.background-color]="getScoreBadgeColor(score.score)" style="color: white;">
+                          {{ getScorePercentage(score.score) }}%
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

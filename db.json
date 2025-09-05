@@ -1,5 +1,4 @@
-[
-  {
+ {
     "higher-order-observables": [
       {
         "question": "What is the primary characteristic of a higher-order observable?",
@@ -167,64 +166,4 @@
         "explanation": "concatMap waits for each inner observable to complete before processing the next one."
       }
     ]
-  },
-  {
-    "custom-operators": [
-      {
-        "question": "What is the signature of a custom pipeable operator?",
-        "options": [
-          "() => Observable",
-          "(source: Observable) => Observable",
-          "Observable => void",
-          "() => void"
-        ],
-        "correct": 1,
-        "explanation": "Custom pipeable operators are functions that take a source Observable and return a new Observable."
-      },
-      {
-        "question": "Which RxJS function is used to create custom operators?",
-        "options": [
-          "createOperator",
-          "pipe",
-          "operator",
-          "No specific function needed"
-        ],
-        "correct": 3,
-        "explanation": "Custom operators are just functions that return other functions - no special RxJS function is required."
-      },
-      {
-        "question": "What should a custom operator return?",
-        "options": [
-          "A value",
-          "A function",
-          "An Observable",
-          "A Promise"
-        ],
-        "correct": 1,
-        "explanation": "Custom operators return a function that takes an Observable and returns an Observable."
-      },
-      {
-        "question": "How do you make a custom operator reusable?",
-        "options": [
-          "Export it as a function",
-          "Use global variables",
-          "Inline the logic",
-          "Use classes"
-        ],
-        "correct": 0,
-        "explanation": "Export custom operators as functions to make them reusable across components."
-      },
-      {
-        "question": "What is the best practice for naming custom operators?",
-        "options": [
-          "Use camelCase",
-          "Use PascalCase",
-          "Use snake_case",
-          "Use kebab-case"
-        ],
-        "correct": 0,
-        "explanation": "Custom operators should follow camelCase naming convention like built-in RxJS operators."
-      }
-    ]
   }
-]

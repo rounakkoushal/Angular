@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.errorMessage = '';
       
       const { email, password } = this.loginForm.value;
+      // console.log(this.loginForm.value);
       
       this.authService.login(email, password).subscribe({
         next: (success) => {

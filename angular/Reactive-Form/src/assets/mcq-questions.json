@@ -1,0 +1,1437 @@
+{
+  "dynamic-reactive-forms": [
+    {
+      "question": "You're building a dynamic form using FormBuilder. Which method would you use to dynamically add new FormControls at runtime?",
+      "options": [
+        "formGroup.addControl()",
+        "formArray.push()",
+        "formBuilder.insertControl()",
+        "formGroup.appendControl()"
+      ],
+      "correct": 1,
+      "explanation": "To dynamically add controls to a FormArray, use the push() method."
+    },
+    {
+      "question": "A nested FormGroup inside your reactive form is not updating its validation status. What's the likely issue?",
+      "options": [
+        "Not imported FormsModule",
+        "Not calling markAsDirty()",
+        "Not calling updateValueAndValidity()",
+        "FormGroup must be set as readonly"
+      ],
+      "correct": 2,
+      "explanation": "Calling updateValueAndValidity() triggers validation recalculation."
+    },
+    {
+      "question": "You have a form control that should validate asynchronously if a username is available. Where should this validator be registered?",
+      "options": [
+        "As a custom directive",
+        "In the template using asyncValidator",
+        "In the component via setValidators()",
+        "In the form control's constructor as an async validator"
+      ],
+      "correct": 3,
+      "explanation": "Async validators are typically passed as the third argument to FormControl constructor."
+    },
+    {
+      "question": "A FormArray is used to manage multiple phone numbers. How do you add a new phone number control?",
+      "options": [
+        "formArray.add(new FormControl())",
+        "formArray.push(new FormControl())",
+        "formArray.append(FormControl)",
+        "formArray.insertControl(FormControl)"
+      ],
+      "correct": 1,
+      "explanation": "FormArray has a push() method to add new controls."
+    },
+    {
+      "question": "What RxJS operator would you use to respond to form value changes but avoid triggering on every keystroke?",
+      "options": [
+        "map()",
+        "tap()",
+        "debounceTime()",
+        "takeUntil()"
+      ],
+      "correct": 2,
+      "explanation": "debounceTime() waits for a pause in events before emitting."
+    },
+    {
+      "question": "You're binding a form to an API response. What's the best way to patch only available values to a reactive form?",
+      "options": [
+        "formGroup.reset()",
+        "formGroup.setValue()",
+        "formGroup.patchValue()",
+        "formGroup.loadValues()"
+      ],
+      "correct": 2,
+      "explanation": "patchValue updates only the specified controls without requiring all values."
+    },
+    {
+      "question": "In Angular 16, what feature helps make reactive forms more type-safe?",
+      "options": [
+        "Strict mode",
+        "Signals",
+        "Typed Forms",
+        "Zone.js"
+      ],
+      "correct": 2,
+      "explanation": "Angular 16 introduced typed reactive forms for type safety."
+    },
+    {
+      "question": "You want to show validation errors only after the user has interacted with a field. What should you check?",
+      "options": [
+        "formControl.valid",
+        "formControl.touched && formControl.invalid",
+        "formControl.dirty && formControl.valid",
+        "formControl.pending"
+      ],
+      "correct": 1,
+      "explanation": "Touched indicates user interacted, and invalid indicates validation failed."
+    },
+    {
+      "question": "Your form is not updating on UI even though data is patched. What could be the cause?",
+      "options": [
+        "Missing change detection cycle",
+        "Invalid FormBuilder import",
+        "Using setValue() instead of patchValue()",
+        "Form was not enabled"
+      ],
+      "correct": 0,
+      "explanation": "UI updates may require triggering Angular's change detection."
+    },
+    {
+      "question": "How do you disable all controls in a reactive form?",
+      "options": [
+        "formGroup.clear()",
+        "formGroup.disable()",
+        "formGroup.reset(true)",
+        "formGroup.readonly()"
+      ],
+      "correct": 1,
+      "explanation": "Calling disable() disables all controls in the form group."
+    }
+  ],
+  "server-side-rendering": [
+    {
+      "question": "What is the primary purpose of Angular Universal?",
+      "options": [
+        "Client-side caching",
+        "Faster routing",
+        "Server-side rendering for performance and SEO",
+        "API mocking"
+      ],
+      "correct": 2,
+      "explanation": "Angular Universal renders Angular apps on the server for faster initial load and SEO."
+    },
+    {
+      "question": "Which server platform is used by default with Angular Universal?",
+      "options": [
+        "PHP",
+        "Flask",
+        "Node.js",
+        "Django"
+      ],
+      "correct": 2,
+      "explanation": "Angular Universal uses Node.js as the default server platform."
+    },
+    {
+      "question": "During SSR, a component is trying to access window. What's the best approach to avoid error?",
+      "options": [
+        "Use window as usual",
+        "Wrap in try/catch",
+        "Inject PLATFORM_ID and check if browser",
+        "Delay usage via setTimeout"
+      ],
+      "correct": 2,
+      "explanation": "PLATFORM_ID allows conditional logic to check for browser environment."
+    },
+    {
+      "question": "What Angular CLI command adds SSR support to an existing project?",
+      "options": [
+        "ng generate universal",
+        "ng add @nguniversal/express-engine",
+        "ng setup ssr",
+        "ng enable ssr"
+      ],
+      "correct": 1,
+      "explanation": "ng add @nguniversal/express-engine sets up SSR with Express."
+    },
+    {
+      "question": "Which Angular module is critical for SSR support in the root module?",
+      "options": [
+        "BrowserAnimationsModule",
+        "HttpClientModule",
+        "ServerModule",
+        "TransferHttpCacheModule"
+      ],
+      "correct": 2,
+      "explanation": "ServerModule enables Angular to run on the server."
+    },
+    {
+      "question": "To enable SEO crawling, which SSR feature helps transfer state between server and client?",
+      "options": [
+        "DomSanitizer",
+        "HttpClientTransfer",
+        "TransferState",
+        "MetaTagResolver"
+      ],
+      "correct": 2,
+      "explanation": "TransferState transfers data from server to client to avoid duplicate HTTP calls."
+    },
+    {
+      "question": "When deploying SSR app on Firebase, what is typically used?",
+      "options": [
+        "Netlify",
+        "Express Server on Cloud Functions",
+        "GitHub Pages",
+        "Nginx"
+      ],
+      "correct": 1,
+      "explanation": "Firebase Cloud Functions run Express server for SSR."
+    },
+    {
+      "question": "Which method is used to dynamically generate meta tags in SSR for SEO?",
+      "options": [
+        "Meta.set()",
+        "SEOService",
+        "Meta.updateTag()",
+        "Meta.addMetaTag()"
+      ],
+      "correct": 2,
+      "explanation": "Meta.updateTag() updates or adds meta tags dynamically."
+    },
+    {
+      "question": "Which lifecycle hook does NOT run during server-side rendering?",
+      "options": [
+        "ngOnInit",
+        "ngAfterViewInit",
+        "ngOnDestroy",
+        "constructor"
+      ],
+      "correct": 1,
+      "explanation": "ngAfterViewInit depends on browser DOM and doesn't run during SSR."
+    },
+    {
+      "question": "Which benefit does SSR provide over static HTML export in Angular?",
+      "options": [
+        "Smaller JS bundle",
+        "Interactive components",
+        "Dynamic data pre-rendering for crawlers",
+        "Easier routing config"
+      ],
+      "correct": 2,
+      "explanation": "SSR allows dynamic content rendering that static export cannot provide."
+    }
+  ],
+  "testing-jasmine-karma": [
+    {
+      "question": "Which Jasmine function defines a test suite?",
+      "options": [
+        "test()",
+        "describe()",
+        "it()",
+        "suite()"
+      ],
+      "correct": 1,
+      "explanation": "describe() groups related tests into a suite."
+    },
+    {
+      "question": "Which is the correct syntax to test if a variable equals 5?",
+      "options": [
+        "expect(5).toBeEqual(5)",
+        "should(5).equal(5)",
+        "expect(5).toEqual(5)",
+        "assert(5 == 5)"
+      ],
+      "correct": 2,
+      "explanation": "toEqual() checks for deep equality."
+    },
+    {
+      "question": "What is the purpose of TestBed.configureTestingModule()?",
+      "options": [
+        "Render template",
+        "Register app routes",
+        "Configure test module for a component/service",
+        "Inject styles"
+      ],
+      "correct": 2,
+      "explanation": "It sets up testing environment with declarations and providers."
+    },
+    {
+      "question": "You need to test async code that returns an Observable. Which utilities help?",
+      "options": [
+        "fakeAsync, tick()",
+        "setInterval()",
+        "waitUntil()",
+        "Observable.of()"
+      ],
+      "correct": 0,
+      "explanation": "fakeAsync and tick() allow testing async observables synchronously."
+    },
+    {
+      "question": "Which tool runs Jasmine tests in Angular?",
+      "options": [
+        "Mocha",
+        "NUnit",
+        "Karma",
+        "Chai"
+      ],
+      "correct": 2,
+      "explanation": "Karma is the test runner used with Jasmine."
+    },
+    {
+      "question": "How can you simulate a click event in Angular unit testing?",
+      "options": [
+        "button.click()",
+        "dispatchEvent(new Event('click'))",
+        "simulateClick(button)",
+        "trigger('click')"
+      ],
+      "correct": 1,
+      "explanation": "dispatchEvent allows simulating DOM events in tests."
+    },
+    {
+      "question": "What is ComponentFixture primarily used for?",
+      "options": [
+        "Replace test bed",
+        "Render backend calls",
+        "Access DOM and component instance",
+        "Log console output"
+      ],
+      "correct": 2,
+      "explanation": "ComponentFixture allows querying and manipulating component and DOM."
+    },
+    {
+      "question": "Why would you use spyOn() in Angular testing?",
+      "options": [
+        "To mock observables",
+        "To replace async functions",
+        "To mock and track function calls",
+        "To simulate network delay"
+      ],
+      "correct": 2,
+      "explanation": "spyOn mocks functions and verifies calls."
+    },
+    {
+      "question": "Which file typically configures Karma?",
+      "options": [
+        "karma.conf.js",
+        "test.config.ts",
+        "karma.js",
+        "test-runner.json"
+      ],
+      "correct": 0,
+      "explanation": "karma.conf.js is the default Karma config file."
+    },
+    {
+      "question": "How do you ensure all public methods of a service are tested?",
+      "options": [
+        "Run unit tests",
+        "Use ESLint",
+        "Check test coverage report",
+        "Enable dev mode"
+      ],
+      "correct": 2,
+      "explanation": "Test coverage reports show what code is exercised by tests."
+    }
+  ],
+  "ngrx-state-management": [
+    {
+      "question": "What does an NgRx action represent?",
+      "options": [
+        "Component state",
+        "Side effect",
+        "Description of an event",
+        "API payload"
+      ],
+      "correct": 2,
+      "explanation": "Actions describe events that change state."
+    },
+    {
+      "question": "Which NgRx piece listens for actions and updates the state?",
+      "options": [
+        "Selector",
+        "Effect",
+        "Reducer",
+        "Store"
+      ],
+      "correct": 2,
+      "explanation": "Reducers handle actions to update state."
+    },
+    {
+      "question": "What is the purpose of a selector in NgRx?",
+      "options": [
+        "Update backend",
+        "Access component DOM",
+        "Select state slices efficiently",
+        "Trigger reducers"
+      ],
+      "correct": 2,
+      "explanation": "Selectors provide memoized access to parts of the store."
+    },
+    {
+      "question": "Which NgRx concept is best for handling API side effects?",
+      "options": [
+        "Store",
+        "Action",
+        "Selector",
+        "Effect"
+      ],
+      "correct": 3,
+      "explanation": "Effects handle side effects like HTTP requests."
+    },
+    {
+      "question": "How do you dispatch an action in a component?",
+      "options": [
+        "this.store.next(action)",
+        "this.store.run(action)",
+        "this.store.dispatch(action)",
+        "dispatch(action)"
+      ],
+      "correct": 2,
+      "explanation": "dispatch() sends actions to the store."
+    },
+    {
+      "question": "Which RxJS operator is commonly used inside effects to transform actions?",
+      "options": [
+        "catchError()",
+        "mergeMap()",
+        "retry()",
+        "scan()"
+      ],
+      "correct": 1,
+      "explanation": "mergeMap handles inner observable flattening."
+    },
+    {
+      "question": "How is immutability maintained in reducers?",
+      "options": [
+        "Using deepClone()",
+        "Avoid direct mutation, use spread operators",
+        "JSON.stringify()",
+        "By freezing state"
+      ],
+      "correct": 1,
+      "explanation": "Reducers use spread operators or immutable techniques to avoid mutations."
+    },
+    {
+      "question": "How do you enable debugging of store changes in NgRx DevTools?",
+      "options": [
+        "Call enableDevMode()",
+        "Enable Redux logger",
+        "Import StoreDevtoolsModule.instrument()",
+        "Enable CLI debug mode"
+      ],
+      "correct": 2,
+      "explanation": "StoreDevtoolsModule.instrument() integrates the Redux DevTools."
+    },
+    {
+      "question": "Which is NOT a valid NgRx entity?",
+      "options": [
+        "Action",
+        "Selector",
+        "Observer",
+        "Reducer"
+      ],
+      "correct": 2,
+      "explanation": "Observer is an RxJS concept but not part of NgRx entities."
+    },
+    {
+      "question": "In which NgRx file would you most likely define createFeatureSelector?",
+      "options": [
+        "actions.ts",
+        "reducers.ts",
+        "selectors.ts",
+        "effects.ts"
+      ],
+      "correct": 2,
+      "explanation": "Selectors are usually declared in selectors.ts."
+    }
+  ],
+  "advanced-rxjs": [
+    {
+      "question": "What is a higher-order Observable?",
+      "options": [
+        "Observable with high priority",
+        "Observable emitting other Observables",
+        "Observable used in HTTP",
+        "Observable that runs in parallel"
+      ],
+      "correct": 1,
+      "explanation": "Higher-order observables emit other observables as their values."
+    },
+    {
+      "question": "Which operator flattens inner Observables in order of their arrival?",
+      "options": [
+        "switchMap()",
+        "mergeMap()",
+        "concatMap()",
+        "exhaustMap()"
+      ],
+      "correct": 2,
+      "explanation": "concatMap queues inner observables and subscribes in order."
+    },
+    {
+      "question": "What is the main difference between hot and cold observables?",
+      "options": [
+        "Cold observables are faster",
+        "Hot observables share emissions",
+        "Cold observables use memory",
+        "Hot ones are only async"
+      ],
+      "correct": 1,
+      "explanation": "Hot observables emit to multiple subscribers simultaneously."
+    },
+    {
+      "question": "How do you create a custom RxJS operator?",
+      "options": [
+        "Use createOperator()",
+        "Extend Observable",
+        "Return a function that takes and returns Observable",
+        "Use pipe() method"
+      ],
+      "correct": 2,
+      "explanation": "Custom operators are functions that take and return observables."
+    },
+    {
+      "question": "Which operator would you use to handle errors and continue the stream?",
+      "options": [
+        "retry()",
+        "catchError()",
+        "finalize()",
+        "tap()"
+      ],
+      "correct": 1,
+      "explanation": "catchError() handles errors and can return a fallback observable."
+    },
+    {
+      "question": "What does the share() operator do?",
+      "options": [
+        "Splits observable into multiple streams",
+        "Makes cold observable hot and multicasts",
+        "Shares data between components",
+        "Creates shared memory"
+      ],
+      "correct": 1,
+      "explanation": "share() converts cold observables to hot and multicasts to multiple subscribers."
+    },
+    {
+      "question": "Which operator emits only the last value before completion?",
+      "options": [
+        "first()",
+        "take(1)",
+        "last()",
+        "takeLast(1)"
+      ],
+      "correct": 2,
+      "explanation": "last() emits only the final value before the observable completes."
+    },
+    {
+      "question": "What is the purpose of the startWith() operator?",
+      "options": [
+        "Start observable execution",
+        "Emit initial value before source emissions",
+        "Start timing measurements",
+        "Initialize observable state"
+      ],
+      "correct": 1,
+      "explanation": "startWith() prepends specified values to the beginning of an observable sequence."
+    },
+    {
+      "question": "Which operator would you use to combine the latest values from multiple observables?",
+      "options": [
+        "merge()",
+        "concat()",
+        "combineLatest()",
+        "zip()"
+      ],
+      "correct": 2,
+      "explanation": "combineLatest() emits when any source observable emits, combining latest values."
+    },
+    {
+      "question": "What does the distinctUntilChanged() operator do?",
+      "options": [
+        "Removes all duplicates",
+        "Emits only when current value differs from previous",
+        "Changes distinct values",
+        "Filters unique values only"
+      ],
+      "correct": 1,
+      "explanation": "distinctUntilChanged() only emits when the current value is different from the previous value."
+    },
+    {
+      "question": "Which operator cancels previous inner observables when a new one arrives?",
+      "options": [
+        "mergeMap",
+        "switchMap",
+        "concatMap",
+        "exhaustMap"
+      ],
+      "correct": 1,
+      "explanation": "switchMap cancels the previous inner observable subscription when a new value arrives."
+    },
+    {
+      "question": "Which RxJS operator transforms emitted values by projecting each source value to an Observable?",
+      "options": [
+        "map",
+        "switchMap",
+        "filter",
+        "reduce"
+      ],
+      "correct": 1,
+      "explanation": "switchMap maps each source emission to an Observable, then flattens it."
+    },
+    {
+      "question": "What is a Subject in RxJS?",
+      "options": [
+        "A cold observable",
+        "A multicast observable",
+        "An HTTP request handler",
+        "A promise alternative"
+      ],
+      "correct": 1,
+      "explanation": "Subjects multicast values to multiple subscribers."
+    },
+    {
+      "question": "What does the switchMap operator do when a new inner observable is emitted?",
+      "options": [
+        "Completes the previous inner observable",
+        "Cancels the previous inner observable",
+        "Ignores new inner observable",
+        "Merges all inner observables"
+      ],
+      "correct": 1,
+      "explanation": "switchMap unsubscribes from previous inner observables on new emissions."
+    },
+    {
+      "question": "What is a cold observable?",
+      "options": [
+        "Starts emitting values only when subscribed",
+        "Emits regardless of subscriptions",
+        "Always emits errors",
+        "Never emits values"
+      ],
+      "correct": 0,
+      "explanation": "Cold observables start emitting upon subscription."
+    },
+    {
+      "question": "Which RxJS operator would you use to merge multiple observables?",
+      "options": [
+        "merge()",
+        "switchMap()",
+        "concatMap()",
+        "filter()"
+      ],
+      "correct": 0,
+      "explanation": "merge() combines multiple observables into one."
+    },
+    {
+      "question": "What is backpressure in RxJS?",
+      "options": [
+        "Increasing data flow speed",
+        "Managing fast data streams to prevent overflow",
+        "An error type",
+        "Debugging tool"
+      ],
+      "correct": 1,
+      "explanation": "Backpressure helps control overwhelming data emissions."
+    },
+    {
+      "question": "Which RxJS subject type stores and emits the last value to new subscribers?",
+      "options": [
+        "ReplaySubject",
+        "BehaviorSubject",
+        "AsyncSubject",
+        "Subject"
+      ],
+      "correct": 1,
+      "explanation": "BehaviorSubject emits the most recent value to new subscribers."
+    },
+    {
+      "question": "Which RxJS operator handles errors and provides a fallback observable?",
+      "options": [
+        "catchError()",
+        "retry()",
+        "switchMap()",
+        "map()"
+      ],
+      "correct": 0,
+      "explanation": "catchError handles errors and returns alternate observables."
+    },
+    {
+      "question": "Which RxJS concept refers to the timing when an observable emits?",
+      "options": [
+        "Cold vs Hot observables",
+        "Backpressure",
+        "Subjects",
+        "Operators"
+      ],
+      "correct": 0,
+      "explanation": "Cold observables start on subscription; hot observables emit independently."
+    },
+    {
+      "question": "What operator in RxJS creates a new observable from scratch?",
+      "options": [
+        "from()",
+        "create()",
+        "of()",
+        "empty()"
+      ],
+      "correct": 1,
+      "explanation": "create() is used to manually define custom observable logic."
+    },
+    {
+      "question": "Which RxJS operator delays emission of items from the source observable?",
+      "options": [
+        "delay()",
+        "debounceTime()",
+        "throttleTime()",
+        "timeout()"
+      ],
+      "correct": 0,
+      "explanation": "delay() postpones emissions by a given time."
+    },
+    {
+      "question": "Which RxJS operator ignores emissions while the previous emission is still being processed?",
+      "options": [
+        "switchMap",
+        "exhaustMap",
+        "mergeMap",
+        "concatMap"
+      ],
+      "correct": 1,
+      "explanation": "exhaustMap ignores new emissions until the current inner observable completes."
+    },
+    {
+      "question": "What does the map() operator do in RxJS?",
+      "options": [
+        "Filters emitted values",
+        "Transforms each emitted value",
+        "Merges multiple observables",
+        "Cancels previous observables"
+      ],
+      "correct": 1,
+      "explanation": "map() projects each source value to a new value."
+    },
+    {
+      "question": "Which RxJS operator limits the rate of emitted values by time?",
+      "options": [
+        "throttleTime",
+        "debounceTime",
+        "delay",
+        "bufferTime"
+      ],
+      "correct": 0,
+      "explanation": "throttleTime emits a value then ignores subsequent emissions for the specified duration."
+    },
+    {
+      "question": "What is a key difference between Subject and BehaviorSubject?",
+      "options": [
+        "Subject stores last value, BehaviorSubject doesn't",
+        "BehaviorSubject stores last emitted value, Subject doesn't",
+        "Subject only emits once",
+        "BehaviorSubject can't multicast"
+      ],
+      "correct": 1,
+      "explanation": "BehaviorSubject keeps the last value and emits it immediately to new subscribers."
+    },
+    {
+      "question": "Which RxJS operator combines latest values from multiple observables?",
+      "options": [
+        "merge()",
+        "combineLatest()",
+        "zip()",
+        "concat()"
+      ],
+      "correct": 1,
+      "explanation": "combineLatest() emits combined latest values."
+    },
+    {
+      "question": "What does the takeUntil operator do in RxJS?",
+      "options": [
+        "Emits values until another observable emits",
+        "Takes only the first emission",
+        "Ignores errors",
+        "Retries on error"
+      ],
+      "correct": 0,
+      "explanation": "takeUntil completes the source observable when another emits."
+    },
+    {
+      "question": "Which operator would you use to transform values and flatten them in RxJS?",
+      "options": [
+        "map()",
+        "mergeMap()",
+        "filter()",
+        "scan()"
+      ],
+      "correct": 1,
+      "explanation": "mergeMap maps and flattens inner Observables."
+    }
+  ],
+  "angular-fundamentals": [
+    {
+      "question": "What is the recommended way to create a reactive form in Angular?",
+      "options": [
+        "Using Template-driven forms",
+        "Using FormBuilder service",
+        "Direct DOM manipulation",
+        "Using jQuery plugins"
+      ],
+      "correct": 1,
+      "explanation": "FormBuilder provides an easy way to construct reactive forms programmatically."
+    },
+    {
+      "question": "How do you add validation to a FormControl in Angular reactive forms?",
+      "options": [
+        "Using Validators inside FormControl constructor",
+        "Adding HTML attributes only",
+        "Using ngModel directive",
+        "Direct DOM validation"
+      ],
+      "correct": 0,
+      "explanation": "Validators can be passed to FormControl during creation to enforce validation rules."
+    },
+    {
+      "question": "What does Angular Universal primarily enable?",
+      "options": [
+        "Server-side rendering of Angular apps",
+        "Client-side routing",
+        "Real-time data sync",
+        "Lazy loading of modules"
+      ],
+      "correct": 0,
+      "explanation": "Angular Universal renders pages on the server, improving SEO and load times."
+    },
+    {
+      "question": "In Angular reactive forms, what method updates the validity status?",
+      "options": [
+        "setValue()",
+        "updateValueAndValidity()",
+        "reset()",
+        "disable()"
+      ],
+      "correct": 1,
+      "explanation": "updateValueAndValidity() recalculates form validation state."
+    },
+    {
+      "question": "What is the function of Angular's FormBuilder.group()?",
+      "options": [
+        "Creates a single FormControl",
+        "Creates a FormGroup of controls",
+        "Creates a FormArray",
+        "Binds form to template"
+      ],
+      "correct": 1,
+      "explanation": "FormBuilder.group() creates a structured form group."
+    },
+    {
+      "question": "How can a parent component pass data to a reactive form in a child component?",
+      "options": [
+        "Using @Output event binding",
+        "Using @Input property binding and patchValue()",
+        "Using localStorage",
+        "Using service workers"
+      ],
+      "correct": 1,
+      "explanation": "Parent sends data via @Input and child uses patchValue() to update the form."
+    },
+    {
+      "question": "What happens if you call setValue() with missing keys in reactive forms?",
+      "options": [
+        "Updates available keys silently",
+        "Throws an error",
+        "Resets the form",
+        "Ignores missing keys silently"
+      ],
+      "correct": 1,
+      "explanation": "setValue() requires all keys; missing keys cause an error."
+    },
+    {
+      "question": "Which lifecycle hook is best for initializing reactive forms?",
+      "options": [
+        "ngOnInit()",
+        "ngAfterViewInit()",
+        "constructor()",
+        "ngOnChanges()"
+      ],
+      "correct": 0,
+      "explanation": "ngOnInit() runs after component setup and is ideal for initialization."
+    },
+    {
+      "question": "Which Node.js framework is commonly used with Angular Universal?",
+      "options": [
+        "Express",
+        "Koa",
+        "Hapi",
+        "Fastify"
+      ],
+      "correct": 0,
+      "explanation": "Express is widely used for SSR with Angular Universal."
+    },
+    {
+      "question": "What is the main use of the FormArray in Angular reactive forms?",
+      "options": [
+        "To group controls logically",
+        "To hold an array of FormControls or FormGroups",
+        "To perform validation",
+        "To bind template variables"
+      ],
+      "correct": 1,
+      "explanation": "FormArray stores a dynamic list of controls or groups."
+    },
+    {
+      "question": "Which Angular decorator is used to pass data from parent to child component?",
+      "options": [
+        "@Output",
+        "@Input",
+        "@ViewChild",
+        "@Injectable"
+      ],
+      "correct": 1,
+      "explanation": "@Input allows data binding from parent to child."
+    },
+    {
+      "question": "What is the default change detection strategy in Angular?",
+      "options": [
+        "OnPush",
+        "Default",
+        "Detached",
+        "Manual"
+      ],
+      "correct": 1,
+      "explanation": "Default checks every component every change detection cycle."
+    },
+    {
+      "question": "How do you define validation errors in Angular reactive forms?",
+      "options": [
+        "By setting HTML5 validation attributes",
+        "By returning an object with key-value pairs in validator functions",
+        "By modifying the form template",
+        "By calling reset()"
+      ],
+      "correct": 1,
+      "explanation": "Validator functions return an error object when invalid."
+    },
+    {
+      "question": "How can you improve SEO using Angular Universal?",
+      "options": [
+        "Use lazy loading",
+        "Render pages on the server to provide crawlers with full HTML",
+        "Use service workers",
+        "Use WebSockets"
+      ],
+      "correct": 1,
+      "explanation": "Server-side rendering allows search engines to index content better."
+    },
+    {
+      "question": "In Angular, what does the async pipe do?",
+      "options": [
+        "Subscribes to an Observable or Promise and returns the latest value",
+        "Converts Observables to Promises",
+        "Manually unsubscribes from Observables",
+        "Runs asynchronous code synchronously"
+      ],
+      "correct": 0,
+      "explanation": "The async pipe automatically subscribes and unsubscribes to Observables or Promises in templates."
+    },
+    {
+      "question": "What does the Angular CLI command ng serve do?",
+      "options": [
+        "Builds the application for production",
+        "Serves the app locally with live reload",
+        "Runs unit tests",
+        "Deploys the app to a server"
+      ],
+      "correct": 1,
+      "explanation": "ng serve starts a development server with live reload capabilities."
+    },
+    {
+      "question": "What is a primary benefit of using Reactive Forms over Template-driven forms in Angular?",
+      "options": [
+        "Easier to set up",
+        "More scalable and testable",
+        "Automatically generates UI",
+        "No need for validators"
+      ],
+      "correct": 1,
+      "explanation": "Reactive forms offer better scalability and easier unit testing."
+    },
+    {
+      "question": "How can you listen to route parameter changes in Angular?",
+      "options": [
+        "Use Router.navigate()",
+        "Subscribe to ActivatedRoute.params Observable",
+        "Use ngOnInit()",
+        "Use Route Guards"
+      ],
+      "correct": 1,
+      "explanation": "ActivatedRoute.params is an Observable that emits route parameter changes."
+    },
+    {
+      "question": "Which Angular decorator is used to define a service that can be injected?",
+      "options": [
+        "@Component",
+        "@Injectable",
+        "@Directive",
+        "@NgModule"
+      ],
+      "correct": 1,
+      "explanation": "@Injectable marks a class as available for dependency injection."
+    },
+    {
+      "question": "How can you trigger change detection manually in Angular?",
+      "options": [
+        "Call detectChanges() on ChangeDetectorRef",
+        "Use ngOnChanges()",
+        "Use ngDoCheck()",
+        "Use async pipe"
+      ],
+      "correct": 0,
+      "explanation": "ChangeDetectorRef.detectChanges() triggers change detection explicitly."
+    },
+    {
+      "question": "What Angular CLI command creates a new component?",
+      "options": [
+        "ng new",
+        "ng generate component",
+        "ng serve",
+        "ng build"
+      ],
+      "correct": 1,
+      "explanation": "ng generate component scaffolds a new component."
+    },
+    {
+      "question": "What is the purpose of the providers array in an Angular module?",
+      "options": [
+        "Register components",
+        "Register services for DI",
+        "Declare directives",
+        "Register pipes"
+      ],
+      "correct": 1,
+      "explanation": "providers registers services available via dependency injection."
+    },
+    {
+      "question": "How do you unsubscribe from an Observable in Angular?",
+      "options": [
+        "Call unsubscribe() on the Subscription",
+        "Use async pipe only",
+        "Call complete() on Observable",
+        "Use take(1) operator only"
+      ],
+      "correct": 0,
+      "explanation": "Calling unsubscribe() stops receiving data from the Observable."
+    },
+    {
+      "question": "Which lifecycle hook runs once after the first ngOnChanges?",
+      "options": [
+        "ngOnInit",
+        "ngAfterViewInit",
+        "ngDoCheck",
+        "ngAfterContentInit"
+      ],
+      "correct": 0,
+      "explanation": "ngOnInit is called once after the first ngOnChanges."
+    },
+    {
+      "question": "What Angular module is required to use reactive forms?",
+      "options": [
+        "FormsModule",
+        "ReactiveFormsModule",
+        "HttpClientModule",
+        "BrowserAnimationsModule"
+      ],
+      "correct": 1,
+      "explanation": "ReactiveFormsModule is needed for reactive form APIs."
+    },
+    {
+      "question": "Which Angular decorator marks a class as a pipe?",
+      "options": [
+        "@Directive",
+        "@Pipe",
+        "@Component",
+        "@Injectable"
+      ],
+      "correct": 1,
+      "explanation": "@Pipe decorates pipe classes."
+    },
+    {
+      "question": "In Angular, how can you optimize performance for large lists?",
+      "options": [
+        "Use trackBy function in ngFor",
+        "Use ngIf only",
+        "Use reactive forms",
+        "Use CSS animations"
+      ],
+      "correct": 0,
+      "explanation": "trackBy helps Angular efficiently track list items."
+    },
+    {
+      "question": "How do you provide a service at the root level?",
+      "options": [
+        "Add it to providers in AppModule",
+        "Use providedIn: 'root' in @Injectable",
+        "Add it to bootstrap array",
+        "Declare in component decorator"
+      ],
+      "correct": 1,
+      "explanation": "providedIn: 'root' makes service singleton application-wide."
+    },
+    {
+      "question": "What is the purpose of the ngOnDestroy lifecycle hook?",
+      "options": [
+        "Initialize data",
+        "Clean up resources like subscriptions",
+        "Run after content initialization",
+        "Run before view updates"
+      ],
+      "correct": 1,
+      "explanation": "ngOnDestroy is called before the component is destroyed."
+    },
+    {
+      "question": "Which Angular directive conditionally includes a template?",
+      "options": [
+        "ngFor",
+        "ngIf",
+        "ngSwitch",
+        "ngClass"
+      ],
+      "correct": 1,
+      "explanation": "ngIf conditionally renders templates."
+    },
+    {
+      "question": "How do you provide data to a route in Angular?",
+      "options": [
+        "Using route data property in route configuration",
+        "Using query parameters",
+        "Using session storage",
+        "Using local storage"
+      ],
+      "correct": 0,
+      "explanation": "Route data can be statically provided via the route's data property."
+    },
+    {
+      "question": "What is the effect of the Angular trackBy function?",
+      "options": [
+        "Improves animation performance",
+        "Reduces DOM manipulations during list rendering",
+        "Adds CSS classes",
+        "Tracks user interactions"
+      ],
+      "correct": 1,
+      "explanation": "trackBy identifies list items uniquely to optimize re-rendering."
+    },
+    {
+      "question": "What method in FormGroup updates the value of the group?",
+      "options": [
+        "setValue()",
+        "patchValue()",
+        "reset()",
+        "updateValueAndValidity()"
+      ],
+      "correct": 0,
+      "explanation": "setValue() sets the entire value of the form group."
+    },
+    {
+      "question": "How does Angular's HttpInterceptor work?",
+      "options": [
+        "Modifies HTTP requests/responses globally",
+        "Handles routing guards",
+        "Manages form validations",
+        "Controls component lifecycle"
+      ],
+      "correct": 0,
+      "explanation": "Interceptors manipulate HTTP requests and responses."
+    },
+    {
+      "question": "What decorator is used to access child components or elements in Angular?",
+      "options": [
+        "@Input",
+        "@ViewChild",
+        "@Output",
+        "@Injectable"
+      ],
+      "correct": 1,
+      "explanation": "@ViewChild accesses child component instances or DOM."
+    },
+    {
+      "question": "What is the purpose of the Angular RouterOutlet directive?",
+      "options": [
+        "Define router links",
+        "Mark where routed components render",
+        "Protect routes",
+        "Declare routes"
+      ],
+      "correct": 1,
+      "explanation": "RouterOutlet renders matched routed components."
+    },
+    {
+      "question": "What Angular change detection strategy improves performance by checking only on input changes?",
+      "options": [
+        "Default",
+        "OnPush",
+        "Detached",
+        "Manual"
+      ],
+      "correct": 1,
+      "explanation": "OnPush limits change detection to input-bound property changes."
+    },
+    {
+      "question": "How does Angular Universal handle browser APIs during SSR?",
+      "options": [
+        "Executes them normally",
+        "Uses guards or polyfills to avoid errors",
+        "Converts to Node.js APIs",
+        "Disables them completely"
+      ],
+      "correct": 1,
+      "explanation": "Browser APIs aren't available on the server; guards prevent errors."
+    },
+    {
+      "question": "What Angular Universal feature buffers UI events during server-to-client transition?",
+      "options": [
+        "Lazy loading",
+        "Preboot",
+        "Service workers",
+        "OnPush"
+      ],
+      "correct": 1,
+      "explanation": "Preboot records events during app bootstrapping to replay after load."
+    },
+    {
+      "question": "What is the recommended way to trigger validation for all controls in a FormGroup?",
+      "options": [
+        "Call updateValueAndValidity() on the FormGroup",
+        "Call setValue()",
+        "Reset the form",
+        "Use markAsTouched() only"
+      ],
+      "correct": 0,
+      "explanation": "updateValueAndValidity() triggers validation recalculation."
+    }
+  ],
+  "angular-testing": [
+    {
+      "question": "Which Angular testing utility configures the testing environment?",
+      "options": [
+        "ComponentFixture",
+        "TestBed.configureTestingModule()",
+        "async()",
+        "fakeAsync()"
+      ],
+      "correct": 1,
+      "explanation": "TestBed sets up modules, components, and providers for tests."
+    },
+    {
+      "question": "Which Karma feature is essential for Angular testing?",
+      "options": [
+        "Multi-browser test runner",
+        "Mocking services",
+        "Snapshot testing",
+        "Performance profiling"
+      ],
+      "correct": 0,
+      "explanation": "Karma runs tests in multiple browsers for compatibility checks."
+    },
+    {
+      "question": "How do you mock a function call in Jasmine?",
+      "options": [
+        "spyOn()",
+        "mock()",
+        "inject()",
+        "fakeAsync()"
+      ],
+      "correct": 0,
+      "explanation": "spyOn() spies or mocks methods for test purposes."
+    },
+    {
+      "question": "Which Angular testing function groups related test cases?",
+      "options": [
+        "it()",
+        "describe()",
+        "expect()",
+        "beforeEach()"
+      ],
+      "correct": 1,
+      "explanation": "describe() organizes test suites."
+    },
+    {
+      "question": "What does the fakeAsync testing function do?",
+      "options": [
+        "Runs async code synchronously in tests",
+        "Skips async tests",
+        "Mocks HTTP requests",
+        "Spies on functions"
+      ],
+      "correct": 0,
+      "explanation": "fakeAsync allows testing async operations synchronously."
+    },
+    {
+      "question": "How do you simulate a user click event in Angular tests?",
+      "options": [
+        "Changing component variables directly",
+        "debugElement.triggerEventHandler('click', null)",
+        "Using Jasmine spies",
+        "Direct DOM manipulation"
+      ],
+      "correct": 1,
+      "explanation": "triggerEventHandler simulates DOM events in tests."
+    },
+    {
+      "question": "What is the purpose of TestBed in Angular testing?",
+      "options": [
+        "To run unit tests",
+        "To configure and initialize test modules and components",
+        "To mock services",
+        "To generate test reports"
+      ],
+      "correct": 1,
+      "explanation": "TestBed sets up the testing environment."
+    },
+    {
+      "question": "Which testing framework is commonly used alongside Karma in Angular?",
+      "options": [
+        "Mocha",
+        "Jasmine",
+        "Jest",
+        "QUnit"
+      ],
+      "correct": 1,
+      "explanation": "Jasmine provides testing syntax and assertions."
+    },
+    {
+      "question": "Which Angular testing utility provides access to component instance and DOM?",
+      "options": [
+        "TestBed",
+        "ComponentFixture",
+        "fakeAsync",
+        "async"
+      ],
+      "correct": 1,
+      "explanation": "ComponentFixture allows manipulation and querying of component/template."
+    },
+    {
+      "question": "How does Angular handle HTTP requests in tests?",
+      "options": [
+        "Use HttpClientTestingModule with HttpTestingController",
+        "Use real HTTP requests",
+        "Use Karma mocks",
+        "Use Jasmine spies only"
+      ],
+      "correct": 0,
+      "explanation": "HttpTestingController mocks HTTP requests for tests."
+    },
+    {
+      "question": "What does the Angular async testing utility do?",
+      "options": [
+        "Makes async tests run synchronously",
+        "Waits for async tasks to complete before continuing",
+        "Skips async tests",
+        "Mocks HTTP calls"
+      ],
+      "correct": 1,
+      "explanation": "async() wraps test code to wait for asynchronous tasks."
+    },
+    {
+      "question": "What is the purpose of the fakeAsync() utility in Angular testing?",
+      "options": [
+        "Runs async code synchronously in tests",
+        "Delays test execution",
+        "Mocks HTTP calls",
+        "Skips async tests"
+      ],
+      "correct": 0,
+      "explanation": "fakeAsync allows synchronous testing of async code."
+    },
+    {
+      "question": "How do you run unit tests in Angular CLI?",
+      "options": [
+        "ng build",
+        "ng test",
+        "ng serve",
+        "ng lint"
+      ],
+      "correct": 1,
+      "explanation": "ng test runs unit tests using Karma and Jasmine."
+    },
+    {
+      "question": "How do you test asynchronous Observables in Angular?",
+      "options": [
+        "Using async/await",
+        "Using fakeAsync and tick",
+        "Ignoring async code",
+        "Using Jasmine spies only"
+      ],
+      "correct": 1,
+      "explanation": "fakeAsync with tick helps simulate passage of time in async tests."
+    }
+  ],
+  "ngrx-advanced": [
+    {
+      "question": "Which tool helps debug ngRx store with time-travel?",
+      "options": [
+        "Redux DevTools",
+        "ngRx DevTools",
+        "Chrome DevTools",
+        "Karma"
+      ],
+      "correct": 1,
+      "explanation": "ngRx DevTools enable state inspection and time-travel debugging."
+    },
+    {
+      "question": "What is the primary function of an ngRx selector?",
+      "options": [
+        "Dispatch actions",
+        "Handle side effects",
+        "Select slices of state",
+        "Modify state"
+      ],
+      "correct": 2,
+      "explanation": "Selectors query specific parts of the state."
+    },
+    {
+      "question": "How do you dispatch an action to ngRx store?",
+      "options": [
+        "store.select()",
+        "store.dispatch()",
+        "store.effect()",
+        "store.reduce()"
+      ],
+      "correct": 1,
+      "explanation": "dispatch() sends actions to the store."
+    },
+    {
+      "question": "What is the function of a selector in ngRx?",
+      "options": [
+        "To mutate state",
+        "To fetch specific slices of state",
+        "To dispatch actions",
+        "To create reducers"
+      ],
+      "correct": 1,
+      "explanation": "Selectors read state efficiently."
+    },
+    {
+      "question": "What is the role of Actions in ngRx?",
+      "options": [
+        "To describe state changes triggered by user or system",
+        "To update the state",
+        "To perform side effects",
+        "To query the state"
+      ],
+      "correct": 0,
+      "explanation": "Actions describe events that trigger state changes."
+    },
+    {
+      "question": "In ngRx, what does the createAction() function do?",
+      "options": [
+        "Creates reducers",
+        "Creates actions",
+        "Creates selectors",
+        "Creates effects"
+      ],
+      "correct": 1,
+      "explanation": "createAction() is used to define new actions."
+    }
+  ]
+}

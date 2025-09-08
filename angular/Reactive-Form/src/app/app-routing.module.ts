@@ -10,6 +10,7 @@ import { LoginComponent } from './Components/auth/login/login.component';
 import { RegisterComponent } from './Components/auth/register/register.component';
 import { UserDashboardComponent } from './Components/dashboard/user-dashboard/user-dashboard.component';
 import { AdminDashboardComponent } from './Components/dashboard/admin-dashboard/admin-dashboard.component';
+import { AngularAdvanceMcqComponent } from './Components/angular-advance-mcq/angular-advance-mcq.component';
 import { AuthGuard, AdminGuard } from './Guards/auth.guard';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  { path: 'angular-advance-mcq', component: AngularAdvanceMcqComponent, canActivate: [AuthGuard] },
   {
     path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'employee', loadChildren: () => import('./Components/employee/employee.module').then(m => m.EmployeeModule) },
@@ -56,4 +58,5 @@ export const routingComponents = [
   LoginComponent,
   RegisterComponent,
   UserDashboardComponent,
-  AdminDashboardComponent]
+  AdminDashboardComponent,
+  AngularAdvanceMcqComponent]

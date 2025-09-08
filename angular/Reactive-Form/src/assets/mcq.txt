@@ -1,0 +1,489 @@
+{
+  "dynamic-reactive-forms": [
+    {
+      "question": "You're building a dynamic form using FormBuilder. Which method would you use to dynamically add new `FormControl`s at runtime?",
+      "options": [
+        "formGroup.addControl()",
+        "formArray.push()",
+        "formBuilder.insertControl()",
+        "formGroup.appendControl()"
+      ],
+      "correct": 1,
+      "explanation": "To dynamically add controls to a FormArray, use the push() method."
+    },
+    {
+      "question": "A nested `FormGroup` inside your reactive form is not updating its validation status. What’s the likely issue?",
+      "options": [
+        "Not imported `FormsModule`",
+        "Not calling `markAsDirty()`",
+        "Not calling `updateValueAndValidity()`",
+        "`FormGroup` must be set as readonly"
+      ],
+      "correct": 2,
+      "explanation": "Calling updateValueAndValidity() triggers validation recalculation."
+    },
+    {
+      "question": "You have a form control that should validate asynchronously if a username is available. Where should this validator be registered?",
+      "options": [
+        "As a custom directive",
+        "In the template using `asyncValidator`",
+        "In the component via `setValidators()`",
+        "In the form control’s constructor as an async validator"
+      ],
+      "correct": 3,
+      "explanation": "Async validators are typically passed as the third argument to FormControl constructor."
+    },
+    {
+      "question": "A `FormArray` is used to manage multiple phone numbers. How do you add a new phone number control?",
+      "options": [
+        "formArray.add(new FormControl())",
+        "formArray.push(new FormControl())",
+        "formArray.append(FormControl)",
+        "formArray.insertControl(FormControl)"
+      ],
+      "correct": 1,
+      "explanation": "FormArray has a push() method to add new controls."
+    },
+    {
+      "question": "What RxJS operator would you use to respond to form value changes but avoid triggering on every keystroke?",
+      "options": [
+        "map()",
+        "tap()",
+        "debounceTime()",
+        "takeUntil()"
+      ],
+      "correct": 2,
+      "explanation": "debounceTime() waits for a pause in events before emitting."
+    },
+    {
+      "question": "You're binding a form to an API response. What’s the best way to patch only available values to a reactive form?",
+      "options": [
+        "formGroup.reset()",
+        "formGroup.setValue()",
+        "formGroup.patchValue()",
+        "formGroup.loadValues()"
+      ],
+      "correct": 2,
+      "explanation": "patchValue updates only the specified controls without requiring all values."
+    },
+    {
+      "question": "In Angular 16, what feature helps make reactive forms more type-safe?",
+      "options": [
+        "Strict mode",
+        "Signals",
+        "Typed Forms",
+        "Zone.js"
+      ],
+      "correct": 2,
+      "explanation": "Angular 16 introduced typed reactive forms for type safety."
+    },
+    {
+      "question": "You want to show validation errors only after the user has interacted with a field. What should you check?",
+      "options": [
+        "formControl.valid",
+        "formControl.touched && formControl.invalid",
+        "formControl.dirty && formControl.valid",
+        "formControl.pending"
+      ],
+      "correct": 1,
+      "explanation": "Touched indicates user interacted, and invalid indicates validation failed."
+    },
+    {
+      "question": "Your form is not updating on UI even though data is patched. What could be the cause?",
+      "options": [
+        "Missing change detection cycle",
+        "Invalid FormBuilder import",
+        "Using setValue() instead of patchValue()",
+        "Form was not enabled"
+      ],
+      "correct": 0,
+      "explanation": "UI updates may require triggering Angular’s change detection."
+    },
+    {
+      "question": "How do you disable all controls in a reactive form?",
+      "options": [
+        "formGroup.clear()",
+        "formGroup.disable()",
+        "formGroup.reset(true)",
+        "formGroup.readonly()"
+      ],
+      "correct": 1,
+      "explanation": "Calling disable() disables all controls in the form group."
+    }
+  ],
+  "server-side-rendering": [
+    {
+      "question": "What is the primary purpose of Angular Universal?",
+      "options": [
+        "Client-side caching",
+        "Faster routing",
+        "Server-side rendering for performance and SEO",
+        "API mocking"
+      ],
+      "correct": 2,
+      "explanation": "Angular Universal renders Angular apps on the server for faster initial load and SEO."
+    },
+    {
+      "question": "Which server platform is used by default with Angular Universal?",
+      "options": [
+        "PHP",
+        "Flask",
+        "Node.js",
+        "Django"
+      ],
+      "correct": 2,
+      "explanation": "Angular Universal uses Node.js as the default server platform."
+    },
+    {
+      "question": "During SSR, a component is trying to access `window`. What’s the best approach to avoid error?",
+      "options": [
+        "Use `window` as usual",
+        "Wrap in try/catch",
+        "Inject PLATFORM_ID and check if browser",
+        "Delay usage via setTimeout"
+      ],
+      "correct": 2,
+      "explanation": "PLATFORM_ID allows conditional logic to check for browser environment."
+    },
+    {
+      "question": "What Angular CLI command adds SSR support to an existing project?",
+      "options": [
+        "ng generate universal",
+        "ng add @nguniversal/express-engine",
+        "ng setup ssr",
+        "ng enable ssr"
+      ],
+      "correct": 1,
+      "explanation": "ng add @nguniversal/express-engine sets up SSR with Express."
+    },
+    {
+      "question": "Which Angular module is critical for SSR support in the root module?",
+      "options": [
+        "BrowserAnimationsModule",
+        "HttpClientModule",
+        "ServerModule",
+        "TransferHttpCacheModule"
+      ],
+      "correct": 2,
+      "explanation": "ServerModule enables Angular to run on the server."
+    },
+    {
+      "question": "To enable SEO crawling, which SSR feature helps transfer state between server and client?",
+      "options": [
+        "DomSanitizer",
+        "HttpClientTransfer",
+        "TransferState",
+        "MetaTagResolver"
+      ],
+      "correct": 2,
+      "explanation": "TransferState transfers data from server to client to avoid duplicate HTTP calls."
+    },
+    {
+      "question": "When deploying SSR app on Firebase, what is typically used?",
+      "options": [
+        "Netlify",
+        "Express Server on Cloud Functions",
+        "GitHub Pages",
+        "Nginx"
+      ],
+      "correct": 1,
+      "explanation": "Firebase Cloud Functions run Express server for SSR."
+    },
+    {
+      "question": "Which method is used to dynamically generate meta tags in SSR for SEO?",
+      "options": [
+        "Meta.set()",
+        "SEOService",
+        "Meta.updateTag()",
+        "Meta.addMetaTag()"
+      ],
+      "correct": 2,
+      "explanation": "Meta.updateTag() updates or adds meta tags dynamically."
+    },
+    {
+      "question": "Which lifecycle hook does NOT run during server-side rendering?",
+      "options": [
+        "ngOnInit",
+        "ngAfterViewInit",
+        "ngOnDestroy",
+        "constructor"
+      ],
+      "correct": 1,
+      "explanation": "ngAfterViewInit depends on browser DOM and doesn't run during SSR."
+    },
+    {
+      "question": "Which benefit does SSR provide over static HTML export in Angular?",
+      "options": [
+        "Smaller JS bundle",
+        "Interactive components",
+        "Dynamic data pre-rendering for crawlers",
+        "Easier routing config"
+      ],
+      "correct": 2,
+      "explanation": "SSR allows dynamic content rendering that static export cannot provide."
+    }
+  ],
+  "testing-jasmine-karma": [
+    {
+      "question": "Which Jasmine function defines a test suite?",
+      "options": [
+        "test()",
+        "describe()",
+        "it()",
+        "suite()"
+      ],
+      "correct": 1,
+      "explanation": "describe() groups related tests into a suite."
+    },
+    {
+      "question": "Which is the correct syntax to test if a variable equals 5?",
+      "options": [
+        "expect(5).toBeEqual(5)",
+        "should(5).equal(5)",
+        "expect(5).toEqual(5)",
+        "assert(5 == 5)"
+      ],
+      "correct": 2,
+      "explanation": "toEqual() checks for deep equality."
+    },
+    {
+      "question": "What is the purpose of TestBed.configureTestingModule()?",
+      "options": [
+        "Render template",
+        "Register app routes",
+        "Configure test module for a component/service",
+        "Inject styles"
+      ],
+      "correct": 2,
+      "explanation": "It sets up testing environment with declarations and providers."
+    },
+    {
+      "question": "You need to test async code that returns an Observable. Which utilities help?",
+      "options": [
+        "fakeAsync, tick()",
+        "setInterval()",
+        "waitUntil()",
+        "Observable.of()"
+      ],
+      "correct": 0,
+      "explanation": "fakeAsync and tick() allow testing async observables synchronously."
+    },
+    {
+      "question": "Which tool runs Jasmine tests in Angular?",
+      "options": [
+        "Mocha",
+        "NUnit",
+        "Karma",
+        "Chai"
+      ],
+      "correct": 2,
+      "explanation": "Karma is the test runner used with Jasmine."
+    },
+    {
+      "question": "How can you simulate a click event in Angular unit testing?",
+      "options": [
+        "button.click()",
+        "dispatchEvent(new Event('click'))",
+        "simulateClick(button)",
+        "trigger('click')"
+      ],
+      "correct": 1,
+      "explanation": "dispatchEvent allows simulating DOM events in tests."
+    },
+    {
+      "question": "What is ComponentFixture primarily used for?",
+      "options": [
+        "Replace test bed",
+        "Render backend calls",
+        "Access DOM and component instance",
+        "Log console output"
+      ],
+      "correct": 2,
+      "explanation": "ComponentFixture allows querying and manipulating component and DOM."
+    },
+    {
+      "question": "Why would you use spyOn() in Angular testing?",
+      "options": [
+        "To mock observables",
+        "To replace async functions",
+        "To mock and track function calls",
+        "To simulate network delay"
+      ],
+      "correct": 2,
+      "explanation": "spyOn mocks functions and verifies calls."
+    },
+    {
+      "question": "Which file typically configures Karma?",
+      "options": [
+        "karma.conf.js",
+        "test.config.ts",
+        "karma.js",
+        "test-runner.json"
+      ],
+      "correct": 0,
+      "explanation": "karma.conf.js is the default Karma config file."
+    },
+    {
+      "question": "How do you ensure all public methods of a service are tested?",
+      "options": [
+        "Run unit tests",
+        "Use ESLint",
+        "Check test coverage report",
+        "Enable dev mode"
+      ],
+      "correct": 2,
+      "explanation": "Test coverage reports show what code is exercised by tests."
+    }
+  ],
+  "ngrx-state-management": [
+    {
+      "question": "What does an NgRx action represent?",
+      "options": [
+        "Component state",
+        "Side effect",
+        "Description of an event",
+        "API payload"
+      ],
+      "correct": 2,
+      "explanation": "Actions describe events that change state."
+    },
+    {
+      "question": "Which NgRx piece listens for actions and updates the state?",
+      "options": [
+        "Selector",
+        "Effect",
+        "Reducer",
+        "Store"
+      ],
+      "correct": 2,
+      "explanation": "Reducers handle actions to update state."
+    },
+    {
+      "question": "What is the purpose of a selector in NgRx?",
+      "options": [
+        "Update backend",
+        "Access component DOM",
+        "Select state slices efficiently",
+        "Trigger reducers"
+      ],
+      "correct": 2,
+      "explanation": "Selectors provide memoized access to parts of the store."
+    },
+    {
+      "question": "Which NgRx concept is best for handling API side effects?",
+      "options": [
+        "Store",
+        "Action",
+        "Selector",
+        "Effect"
+      ],
+      "correct": 3,
+      "explanation": "Effects handle side effects like HTTP requests."
+    },
+    {
+      "question": "How do you dispatch an action in a component?",
+      "options": [
+        "this.store.next(action)",
+        "this.store.run(action)",
+        "this.store.dispatch(action)",
+        "dispatch(action)"
+      ],
+      "correct": 2,
+      "explanation": "dispatch() sends actions to the store."
+    },
+    {
+      "question": "Which RxJS operator is commonly used inside effects to transform actions?",
+      "options": [
+        "catchError()",
+        "mergeMap()",
+        "retry()",
+        "scan()"
+      ],
+      "correct": 1,
+      "explanation": "mergeMap handles inner observable flattening."
+    },
+    {
+      "question": "How is immutability maintained in reducers?",
+      "options": [
+        "Using deepClone()",
+        "Avoid direct mutation, use spread operators",
+        "JSON.stringify()",
+        "By freezing state"
+      ],
+      "correct": 1,
+      "explanation": "Reducers use spread operators or immutable techniques to avoid mutations."
+    },
+    {
+      "question": "How do you enable debugging of store changes in NgRx DevTools?",
+      "options": [
+        "Call enableDevMode()",
+        "Enable Redux logger",
+        "Import StoreDevtoolsModule.instrument()",
+        "Enable CLI debug mode"
+      ],
+      "correct": 2,
+      "explanation": "StoreDevtoolsModule.instrument() integrates the Redux DevTools."
+    },
+    {
+      "question": "Which is NOT a valid NgRx entity?",
+      "options": [
+        "Action",
+        "Selector",
+        "Observer",
+        "Reducer"
+      ],
+      "correct": 2,
+      "explanation": "Observer is an RxJS concept but not part of NgRx entities."
+    },
+    {
+      "question": "In which NgRx file would you most likely define createFeatureSelector?",
+      "options": [
+        "actions.ts",
+        "reducers.ts",
+        "selectors.ts",
+        "effects.ts"
+      ],
+      "correct": 2,
+      "explanation": "Selectors are usually declared in selectors.ts."
+    }
+  ],
+  "advanced-rxjs": [
+    {
+      "question": "What is a higher-order Observable?",
+      "options": [
+        "Observable with high priority",
+        "Observable emitting other Observables",
+        "Observable used in HTTP",
+        "Observable that runs in parallel"
+      ],
+      "correct": 1,
+      "explanation": "Higher-order observables emit other observables as their values."
+    },
+    {
+      "question": "Which operator flattens inner Observables in order of their arrival?",
+      "options": [
+        "switchMap()",
+        "mergeMap()",
+        "concatMap()",
+        "exhaustMap()"
+      ],
+      "correct": 2,
+      "explanation": "concatMap queues inner observables and subscribes in order."
+    },
+    {
+      "question": "What is the main difference between hot and cold observables?",
+      "options": [
+        "Cold observables are faster",
+        "Hot observables share emissions",
+        "Cold observables use memory",
+        "Hot ones are only async"
+      ],
+      "correct": 1,
+      "explanation": "Hot observables emit to multiple subscribers simultaneously."
+    },
+    {
+      "question": "How do you create a custom RxJS operator?",
+      "options": [
+        "Use createOperator()",
+        "Extend Observable",
+        "Return a

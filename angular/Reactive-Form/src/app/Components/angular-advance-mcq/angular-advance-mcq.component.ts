@@ -22,7 +22,7 @@ export class AngularAdvanceMcqComponent implements OnInit, OnDestroy {
   showAnswers = false;
   score = 0;
   loading = true;
-  timeLeft = 3600; // 1 hour in seconds
+  timeLeft = 1800; // 30 minutes in seconds
   timerInterval: any;
   timeUp = false;
 
@@ -73,7 +73,7 @@ export class AngularAdvanceMcqComponent implements OnInit, OnDestroy {
     this.testCompleted = false;
     this.showAnswers = false;
     this.score = 0;
-    this.timeLeft = 3600;
+    this.timeLeft = 1800;
     this.timeUp = false;
     this.startTimer();
   }
@@ -117,7 +117,7 @@ export class AngularAdvanceMcqComponent implements OnInit, OnDestroy {
     this.userAnswers = {};
     this.score = 0;
     this.currentQuestionIndex = 0;
-    this.timeLeft = 3600;
+    this.timeLeft = 1800;
     this.timeUp = false;
     this.questions = this.shuffleArray(this.questions);
   }

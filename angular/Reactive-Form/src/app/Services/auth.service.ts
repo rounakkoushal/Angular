@@ -52,80 +52,77 @@ export class AuthService {
     }
   }
 
-  // login(email: string, password: string): Observable<boolean> {
-  //   return new Observable(observer => {
-  //     const user = this.users.find(u => u.email === email);
-  //     if (user && password === 'password') {
-  //       this.currentUserSubject.next(user);
-  //       localStorage.setItem('currentUser', JSON.stringify(user));
-  //       observer.next(true);
-  //     } else {
-  //       observer.next(false);
-  //     }
-  //     observer.complete();
-  //   });
-  // }
-
   login(email: string, password: string): Observable<boolean> {
-    var data = {
-      email: email,
-      password: password
-    }
-    // this.http.post<any>(this.baseUrl, data).subscribe(
-    //   (response) => {
-    //     console.log(response);
-    //   },
-    //   (error) => {
-    //     console.error(error);
-    //   }
-    // );
-    // return observer.next(true);
     return new Observable(observer => {
-      this.http.post<any>(this.baseUrl + 'login', data).subscribe({
-        next: (user:any) => {
-        if (user) {
-          this.currentUserSubject.next(user);
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          observer.next(true);
-        } else {
-          observer.next(false);
-        }
-      },
-        error: () => {
+      const user = this.users.find(u => u.email === email);
+      if (user && password === 'password') {
+        this.currentUserSubject.next(user);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        observer.next(true);
+      } else {
         observer.next(false);
-        alert("Invalid Password...!")
       }
-
-    })
-
+      observer.complete();
     });
-
-    // return this.http.post<any>(this.baseUrl, data)
   }
+
+  // login(email: string, password: string): Observable<boolean> {
+  //   var data = {
+  //     email: email,
+  //     password: password
+  //   }
+  //   // this.http.post<any>(this.baseUrl, data).subscribe(
+  //   //   (response) => {
+  //   //     console.log(response);
+  //   //   },
+  //   //   (error) => {
+  //   //     console.error(error);
+  //   //   }
+  //   // );
+  //   // return observer.next(true);
+  //   return new Observable(observer => {
+  //     this.http.post<any>(this.baseUrl + 'login', data).subscribe({
+  //       next: (user:any) => {
+  //       if (user) {
+  //         this.currentUserSubject.next(user);
+  //         localStorage.setItem('currentUser', JSON.stringify(user));
+  //         observer.next(true);
+  //       } else {
+  //         observer.next(false);
+  //       }
+  //     },
+  //       error: () => {
+  //       observer.next(false);
+  //       alert("Invalid Password...!")
+  //     }
+  //   })
+  //   });
+  //   // return this.http.post<any>(this.baseUrl, data)
+  // }
 
   register(userData: { email: string; name: string; password: string }): Observable<boolean> {
     return new Observable(observer => {
-      // if (this.users.find(u => u.email === userData.email)) {
-      //   observer.next(false);
-      // } else {
-      // const newUser: User = {
-      //   id: Date.now().toString(),
-      //   email: userData.email,
-      //   name: userData.name,
-      //   role: 'user',
-      //   progress: { completedTopics: [], quizScores: {}, totalScore: 0 }
-      // };
-      // this.users.push(newUser);
-      this.http.post<any>(this.baseUrl + 'register', userData).subscribe({
-        next: (newUser: any) => {
-          this.currentUserSubject.next(newUser);
-          localStorage.setItem('currentUser', JSON.stringify(newUser));
-          observer.next(true);
-        },
-        error: () => {
-          observer.next(false);
+      if (this.users.find(u => u.email === userData.email)) {
+        observer.next(false);
+      } else {
+      const newUser: User = {
+        id: Date.now().toString(),
+        email: userData.email,
+        name: userData.name,
+        role: 'user',
+        progress: { completedTopics: [], quizScores: {}, totalScore: 0 }
+      };
+      this.users.push(newUser);
+      // this.http.post<any>(this.baseUrl + 'register', userData).subscribe({
+      //   next: (newUser: any) => {
+      //     this.currentUserSubject.next(newUser);
+      //     localStorage.setItem('currentUser', JSON.stringify(newUser));
+      //     observer.next(true);
+      //   },
+      //   error: () => {
+      //     observer.next(false);
           }
-      })
+      // })
     })
 
   }
